@@ -8,8 +8,3 @@ We just started developing this.
 
 Coming soon...
 
-## License
-
-All the code included in this repo has a MIT License.
-
-However, this repo does not include the Phaser Editor 2D server binaries. It is close-source.
