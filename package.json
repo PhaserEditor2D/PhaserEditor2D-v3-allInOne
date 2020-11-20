@@ -1,12 +1,14 @@
 {
-  "name": "my-electron-app",
-  "version": "1.0.0",
-  "description": "Phaser Editor 2D",
+  "name": "PhaserEditor2D",
+  "version": "3.8.1-next",
+  "description": "Phaser Editor 2D, an IDE for HTML5 game creation",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
-    "package": "electron-forge package",
+    "build-mac": "electron-forge package -p darwin",
+    "build-linux": "electron-forge package -p linux",
+    "build-win32": "electron-forge package -p win32",
     "make": "electron-forge make"
   },
   "keywords": [],
@@ -18,38 +20,18 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "^10.1.5"
+    "electron": "^11.0.2",
+    "node-abi": "^2.19.3"
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  },
+  "dependencies": {},
   "config": {
     "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "my_electron_app"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin",
-            "linux",
-            "windows"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
+      "packagerConfig": {
+        "icon": "build-assets/icon",
+        "overwrite": true,
+        "ignore": "build-assets/"
+      },
+      "makers": []
     }
   }
 }

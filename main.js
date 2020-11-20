@@ -1,12 +1,12 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const electron = require("electron")
 const path = require("path");
-const { exit } = require('process');
+const process = require('process');
 
 function createWindow() {
 
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+    const win = new electron.BrowserWindow({
+        width: 1200,
+        height: 800,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -15,21 +15,19 @@ function createWindow() {
         }
     })
 
-    /* win.webContents.on('will-prevent-unload', (event) => {
+    if (process.platform === "linux") {
 
-        // TODO: we should send a message to the render process if we want to close the window.
+        const icon = electron.nativeImage.createFromPath(path.join(__dirname, "assets/icon.png"));
+        win.setIcon(icon);
+    }
 
-        
-    })
-    */
-
-    ipcMain.on("electron-phasereditor2d", (event, arg) => {
+    electron.ipcMain.on("electron-phasereditor2d", (event, arg) => {
 
         switch (arg) {
 
             case "ask-close-window":
 
-                const choice = dialog.showMessageBoxSync(win, {
+                const choice = electron.dialog.showMessageBoxSync(win, {
                     type: 'question',
                     buttons: ['Leave', 'Stay'],
                     title: 'Do you want to leave?',
@@ -48,35 +46,41 @@ function createWindow() {
                 }
 
                 break;
+
+            case "open-directory":
+
+                const result = electron.dialog.showOpenDialogSync(win, {
+                    message: "Select Folder",
+                    properties: ["openDirectory"]
+                });
+
+                const dir = result ? result[0] : undefined;
+
+                event.returnValue = dir;
+
+                break;
         }
     });
 
     win.loadURL("http://127.0.0.1:1959/editor/")
-    //win.webContents.openDevTools()
-
 }
 
 function exitApp() {
 
     if (process.platform !== 'darwin') {
 
-        exit();
+        process.exit();
     }
 }
 
-app.whenReady().then(createWindow)
+electron.app.whenReady().then(createWindow)
 
-app.on('window-all-closed', () => {
+electron.app.on('window-all-closed', () => {
 
-    exitApp();
+    exitApp()
 })
 
-app.on("will-quit", () => {
-
-    console.log("will quit")
-});
-
-app.on('activate', () => {
+electron.app.on('activate', () => {
 
     if (BrowserWindow.getAllWindows().length === 0) {
 
