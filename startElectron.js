@@ -15,6 +15,8 @@ function createWindow() {
         }
     })
 
+    win.setMenu(null)
+
     if (process.platform === "linux") {
 
         const icon = electron.nativeImage.createFromPath(path.join(__dirname, "assets/icon.png"));
