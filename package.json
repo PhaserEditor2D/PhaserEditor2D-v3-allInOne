@@ -29,7 +29,7 @@
       "packagerConfig": {
         "icon": "build-assets/icon",
         "overwrite": true,
-        "ignore": "build-assets/"
+        "ignore": "build-assets/,server/"
       },
       "makers": []
     }
