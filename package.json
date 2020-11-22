@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
-    "build-mac": "electron-forge package -p darwin",
+    "build-macos": "electron-forge package -p darwin",
     "build-linux": "electron-forge package -p linux",
-    "build-win32": "electron-forge package -p win32",
+    "build-win32": "electron-forge package -p win32",    
     "make": "electron-forge make"
   },
   "keywords": [],
@@ -28,8 +28,7 @@
     "forge": {
       "packagerConfig": {
         "icon": "build-assets/icon",
-        "overwrite": true,
-        "ignore": "build-assets/,server/"
+        "overwrite": false
       },
       "makers": []
     }

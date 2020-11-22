@@ -21,7 +21,7 @@ function createWindow() {
 
     if (process.platform === "linux") {
 
-        const icon = electron.nativeImage.createFromPath(path.join(__dirname, "assets/icon.png"));
+        const icon = electron.nativeImage.createFromPath(path.join(__dirname, "linux-assets/icon.png"));
         win.setIcon(icon);
     }
 
@@ -166,7 +166,7 @@ function startElectron() {
 
     electron.app.on('activate', () => {
 
-        if (BrowserWindow.getAllWindows().length === 0) {
+        if (electron.BrowserWindow.getAllWindows().length === 0) {
 
             createWindow()
         }
