@@ -10,7 +10,7 @@ function startServer() {
     console.log("")
     console.log("Starting Phaser Editor 2D server: " + filePath)
 
-    const proc = child_process.execFile(filePath, ["-disable-open-browser", "-disable-gzip", "-port", "1995", "-disable-check-for-updates"], {
+    const proc = child_process.execFile(filePath, ["-disable-open-browser", "-port", "1995"], {
         windowsHide: true
     })
 
