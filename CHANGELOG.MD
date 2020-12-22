@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.9.10 - Dec 22, 2020
+
+* Nothing.
+
 ## v3.9.2 - Dec 7, 2020
 
 * Removes extra arguments when launching the server.
