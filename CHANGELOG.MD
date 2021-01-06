@@ -1,8 +1,12 @@
 # Change Log
 
-## v3.9.10 - Dec 22, 2020
+## v3.10.1 - Jan 7, 2021
 
-* Nothing.
+* Get latest server version.
+
+## v3.10.0 - Dec 22, 2020
+
+* Get latest server version.
 
 ## v3.9.2 - Dec 7, 2020
 
