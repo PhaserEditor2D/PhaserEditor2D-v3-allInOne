@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Phaser Editor 2D v3
+GenericName=Game IDE
+Comment=HTML5 game development editor.
+Terminal=false
+Exec=/home/arian/Documents/PhaserEditor-3/dist/3.12.0/PhaserEditor2D-3.12.0-electron-linux/PhaserEditor2D/PhaserEditor2D
+Icon=/home/arian/Documents/PhaserEditor-3/dist/3.12.0/PhaserEditor2D-3.12.0-electron-linux/PhaserEditor2D/resources/app/linux-assets/icon.png
