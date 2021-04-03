@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.13.0 - Apr 2, 2021
+
+* Get latest server version.
+
 ## v3.12.0 - Mar 12, 2021
 
 * Get latest server version.
