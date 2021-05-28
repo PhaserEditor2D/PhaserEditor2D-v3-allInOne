@@ -132,10 +132,10 @@ function createMenu() {
                         ]
                     }
                 ] : [
-                        { role: 'delete' },
-                        { type: 'separator' },
-                        { role: 'selectAll' }
-                    ])
+                    { role: 'delete' },
+                    { type: 'separator' },
+                    { role: 'selectAll' }
+                ])
             ]
         },
 
@@ -166,8 +166,8 @@ function createMenu() {
                     { type: 'separator' },
                     { role: 'window' }
                 ] : [
-                        { role: 'close' }
-                    ])
+                    { role: 'close' }
+                ])
             ]
         }
     ]
@@ -179,10 +179,12 @@ function createMenu() {
 
 function exitApp() {
 
-    if (process.platform !== 'darwin') {
+    // if (process.platform !== 'darwin') {
 
-        process.exit();
-    }
+    //     process.exit();
+    // }
+
+    process.exit();
 }
 
 function startElectron() {
