@@ -1,5 +1,11 @@
 # Change Log
 
+## v3.14.0 - May 28, 2021
+
+* Get latest server version.
+* Get latest stable electron v13.0.1.
+* macOS: Exit process when all windows all closed.
+
 ## v3.13.0 - Apr 2, 2021
 
 * Get latest server version.
