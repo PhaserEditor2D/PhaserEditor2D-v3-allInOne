@@ -4,7 +4,7 @@ const path = require("path");
 const process = require("process")
 const startServer = require("./startServer")
 const config = require("./config");
-const { settings } = require("cluster");
+const { existsSync, statSync } = require("fs");
 
 /** @type {string} */
 let projectPath = config.getString("projectPath")
@@ -27,7 +27,7 @@ function createWindow() {
 
     if (process.platform === "linux") {
 
-        const icon = electron.nativeImage.createFromPath(path.join(__dirname, "linux-assets/icon.png"));
+        const icon = electron.nativeImage.createFromPath(path.join(__dirname, "../../linux-assets/icon.png"));
         win.setIcon(icon);
     }
 
@@ -72,12 +72,12 @@ function createWindow() {
 
                 if (dir) {
 
-                    startServer(dir)
-                    
-                    win.loadURL("http://127.0.0.1:1995/editor/")
+                    const port = startServer(dir)
+
+                    win.loadURL(`http://127.0.0.1:${port}/editor/`)
 
                     projectPath = dir;
-                    settings.setItem("projectPath", projectPath)
+                    config.setString("projectPath", projectPath)
                 }
 
                 break;
@@ -92,7 +92,20 @@ function createWindow() {
         }
     });
 
-    win.loadFile("src/html/start.html")
+    if (projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
+
+        const port = startServer(projectPath)
+
+        setTimeout(() => {
+
+            win.loadURL(`http://127.0.0.1:${port}/editor/`)
+
+        }, 500)
+
+    } else {
+
+        win.loadFile("src/html/start.html")
+    }
 }
 
 function createMenu() {

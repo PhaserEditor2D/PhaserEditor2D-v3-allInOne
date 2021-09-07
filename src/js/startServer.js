@@ -12,6 +12,8 @@ let serverProc;
  */
 function startServer(project) {
 
+    const port = 1995
+
     if (serverProc) {
 
         serverProc.kill("SIGKILL")
@@ -19,17 +21,21 @@ function startServer(project) {
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
 
-    const filePath = path.join(__dirname, `server/${fileName}`)
+    const filePath = path.join(__dirname, `../../server/${fileName}`)
 
     console.log("")
     console.log("Starting Phaser Editor 2D server: " + filePath)
 
-    serverProc = child_process.execFile(filePath, ["-disable-open-browser", "-port", "1995", "-project", project], {
-        windowsHide: true
+    serverProc = child_process.execFile(filePath, ["-disable-open-browser", "-port", port, "-project", project], {
+        windowsHide: true,
     })
 
     serverProc.stdout.pipe(process.stdout)
     serverProc.stderr.pipe(process.stderr)
+
+    process.once("exit", () => serverProc.kill("SIGKILL"))
+
+    return port
 }
 
 module.exports = startServer

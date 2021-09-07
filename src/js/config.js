@@ -18,7 +18,7 @@ class Config {
 
         this.#settingsFile = path.join(settingsDir, "settings.json")
 
-        this.#data = [];
+        this.#data = {};
 
         if (fs.existsSync(this.#settingsFile)) {
 
