@@ -3,13 +3,13 @@ const electron = require("electron")
 const path = require("path");
 const process = require("process")
 const startServer = require("./startServer")
-const config = require("./config");
+const userData = require("./userData");
 const { existsSync, statSync } = require("fs");
 
 /** @type {string} */
-let projectPath = config.getString("projectPath")
+let projectPath = userData.getString("projectPath")
 
-function createWindow() {
+async function createWindow() {
 
     const win = new electron.BrowserWindow({
         width: 1200,
@@ -31,7 +31,7 @@ function createWindow() {
         win.setIcon(icon);
     }
 
-    electron.ipcMain.on("electron-phasereditor2d", (event, arg) => {
+    electron.ipcMain.on("electron-phasereditor2d", async (event, arg) => {
 
         const method = arg.method;
         const body = arg.body;
@@ -72,12 +72,15 @@ function createWindow() {
 
                 if (dir) {
 
-                    const port = startServer(dir)
+                    const port = await startServer(dir)
+                    const url = `http://127.0.0.1:${port}/editor/`
 
-                    win.loadURL(`http://127.0.0.1:${port}/editor/`)
+                    console.log(`Window loads ${url}`)
+
+                    win.loadURL(url)
 
                     projectPath = dir;
-                    config.setString("projectPath", projectPath)
+                    userData.setValue("projectPath", projectPath)
                 }
 
                 break;
@@ -94,7 +97,7 @@ function createWindow() {
 
     if (projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
 
-        const port = startServer(projectPath)
+        const port = await startServer(projectPath)
 
         setTimeout(() => {
 

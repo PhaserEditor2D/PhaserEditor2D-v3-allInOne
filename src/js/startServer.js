@@ -1,5 +1,7 @@
-const child_process = require("child_process")
-const path = require("path")
+const child_process = require("child_process");
+const getPort = require("get-port");
+const path = require("path");
+const userData = require("./userData");
 
 /** @type {child_process.ChildProcess} */
 let serverProc;
@@ -10,9 +12,23 @@ let serverProc;
  * @param {string} project The project path.
  * @returns void
  */
-function startServer(project) {
+async function startServer(project) {
 
-    const port = 1995
+    console.log("Starting Phaser Editor 2D Core server")
+
+    const portConfigKey = `port.${project}`
+
+    const savedPort = userData.getInt(portConfigKey)
+
+    const port = await getPort({
+        port: getPort.makeRange(savedPort ?? 1995, 2020)
+    })
+
+    if (savedPort === undefined) {
+
+        console.log(`Assign port ${port} to ${project}`)
+        userData.setValue(portConfigKey, port)
+    }
 
     if (serverProc) {
 
@@ -23,10 +39,11 @@ function startServer(project) {
 
     const filePath = path.join(__dirname, `../../server/${fileName}`)
 
-    console.log("")
-    console.log("Starting Phaser Editor 2D server: " + filePath)
+    const args = ["-disable-open-browser", "-port", port, "-project", project]
 
-    serverProc = child_process.execFile(filePath, ["-disable-open-browser", "-port", port, "-project", project], {
+    console.log(args);
+
+    serverProc = child_process.execFile(filePath, args, {
         windowsHide: true,
     })
 

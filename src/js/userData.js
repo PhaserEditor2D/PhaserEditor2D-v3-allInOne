@@ -2,7 +2,7 @@ const os = require("os")
 const path = require("path")
 const fs = require("fs")
 
-class Config {
+class UserData {
 
     /** @type {string} */
     #settingsFile;
@@ -16,7 +16,7 @@ class Config {
 
         fs.mkdirSync(settingsDir, { recursive: true })
 
-        this.#settingsFile = path.join(settingsDir, "settings.json")
+        this.#settingsFile = path.join(settingsDir, "user-data.json")
 
         this.#data = {};
 
@@ -41,14 +41,32 @@ class Config {
     /**
      * 
      * @param {string} key 
+     * @returns {number}
+     */
+    getInt(key) {
+
+        const value = this.#data[key]
+
+        if (Number.isInteger(value)) {
+
+            return value
+        }
+
+        return undefined
+    }
+
+    /**
+     * 
+     * @param {string} key 
      * @param {any} value 
      */
-    setString(key, value) {
+    setValue(key, value) {
 
         this.#data[key] = value
+
         fs.writeFileSync(this.#settingsFile, JSON.stringify(this.#data, null, 4))
     }
 
 }
 
-module.exports = new Config()
+module.exports = new UserData()
