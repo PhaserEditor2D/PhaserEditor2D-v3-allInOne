@@ -2,10 +2,9 @@ const { Menu } = require("electron")
 const electron = require("electron")
 const path = require("path")
 const process = require("process")
-const startServer = require("./startServer")
+const { startServer, stopServer } = require("./startServer")
 const userData = require("./userData");
 const { existsSync, statSync } = require("fs")
-const { config } = require("process")
 
 /** @type {string} */
 let projectPath = userData.getString("projectPath")
@@ -91,6 +90,8 @@ async function createWindow() {
                 userData.deleteValue("projectPath")
 
                 win.loadFile("src/html/start.html")
+
+                stopServer()
 
                 break;
 

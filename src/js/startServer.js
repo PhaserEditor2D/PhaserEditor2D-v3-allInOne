@@ -14,11 +14,15 @@ let serverProc;
  */
 async function startServer(project) {
 
+    stopServer()
+
     console.log("Starting Phaser Editor 2D Core server")
 
     const portConfigKey = `port.${project}`
 
     const savedPort = userData.getInt(portConfigKey)
+
+    console.log("savedPort " + savedPort)
 
     const port = await getPort({
         port: getPort.makeRange(savedPort ?? 1995, 2020)
@@ -28,11 +32,6 @@ async function startServer(project) {
 
         console.log(`Assign port ${port} to ${project}`)
         userData.setValue(portConfigKey, port)
-    }
-
-    if (serverProc) {
-
-        serverProc.kill("SIGKILL")
     }
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
@@ -47,6 +46,11 @@ async function startServer(project) {
         windowsHide: true,
     })
 
+    serverProc.on("close", () => {
+
+        console.log("Closed Phaser Editor 2D Core server");
+    })
+
     serverProc.stdout.pipe(process.stdout)
     serverProc.stderr.pipe(process.stderr)
 
@@ -55,4 +59,13 @@ async function startServer(project) {
     return port
 }
 
-module.exports = startServer
+function stopServer() {
+
+    if (serverProc) {
+
+        console.log("Kill server process " + serverProc.pid)
+        serverProc.kill("SIGKILL")
+    }
+}
+
+module.exports = { startServer, stopServer }
