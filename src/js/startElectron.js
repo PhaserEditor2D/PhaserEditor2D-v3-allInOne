@@ -1,10 +1,11 @@
-const { Menu } = require("electron");
+const { Menu } = require("electron")
 const electron = require("electron")
-const path = require("path");
+const path = require("path")
 const process = require("process")
 const startServer = require("./startServer")
 const userData = require("./userData");
-const { existsSync, statSync } = require("fs");
+const { existsSync, statSync } = require("fs")
+const { config } = require("process")
 
 /** @type {string} */
 let projectPath = userData.getString("projectPath")
@@ -60,7 +61,7 @@ async function createWindow() {
 
                 break;
 
-            case "open-directory":
+            case "open-project":
 
                 const result = electron.dialog.showOpenDialogSync(win, {
                     message: "Select Folder",
@@ -82,6 +83,14 @@ async function createWindow() {
                     projectPath = dir;
                     userData.setValue("projectPath", projectPath)
                 }
+
+                break;
+
+            case "close-project":
+
+                userData.deleteValue("projectPath")
+
+                win.loadFile("src/html/start.html")
 
                 break;
 

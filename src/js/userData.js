@@ -28,7 +28,7 @@ class UserData {
     }
 
     /**
-     * Get a settings value.
+     * Get the string value for the given key.
      * 
      * @param {string} key 
      * @returns {string}
@@ -39,6 +39,7 @@ class UserData {
     }
 
     /**
+     * Get the integer value for the given key.
      * 
      * @param {string} key 
      * @returns {number}
@@ -56,6 +57,7 @@ class UserData {
     }
 
     /**
+     * Set the value. Changes are persisted.
      * 
      * @param {string} key 
      * @param {any} value 
@@ -64,9 +66,25 @@ class UserData {
 
         this.#data[key] = value
 
-        fs.writeFileSync(this.#settingsFile, JSON.stringify(this.#data, null, 4))
+        this.#save()
     }
 
+    /**
+     * Delete the key. Changes are persisted.
+     * 
+     * @param {string} key 
+     */
+    deleteValue(key) {
+
+        delete this.#data[key]
+
+        this.#save()
+    }
+
+    #save() {
+
+        fs.writeFileSync(this.#settingsFile, JSON.stringify(this.#data, null, 4))
+    }
 }
 
 module.exports = new UserData()
