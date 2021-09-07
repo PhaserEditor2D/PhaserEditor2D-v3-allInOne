@@ -2,6 +2,12 @@ const { Menu } = require("electron");
 const electron = require("electron")
 const path = require("path");
 const process = require("process")
+const startServer = require("./startServer")
+const config = require("./config");
+const { settings } = require("cluster");
+
+/** @type {string} */
+let projectPath = config.getString("projectPath")
 
 function createWindow() {
 
@@ -59,12 +65,20 @@ function createWindow() {
                 const result = electron.dialog.showOpenDialogSync(win, {
                     message: "Select Folder",
                     properties: ["openDirectory"],
-                    defaultPath: body.current
+                    defaultPath: projectPath
                 });
 
                 const dir = result ? result[0] : undefined;
 
-                event.returnValue = dir;
+                if (dir) {
+
+                    startServer(dir)
+                    
+                    win.loadURL("http://127.0.0.1:1995/editor/")
+
+                    projectPath = dir;
+                    settings.setItem("projectPath", projectPath)
+                }
 
                 break;
 
@@ -78,7 +92,7 @@ function createWindow() {
         }
     });
 
-    win.loadURL("http://127.0.0.1:1995/editor/")
+    win.loadFile("start.html")
 }
 
 function createMenu() {
