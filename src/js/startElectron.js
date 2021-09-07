@@ -92,7 +92,7 @@ function createWindow() {
         }
     });
 
-    win.loadFile("start.html")
+    win.loadFile("src/html/start.html")
 }
 
 function createMenu() {

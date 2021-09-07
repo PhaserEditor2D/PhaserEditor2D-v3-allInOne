@@ -2,7 +2,7 @@
   "name": "PhaserEditor2D",
   "version": "3.20.0-next",
   "description": "Phaser Editor 2D, an IDE for HTML5 game creation",
-  "main": "main.js",
+  "main": "src/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
