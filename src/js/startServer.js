@@ -1,7 +1,7 @@
-const child_process = require("child_process");
-const getPort = require("get-port");
-const path = require("path");
-const userData = require("./userData");
+const child_process = require("child_process")
+const path = require("path")
+const userData = require("./userData")
+const http = require("http")
 
 /** @type {child_process.ChildProcess} */
 let serverProc;
@@ -24,9 +24,7 @@ async function startServer(project) {
 
     console.log("savedPort " + savedPort)
 
-    const port = await getPort({
-        port: getPort.makeRange(savedPort ?? 1995, 2020)
-    })
+    const port = await findFreePort(savedPort ?? 1986)
 
     if (savedPort === undefined) {
 
@@ -65,6 +63,41 @@ function stopServer() {
 
         console.log("Kill server process " + serverProc.pid)
         serverProc.kill("SIGKILL")
+    }
+}
+
+async function isFreePort(port) {
+
+    return new Promise(resolve => {
+
+        const server = http.createServer()
+
+        server.listen(port, () => {
+            server.close()
+            resolve(true)
+        })
+
+        server.on("error", () => {
+            resolve(false)
+        })
+    })
+}
+
+/**
+ * Find a free port.
+ * 
+ * @param {number} portStart 
+ */
+async function findFreePort(portStart) {
+
+    while (true) {
+
+        if (await isFreePort(portStart)) {
+
+            return portStart
+        }
+
+        portStart++
     }
 }
 

@@ -5,7 +5,7 @@
   "main": "src/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
+    "start": "electron-forge start --inspect-electron",
     "build-macos": "electron-forge package -p darwin",
     "build-linux": "electron-forge package -p linux",
     "build-win32": "electron-forge package -p win32",
@@ -23,9 +23,6 @@
     "@types/get-port": "^4.2.0",
     "electron": "13.0.1",
     "node-abi": "^2.19.3"
-  },
-  "dependencies": {
-    "get-port": "^5.1.1"
   },
   "config": {
     "forge": {

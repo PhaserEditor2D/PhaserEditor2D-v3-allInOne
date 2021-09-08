@@ -14,7 +14,8 @@ async function createWindow() {
     const win = new electron.BrowserWindow({
         width: 1200,
         height: 800,
-        autoHideMenuBar: true,
+        autoHideMenuBar: false,
+        
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
