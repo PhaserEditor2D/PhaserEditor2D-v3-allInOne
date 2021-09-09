@@ -2,7 +2,7 @@ const os = require("os")
 const path = require("path")
 const fs = require("fs")
 
-class UserData {
+class JSONStore {
 
     /** @type {string} */
     #settingsFile;
@@ -28,6 +28,17 @@ class UserData {
     }
 
     /**
+     * Get the value for the given key.
+     * 
+     * @param {String} key 
+     * @returns 
+     */
+    getValue(key) {
+
+        return this.#data[key]
+    }
+
+    /**
      * Get the string value for the given key.
      * 
      * @param {string} key 
@@ -35,7 +46,7 @@ class UserData {
      */
     getString(key) {
 
-        return this.#data[key];
+        return this.#data[key]
     }
 
     /**
@@ -54,6 +65,24 @@ class UserData {
         }
 
         return undefined
+    }
+
+    /**
+     * Get the string array value for the given key.
+     * 
+     * @param {string} key 
+     * @returns {string[]}
+     */
+    getStringArray(key) {
+
+        let val = this.#data[key]
+
+        if (!val) {
+
+            this.#data[key] = val = []
+        }
+
+        return val;
     }
 
     /**
@@ -87,4 +116,63 @@ class UserData {
     }
 }
 
-module.exports = new UserData()
+
+const store = new JSONStore()
+
+class UserData {
+
+    /**
+     * Get the default project path.
+     * 
+     * @returns {string}
+     */
+    getProjectPath() {
+
+        return store.getString("projectPath")
+    }
+
+    /**
+     * Set the default project path.
+     * 
+     * @param {string} project 
+     */
+    setProjectPath(project) {
+
+        store.setValue("projectPath", project)
+    }
+
+    /**
+     * Delete the project from the user data.
+     */
+    deleteProjectPath() {
+
+        store.deleteValue("projectPath")
+    }
+
+    /**
+     * Get the port associated to the given project.
+     * 
+     * @param {string} project 
+     * @returns {number}
+     */
+    getProjectPort(project) {
+
+        return store.getInt(`port.${project}`)
+    }
+
+    /**
+     * Set the port for the given project.
+     * 
+     * @param {string} project 
+     * @param {number} port 
+     */
+    setProjectPort(project, port) {
+
+        store.setValue(`port.${project}`, port)
+    }
+}
+
+module.exports = {
+    store,
+    userData: new UserData()
+}

@@ -3,19 +3,22 @@ const electron = require("electron")
 const path = require("path")
 const process = require("process")
 const { startServer, stopServer } = require("./startServer")
-const userData = require("./userData");
+const { userData } = require("./userData");
 const { existsSync, statSync } = require("fs")
 
 /** @type {string} */
-let projectPath = userData.getString("projectPath")
+let projectPath = userData.getProjectPath()
+
+/** @type {electron.BrowserWindow} */
+let appWindow;
 
 async function createWindow() {
 
-    const win = new electron.BrowserWindow({
+    appWindow = new electron.BrowserWindow({
         width: 1200,
         height: 800,
         autoHideMenuBar: false,
-        
+
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -29,7 +32,7 @@ async function createWindow() {
     if (process.platform === "linux") {
 
         const icon = electron.nativeImage.createFromPath(path.join(__dirname, "../../linux-assets/icon.png"));
-        win.setIcon(icon);
+        appWindow.setIcon(icon);
     }
 
     electron.ipcMain.on("electron-phasereditor2d", async (event, arg) => {
@@ -41,7 +44,7 @@ async function createWindow() {
 
             case "ask-close-window":
 
-                const choice = electron.dialog.showMessageBoxSync(win, {
+                const choice = electron.dialog.showMessageBoxSync(appWindow, {
                     type: 'question',
                     buttons: ['Leave', 'Stay'],
                     title: 'Do you want to leave?',
@@ -54,7 +57,7 @@ async function createWindow() {
 
                 if (leave) {
 
-                    win.close();
+                    appWindow.close();
 
                     exitApp();
                 }
@@ -63,7 +66,7 @@ async function createWindow() {
 
             case "open-project":
 
-                const result = electron.dialog.showOpenDialogSync(win, {
+                const result = electron.dialog.showOpenDialogSync(appWindow, {
                     message: "Select Folder",
                     properties: ["openDirectory"],
                     defaultPath: projectPath
@@ -73,24 +76,19 @@ async function createWindow() {
 
                 if (dir) {
 
-                    const port = await startServer(dir)
-                    const url = `http://127.0.0.1:${port}/editor/`
-
-                    console.log(`Window loads ${url}`)
-
-                    win.loadURL(url)
+                    openProject(dir)
 
                     projectPath = dir;
-                    userData.setValue("projectPath", projectPath)
+                    userData.setProjectPath(projectPath)
                 }
 
                 break;
 
             case "close-project":
 
-                userData.deleteValue("projectPath")
+                userData.deleteProjectPath()
 
-                win.loadFile("src/html/start.html")
+                appWindow.loadFile("src/html/start.html")
 
                 stopServer()
 
@@ -98,7 +96,7 @@ async function createWindow() {
 
             case "open-dev-tools":
 
-                win.webContents.openDevTools({
+                appWindow.webContents.openDevTools({
                     mode: "bottom"
                 });
 
@@ -108,18 +106,26 @@ async function createWindow() {
 
     if (projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
 
-        const port = await startServer(projectPath)
-
-        setTimeout(() => {
-
-            win.loadURL(`http://127.0.0.1:${port}/editor/`)
-
-        }, 500)
+        openProject(projectPath)
 
     } else {
 
-        win.loadFile("src/html/start.html")
+        appWindow.loadFile("src/html/start.html")
     }
+}
+
+async function openProject(dir) {
+
+    const port = await startServer(dir)
+
+    const url = `http://127.0.0.1:${port}/editor/`
+
+    setTimeout(() => {
+
+        appWindow.loadURL(url)
+
+    }, 500)
+
 }
 
 function createMenu() {

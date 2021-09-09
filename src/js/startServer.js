@@ -1,6 +1,6 @@
 const child_process = require("child_process")
 const path = require("path")
-const userData = require("./userData")
+const { userData } = require("./userData")
 const http = require("http")
 
 /** @type {child_process.ChildProcess} */
@@ -18,9 +18,7 @@ async function startServer(project) {
 
     console.log("Starting Phaser Editor 2D Core server")
 
-    const portConfigKey = `port.${project}`
-
-    const savedPort = userData.getInt(portConfigKey)
+    const savedPort = userData.getProjectPort(project)
 
     console.log("savedPort " + savedPort)
 
@@ -29,7 +27,7 @@ async function startServer(project) {
     if (savedPort === undefined) {
 
         console.log(`Assign port ${port} to ${project}`)
-        userData.setValue(portConfigKey, port)
+        userData.setProjectPort(project, port)
     }
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
