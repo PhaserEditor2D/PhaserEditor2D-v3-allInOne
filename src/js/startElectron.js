@@ -17,7 +17,7 @@ async function createWindow() {
     appWindow = new electron.BrowserWindow({
         width: 1200,
         height: 800,
-        autoHideMenuBar: false,
+        autoHideMenuBar: true,
 
         webPreferences: {
             nodeIntegration: false,
@@ -82,7 +82,7 @@ async function createWindow() {
                     userData.setProjectPath(projectPath)
                 }
 
-                break;
+                break
 
             case "close-project":
 
@@ -92,7 +92,13 @@ async function createWindow() {
 
                 stopServer()
 
-                break;
+                break
+
+            case "recent-projects":
+
+                event.returnValue = userData.getRecentProjects()
+
+                break
 
             case "open-dev-tools":
 
@@ -114,9 +120,9 @@ async function createWindow() {
     }
 }
 
-async function openProject(dir) {
+async function openProject(project) {
 
-    const port = await startServer(dir)
+    const port = await startServer(project)
 
     const url = `http://127.0.0.1:${port}/editor/`
 
@@ -126,6 +132,7 @@ async function openProject(dir) {
 
     }, 500)
 
+    userData.incrementRecentProject(project)
 }
 
 function createMenu() {

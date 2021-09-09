@@ -22,7 +22,7 @@ async function startServer(project) {
 
     console.log("savedPort " + savedPort)
 
-    const port = await findFreePort(savedPort ?? 1986)
+    const port = await findFreePort(savedPort ?? 1986 + Math.floor(Math.random() * 1024))
 
     if (savedPort === undefined) {
 

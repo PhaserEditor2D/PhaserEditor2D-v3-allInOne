@@ -1,6 +1,7 @@
 const os = require("os")
 const path = require("path")
-const fs = require("fs")
+const fs = require("fs");
+const { prototype } = require("events");
 
 class JSONStore {
 
@@ -157,7 +158,9 @@ class UserData {
      */
     getProjectPort(project) {
 
-        return store.getInt(`port.${project}`)
+        const ports = store.getValue("ports") || {}
+
+        return ports[project]
     }
 
     /**
@@ -168,7 +171,38 @@ class UserData {
      */
     setProjectPort(project, port) {
 
-        store.setValue(`port.${project}`, port)
+        const ports = store.getValue("ports") || {}
+
+        ports[project] = port
+
+        store.setValue("ports", ports)
+    }
+
+    /**
+     * Get the last open projects. The result is sorted, the first project is the most open project.
+     * 
+     * @returns {string}
+     */
+    getRecentProjects() {
+
+        const recentProjects = store.getValue("recentProjects") || {}
+
+        const projects = Object.values(recentProjects)
+
+        projects.sort((a, b) => recentProjects[b] - recentProjects[a])
+
+        console.log(projects)
+
+        return projects
+    }
+
+    incrementRecentProject(project) {
+
+        const recentProjects = store.getValue("recentProjects") || {}
+
+        recentProjects[project] = Date.now()
+
+        store.setValue("recentProjects", recentProjects)
     }
 }
 
