@@ -29,21 +29,54 @@
     <h1>Phaser Editor 2D - All In One</h1>
 
     <p>
-        <span>Recent projects</span>
-    </p>
-
-    <p>
         <a href="javascript:openProject()">Open Project</a>
     </p>
 
+    <p>
+        <span>Recent projects</span>
+    </p>
+
+    <ul id="recentProjects">
+
+    </ul>
+
     <script>
 
-        async function openProject() {
+        function openProject() {
 
             const resp = electron.sendMessage({
-                method: "open-project"                
+                method: "open-project"
             })
         }
+
+        function updateRecentProjects() {
+
+            /** @type {string[]} */
+            const projects = electron.sendMessageSync({
+                method: "recent-projects"
+            })
+
+            const listElement = document.getElementById("recentProjects")
+
+            for (const project of projects) {
+
+                const btn = document.createElement("a")
+                btn.href = "#"
+                btn.innerText = project
+
+                btn.addEventListener("click", () => {
+
+                    alert("open " + project)
+                })
+
+                const itemElement = document.createElement("li")
+                itemElement.appendChild(btn)
+                listElement.appendChild(itemElement)
+            }
+        }
+
+        updateRecentProjects()
+
     </script>
 
 </body>

@@ -181,17 +181,15 @@ class UserData {
     /**
      * Get the last open projects. The result is sorted, the first project is the most open project.
      * 
-     * @returns {string}
+     * @returns {string[]}
      */
     getRecentProjects() {
 
         const recentProjects = store.getValue("recentProjects") || {}
 
-        const projects = Object.values(recentProjects)
+        const projects = Object.keys(recentProjects)
 
         projects.sort((a, b) => recentProjects[b] - recentProjects[a])
-
-        console.log(projects)
 
         return projects
     }

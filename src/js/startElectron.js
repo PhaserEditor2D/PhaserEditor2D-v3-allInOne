@@ -96,7 +96,13 @@ async function createWindow() {
 
             case "recent-projects":
 
-                event.returnValue = userData.getRecentProjects()
+                console.log("handlers recent-projects")
+
+                const projects = userData.getRecentProjects()
+
+                console.log(projects)
+
+                event.returnValue = projects
 
                 break
 
