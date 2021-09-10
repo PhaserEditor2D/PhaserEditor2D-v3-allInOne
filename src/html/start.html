@@ -7,38 +7,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #242424;
-            color: whitesmoke;
-            padding: 0 2em;
-        }
-
-        a {
-            color: #949494;
-            font-weight: bold;
-            text-decoration: none;
-        }
-    </style>
-
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-    <h1>Phaser Editor 2D - All In One</h1>
 
-    <p>
-        <a href="javascript:openProject()">Open Project</a>
-    </p>
+    <div class="container header-section mt-4 pt-4">
 
-    <p>
-        <span>Recent projects</span>
-    </p>
+        <div class="row">
 
-    <ul id="recentProjects">
+            <div class="col-lg-6">
 
-    </ul>
+                <div>
+                    <h1 class="name mb-0">
+                        Phaser Editor 2D
+                    </h1>
+
+                    <p class="lead">All-in-One edition. Start making Phaser games.<br>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end header -->
+
+    <div class="container">
+
+        <div class="btn-group mt-1 mb-4">
+            <a class="btn btn-primary" href="javascript:newProject()">New Project</a>
+            <a class="btn btn-secondary" href="javascript:openProject()">Open Project</a>
+        </div>
+
+        <div class="card">
+
+            <div class="card-header">
+                <h5 class="mb-0">Recent projects</h5>
+            </div>
+
+            <div class="list-group list-group-flush" id="recentProjects">
+            </div>
+
+        </div>
+    </div>
 
     <script>
 
@@ -60,17 +73,42 @@
 
             for (const project of projects) {
 
-                const btn = document.createElement("a")
-                btn.href = "#"
-                btn.innerText = project
+                const itemElement = document.createElement("a")
 
-                btn.addEventListener("click", () => {
+                itemElement.classList.add(
+                    "list-group-item",
+                    "list-group-item-action",
+                    "d-flex", "justify-content-between",
+                    "align-items-center")
 
-                    alert("open " + project)
+                itemElement.href = "#"
+
+                let pathSep = project.indexOf("\\") > 0 ? "\\" : "/";
+                const names = project.split(pathSep)
+
+                itemElement.innerHTML = `
+                <div> 
+                    <strong>${names[names.length - 1]}</strong>
+                    <span class="text-muted"> - ${names.splice(0, names.length - 1).join(pathSep)}</span>
+                </div>
+                
+                <div id="spinner" class="spinner-border spinner-border-sm d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                `
+
+                itemElement.addEventListener("click", () => {
+
+                    itemElement.lastElementChild.classList.remove("d-none")
+
+                    electron.sendMessage({
+                        method: "open-project",
+                        body: {
+                            project
+                        }
+                    })
                 })
 
-                const itemElement = document.createElement("li")
-                itemElement.appendChild(btn)
                 listElement.appendChild(itemElement)
             }
         }

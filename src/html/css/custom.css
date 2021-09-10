@@ -1,0 +1,27 @@
+
+body {
+    font-family: Roboto;
+}
+
+.header-section .name {
+    font-family: Roboto-Bold;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Roboto-Bold;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url(../fonts/Roboto/Roboto-Bold.ttf);
+}

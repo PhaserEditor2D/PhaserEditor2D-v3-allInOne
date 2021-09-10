@@ -66,13 +66,18 @@ async function createWindow() {
 
             case "open-project":
 
-                const result = electron.dialog.showOpenDialogSync(appWindow, {
-                    message: "Select Folder",
-                    properties: ["openDirectory"],
-                    defaultPath: projectPath
-                });
+                let dir = body.project
 
-                const dir = result ? result[0] : undefined;
+                if (dir === undefined) {
+
+                    const result = electron.dialog.showOpenDialogSync(appWindow, {
+                        message: "Select Folder",
+                        properties: ["openDirectory"],
+                        defaultPath: projectPath
+                    });
+
+                    dir = result ? result[0] : undefined;
+                }
 
                 if (dir) {
 
