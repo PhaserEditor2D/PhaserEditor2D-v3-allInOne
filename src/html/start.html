@@ -8,6 +8,7 @@
     <title>Phaser Editor 2D</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="fonts/fontawesome-free-5.13.0-web/css/all.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -21,7 +22,7 @@
             <div class="col-lg-6">
 
                 <div>
-                    <h1 class="name mb-0">
+                    <h1 class="name mb-0 text-light">
                         Phaser Editor 2D
                     </h1>
 
@@ -37,8 +38,14 @@
     <div class="container">
 
         <div class="btn-group mt-1 mb-4">
-            <a class="btn btn-primary" href="javascript:showNewProjectPage()">New Project</a>
-            <a class="btn btn-primary" href="javascript:openProject()">Open Project</a>
+            <a class="btn btn-primary" href="javascript:showNewProjectPage()">
+                <i class="fa fa-folder-plus text-muted mr-1"></i>
+                New Project
+            </a>
+            <a class="btn btn-primary" href="javascript:openProject()">
+                <i class="fa fa-folder-open text-muted mr-1"></i> 
+                Open Project
+            </a>
         </div>
 
         <div class="card">
@@ -54,8 +61,9 @@
     </div>
 
     <template id="recentProjectItemTemplate">
-        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="#">
-
+        <a class="list-group-item list-group-item-action d-flex justify-content-left align-items-center" href="#">
+            <i class="fa fa-folder mr-2 text-muted"></i>
+            <span></span>
         </a>
     </template>
 
@@ -102,7 +110,7 @@
                 let pathSep = project.indexOf("\\") > 0 ? "\\" : "/";
                 const names = project.split(pathSep)
 
-                itemElement.innerHTML = `
+                itemFragment.querySelector("span").innerHTML = `
                 <div> 
                     <strong>${names[names.length - 1]}</strong>
                     <span class="text-muted"> - ${names.splice(0, names.length - 1).join(pathSep)}</span>
