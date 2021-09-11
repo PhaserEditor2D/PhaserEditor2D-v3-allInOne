@@ -1,0 +1,145 @@
+{
+    "id": "d474bbbd-5959-4a77-9dc0-a5b8fa4a11fe",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Level",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1920,
+        "borderHeight": 1080
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "470ec990-0468-4835-89bc-cd0c3e622257",
+            "label": "underwater_1",
+            "components": [],
+            "texture": {
+                "key": "underwater-1"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "7c94cb2a-50bf-404d-96f7-6fe1a8f2e70a",
+            "label": "underwater_2",
+            "components": [],
+            "texture": {
+                "key": "underwater-2"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "7553619d-b7ca-4eee-9e71-74e85daca863",
+            "label": "underwater_3",
+            "components": [],
+            "texture": {
+                "key": "underwater-3"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "80900b16-af4f-4b7c-899b-d2e20e295fb6",
+            "label": "underwater_5",
+            "components": [],
+            "texture": {
+                "key": "underwater-5"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "47942e6e-432d-493e-b853-9e767d5f2c41",
+            "label": "underwater_7",
+            "components": [],
+            "texture": {
+                "key": "underwater-7"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "22345ce7-0cd7-4d42-b560-d290854b638b",
+            "label": "underwater_8",
+            "components": [],
+            "texture": {
+                "key": "underwater-8"
+            },
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Image",
+            "id": "1a6b6d3a-db8a-4589-b37a-5e35160c85b8",
+            "label": "underwater_4",
+            "components": [],
+            "texture": {
+                "key": "underwater-4"
+            },
+            "originX": 0,
+            "originY": 0,
+            "alphaBottomLeft": 0,
+            "alphaBottomRight": 0
+        },
+        {
+            "type": "Image",
+            "id": "0782f913-fbca-46aa-94a1-60861ca0492b",
+            "label": "homeButton",
+            "components": [
+                "InteractiveObject",
+                "StartSceneOnClick",
+                "PushOnClick",
+                "FloatingObject"
+            ],
+            "StartSceneOnClick.sceneKey": "Welcome",
+            "FloatingObject.offset": 5,
+            "texture": {
+                "key": "buttons",
+                "frame": "Button Pack - Green_Button Green - Home.png"
+            },
+            "x": 1782,
+            "y": 116
+        },
+        {
+            "type": "Image",
+            "id": "923a285a-f3ab-4b19-977e-00fcc0ff8222",
+            "label": "pauseBtn",
+            "scope": "CLASS",
+            "components": [
+                "InteractiveObject",
+                "PushOnClick",
+                "Checkbox",
+                "FloatingObject",
+                "ClickHandler"
+            ],
+            "Checkbox.checked": false,
+            "Checkbox.checkedTexture": "{\"key\":\"buttons\",\"frame\":\"Button Pack - Green_Button Green - Play.png\"}",
+            "Checkbox.unckeckedTexture": "{\"key\":\"buttons\",\"frame\":\"Button Pack - Green_Button Green - Pause.png\"}",
+            "FloatingObject.offset": 5,
+            "ClickHandler.callback": "() => this.onPauseClicked()",
+            "texture": {
+                "key": "buttons",
+                "frame": "Button Pack - Green_Button Green - Pause.png"
+            },
+            "x": 1596,
+            "y": 118
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 2
+    }
+}

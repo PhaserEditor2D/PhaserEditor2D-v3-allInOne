@@ -1,0 +1,315 @@
+{
+  "frames": [
+    {
+      "filename": "Button Pack - Gray_Button Gray - Music.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Gray_Button Gray - Sound.png",
+      "frame": {
+        "x": 0,
+        "y": 152,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Facebook.png",
+      "frame": {
+        "x": 0,
+        "y": 304,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Home.png",
+      "frame": {
+        "x": 152,
+        "y": 0,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Music.png",
+      "frame": {
+        "x": 152,
+        "y": 152,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Pause.png",
+      "frame": {
+        "x": 152,
+        "y": 304,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Play.png",
+      "frame": {
+        "x": 304,
+        "y": 0,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Sound.png",
+      "frame": {
+        "x": 304,
+        "y": 152,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Green_Button Green - Twitter.png",
+      "frame": {
+        "x": 304,
+        "y": 304,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Red_Button Red - Left Arrow.png",
+      "frame": {
+        "x": 456,
+        "y": 0,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Red_Button Red - Right Arrow.png",
+      "frame": {
+        "x": 456,
+        "y": 152,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Button Pack - Red_Button Red - Up Arrow.png",
+      "frame": {
+        "x": 456,
+        "y": 304,
+        "w": 152,
+        "h": 152
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 152,
+        "h": 152
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.6",
+    "image": "texture.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 608,
+      "h": 456
+    },
+    "scale": 1
+  }
+}
