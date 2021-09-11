@@ -7,7 +7,7 @@ const { userData } = require("./userData");
 const { existsSync, statSync, mkdirSync } = require("fs")
 const { homedir } = require("os")
 const copy = require("recursive-copy")
-const { resolve, join } = require("path")
+const { join } = require("path")
 
 /** @type {string} */
 let projectPath = userData.getProjectPath()
