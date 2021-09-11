@@ -38,7 +38,7 @@ async function createWindow() {
     electron.ipcMain.on("electron-phasereditor2d", async (event, arg) => {
 
         const method = arg.method;
-        const body = arg.body;
+        const body = arg.body || {};
 
         switch (method) {
 
@@ -62,7 +62,13 @@ async function createWindow() {
                     exitApp();
                 }
 
-                break;
+                break
+
+            case "show-new-project-page":
+
+                appWindow.loadFile("src/html/newProject.html")
+
+                break
 
             case "open-project":
 
@@ -101,11 +107,7 @@ async function createWindow() {
 
             case "recent-projects":
 
-                console.log("handlers recent-projects")
-
                 const projects = userData.getRecentProjects()
-
-                console.log(projects)
 
                 event.returnValue = projects
 

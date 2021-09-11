@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start</title>
+    <title>Phaser Editor 2D</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -37,8 +37,8 @@
     <div class="container">
 
         <div class="btn-group mt-1 mb-4">
-            <a class="btn btn-primary" href="javascript:newProject()">New Project</a>
-            <a class="btn btn-secondary" href="javascript:openProject()">Open Project</a>
+            <a class="btn btn-primary" href="javascript:showNewProjectPage()">New Project</a>
+            <a class="btn btn-primary" href="javascript:openProject()">Open Project</a>
         </div>
 
         <div class="card">
@@ -53,12 +53,28 @@
         </div>
     </div>
 
+    <template id="recentProjectItemTemplate">
+        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="#">
+
+        </a>
+    </template>
+
+    <script type="text/javascript" src="lib/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.bundle.min.js"></script>
+
     <script>
+
+        function showNewProjectPage() {
+
+            electron.sendMessage({
+                method: "show-new-project-page"
+            })
+        }
 
         function openProject() {
 
             const resp = electron.sendMessage({
-                method: "open-project"
+                method: "open-project",
             })
         }
 
@@ -69,19 +85,19 @@
                 method: "recent-projects"
             })
 
-            const listElement = document.getElementById("recentProjects")
+            /** @type {HTMLUListElement} */
+            const listElement = document.querySelector("#recentProjects")
 
             for (const project of projects) {
 
-                const itemElement = document.createElement("a")
+                /** @type {HTMLTemplateElement} */
+                const template = document.querySelector("#recentProjectItemTemplate")
+                
+                /** @type {DocumentFragment} */
+                const itemFragment = template.content.cloneNode(true)
 
-                itemElement.classList.add(
-                    "list-group-item",
-                    "list-group-item-action",
-                    "d-flex", "justify-content-between",
-                    "align-items-center")
-
-                itemElement.href = "#"
+                /** @type {HTMLLinkElement} */
+                const itemElement = itemFragment.firstElementChild
 
                 let pathSep = project.indexOf("\\") > 0 ? "\\" : "/";
                 const names = project.split(pathSep)

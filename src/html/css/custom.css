@@ -25,3 +25,7 @@ h6 {
     font-family: Roboto-Bold;
     src: url(../fonts/Roboto/Roboto-Bold.ttf);
 }
+
+.card-with-hover:hover {
+    background-color: #0004;
+}
