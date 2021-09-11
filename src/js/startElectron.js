@@ -1,11 +1,12 @@
-const { Menu } = require("electron")
+const { Menu, dialog } = require("electron")
 const electron = require("electron")
 const path = require("path")
 const process = require("process")
 const { startServer, stopServer } = require("./startServer")
 const { userData } = require("./userData");
-const { existsSync, statSync } = require("fs")
+const { existsSync, statSync, mkdirSync } = require("fs")
 const { homedir } = require("os")
+const copy = require("recursive-copy")
 
 /** @type {string} */
 let projectPath = userData.getProjectPath()
@@ -97,7 +98,7 @@ async function createWindow() {
 
                 userData.deleteProjectPath()
 
-                appWindow.loadFile("src/html/start.html")
+                loadHomePage()
 
                 stopServer()
 
@@ -106,19 +107,36 @@ async function createWindow() {
 
             case "create-project": {
 
-                console.log("createProject")
 
-                const result = await electron.dialog.showOpenDialog(appWindow, {
-                    message: "Select Project Path",
-                    properties: ["openDirectory", "createDirectory", "promptToCreate"],
-                    defaultPath: projectPath || homedir()
-                });
+                appWindow.loadFile("src/html/loading.html")
 
-                if (!result.canceled) {
+                try {
 
-                    dir = result.filePaths[0];
+                    const result = await electron.dialog.showOpenDialog(appWindow, {
+                        message: "Select Project Path",
+                        properties: ["openDirectory", "createDirectory", "promptToCreate"],
+                        defaultPath: projectPath || homedir()
+                    });
 
-                    openProject(dir)
+                    if (!result.canceled) {
+
+                        dir = result.filePaths[0];
+
+                        mkdirSync(dir, { recursive: true })
+
+                        await copy("starter-templates/" + body.repo, dir, {
+                            dot: true,
+                            overwrite: false,
+                            results: false,
+                        })
+
+                        openProject(dir)
+                    }
+
+                } catch (e) {
+
+                    dialog.showErrorBox("Error", e.message)
+                    loadHomePage()
                 }
 
                 break
@@ -150,8 +168,13 @@ async function createWindow() {
 
     } else {
 
-        appWindow.loadFile("src/html/start.html")
+        loadHomePage()
     }
+}
+
+function loadHomePage() {
+
+    appWindow.loadFile("src/html/start.html")
 }
 
 async function openProject(project) {
@@ -175,7 +198,7 @@ async function openProject(project) {
         userData.deleteRecentProject(project)
         userData.deleteProjectPath()
 
-        appWindow.loadFile("src/html/start.html")
+        loadHomePage()
 
         return
     }

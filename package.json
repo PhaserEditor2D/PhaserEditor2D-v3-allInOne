@@ -32,5 +32,8 @@
       },
       "makers": []
     }
+  },
+  "dependencies": {
+    "recursive-copy": "^2.0.13"
   }
 }
