@@ -202,6 +202,13 @@ class UserData {
 
         store.setValue("recentProjects", recentProjects)
     }
+
+    deleteRecentProject(project) {
+
+        const data = (store.getValue("recentProjects") || {})
+        delete data[project]
+        store.setValue("recentProjects", data)
+    }
 }
 
 module.exports = {

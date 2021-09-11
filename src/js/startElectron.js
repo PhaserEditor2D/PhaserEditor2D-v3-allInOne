@@ -5,6 +5,7 @@ const process = require("process")
 const { startServer, stopServer } = require("./startServer")
 const { userData } = require("./userData");
 const { existsSync, statSync } = require("fs")
+const { homedir } = require("os")
 
 /** @type {string} */
 let projectPath = userData.getProjectPath()
@@ -42,9 +43,9 @@ async function createWindow() {
 
         switch (method) {
 
-            case "ask-close-window":
+            case "ask-close-window": {
 
-                const choice = electron.dialog.showMessageBoxSync(appWindow, {
+                const choice = await electron.dialog.showMessageBox(appWindow, {
                     type: 'question',
                     buttons: ['Leave', 'Stay'],
                     title: 'Do you want to leave?',
@@ -53,7 +54,7 @@ async function createWindow() {
                     cancelId: 1
                 })
 
-                const leave = (choice === 0)
+                const leave = (choice.response === 0)
 
                 if (leave) {
 
@@ -63,39 +64,36 @@ async function createWindow() {
                 }
 
                 break
+            }
 
-            case "show-new-project-page":
+            case "show-new-project-page": {
 
                 appWindow.loadFile("src/html/newProject.html")
 
                 break
+            }
 
-            case "open-project":
+            case "open-project": {
 
                 let dir = body.project
 
                 if (dir === undefined) {
 
-                    const result = electron.dialog.showOpenDialogSync(appWindow, {
+                    const result = await electron.dialog.showOpenDialog(appWindow, {
                         message: "Select Folder",
-                        properties: ["openDirectory"],
+                        properties: ["openDirectory", "createDirectory", "promptToCreate"],
                         defaultPath: projectPath
                     });
 
                     dir = result ? result[0] : undefined;
                 }
 
-                if (dir) {
-
-                    openProject(dir)
-
-                    projectPath = dir;
-                    userData.setProjectPath(projectPath)
-                }
+                openProject(dir)
 
                 break
+            }
 
-            case "close-project":
+            case "close-project": {
 
                 userData.deleteProjectPath()
 
@@ -104,22 +102,45 @@ async function createWindow() {
                 stopServer()
 
                 break
+            }
 
-            case "recent-projects":
+            case "create-project": {
+
+                console.log("createProject")
+
+                const result = await electron.dialog.showOpenDialog(appWindow, {
+                    message: "Select Project Path",
+                    properties: ["openDirectory", "createDirectory", "promptToCreate"],
+                    defaultPath: projectPath || homedir()
+                });
+
+                if (!result.canceled) {
+
+                    dir = result.filePaths[0];
+
+                    openProject(dir)
+                }
+
+                break
+            }
+
+            case "recent-projects": {
 
                 const projects = userData.getRecentProjects()
 
                 event.returnValue = projects
 
                 break
+            }
 
-            case "open-dev-tools":
+            case "open-dev-tools": {
 
                 appWindow.webContents.openDevTools({
                     mode: "bottom"
                 });
 
                 break;
+            }
         }
     });
 
@@ -135,6 +156,31 @@ async function createWindow() {
 
 async function openProject(project) {
 
+    if (!project) {
+
+        return;
+    }
+
+
+    if (!existsSync(project) || !statSync(project).isDirectory()) {
+
+        electron.dialog.showMessageBox(appWindow, {
+            type: "question",
+            buttons: ["Close"],
+            title: "File not found",
+            message: `File "${project}" does not exist or is not a directory.`,
+            defaultId: 0,
+            cancelId: 1
+        })
+
+        userData.deleteRecentProject(project)
+        userData.deleteProjectPath()
+
+        appWindow.loadFile("src/html/start.html")
+
+        return;
+    }
+
     const port = await startServer(project)
 
     const url = `http://127.0.0.1:${port}/editor/`
@@ -145,7 +191,11 @@ async function openProject(project) {
 
     }, 500)
 
+    projectPath = dir
+    userData.setProjectPath(projectPath)
     userData.incrementRecentProject(project)
+
+    return true
 }
 
 function createMenu() {

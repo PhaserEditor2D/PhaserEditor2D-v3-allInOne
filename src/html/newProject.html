@@ -71,7 +71,7 @@
                         description
                     </div>
 
-                    <a href="javascript:alert('hello')" class="stretched-link"></a>
+                    <a href="#" class="stretched-link"></a>
                 </div>
             </div>
         </div>
@@ -100,6 +100,15 @@
                 itemElement.querySelector("#tags").innerHTML = projectInfo.tags.map(tag => `
                     <div class="badge badge-secondary">${tag}</div>
                 `).join("")
+
+                itemElement.querySelector(".stretched-link").addEventListener("click", () => {
+                    electron.sendMessage({
+                        method: "create-project",
+                        body: {
+                            repo: projectInfo.repo
+                        }
+                    })
+                })
 
                 projectsRow.appendChild(itemElement)
             }
