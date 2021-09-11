@@ -158,9 +158,8 @@ async function openProject(project) {
 
     if (!project) {
 
-        return;
+        return
     }
-
 
     if (!existsSync(project) || !statSync(project).isDirectory()) {
 
@@ -178,7 +177,7 @@ async function openProject(project) {
 
         appWindow.loadFile("src/html/start.html")
 
-        return;
+        return
     }
 
     const port = await startServer(project)
