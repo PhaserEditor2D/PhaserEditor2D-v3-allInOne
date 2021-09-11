@@ -1,4 +1,4 @@
-const { Menu, dialog } = require("electron")
+const { Menu, dialog, app } = require("electron")
 const electron = require("electron")
 const path = require("path")
 const process = require("process")
@@ -7,6 +7,7 @@ const { userData } = require("./userData");
 const { existsSync, statSync, mkdirSync } = require("fs")
 const { homedir } = require("os")
 const copy = require("recursive-copy")
+const { resolve, join } = require("path")
 
 /** @type {string} */
 let projectPath = userData.getProjectPath()
@@ -69,7 +70,7 @@ async function createWindow() {
 
             case "show-new-project-page": {
 
-                appWindow.loadFile("src/html/newProject.html")
+                loadNewProjectPage()
 
                 break
             }
@@ -86,7 +87,7 @@ async function createWindow() {
                         defaultPath: projectPath
                     });
 
-                    dir = result ? result[0] : undefined;
+                    dir = result ? result.filePaths[0] : undefined;
                 }
 
                 openProject(dir)
@@ -107,9 +108,6 @@ async function createWindow() {
 
             case "create-project": {
 
-
-                appWindow.loadFile("src/html/loading.html")
-
                 try {
 
                     const result = await electron.dialog.showOpenDialog(appWindow, {
@@ -120,11 +118,15 @@ async function createWindow() {
 
                     if (!result.canceled) {
 
+                        appWindow.loadFile("src/html/loading.html")
+
                         dir = result.filePaths[0];
 
                         mkdirSync(dir, { recursive: true })
 
-                        await copy("starter-templates/" + body.repo, dir, {
+                        const src = join(app.getAppPath(), "starter-templates", body.repo)
+
+                        await copy(src, dir, {
                             dot: true,
                             overwrite: false,
                             results: false,
@@ -177,6 +179,11 @@ function loadHomePage() {
     appWindow.loadFile("src/html/start.html")
 }
 
+function loadNewProjectPage() {
+
+    appWindow.loadFile("src/html/newProject.html")
+}
+
 async function openProject(project) {
 
     if (!project) {
@@ -207,13 +214,9 @@ async function openProject(project) {
 
     const url = `http://127.0.0.1:${port}/editor/`
 
-    setTimeout(() => {
+    appWindow.loadURL(url)
 
-        appWindow.loadURL(url)
-
-    }, 500)
-
-    projectPath = dir
+    projectPath = project
     userData.setProjectPath(projectPath)
     userData.incrementRecentProject(project)
 
