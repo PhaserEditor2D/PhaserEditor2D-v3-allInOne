@@ -194,6 +194,11 @@ class UserData {
         return projects
     }
 
+    clearRecentProjects() {
+        
+        store.setValue("recentProjects", {})
+    }
+
     incrementRecentProject(project) {
 
         const recentProjects = store.getValue("recentProjects") || {}

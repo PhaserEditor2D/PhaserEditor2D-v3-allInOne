@@ -68,6 +68,13 @@ async function createWindow() {
                 break
             }
 
+            case "clear-list": {
+
+                clearList()
+                
+                break
+            }
+
             case "show-new-project-page": {
 
                 loadNewProjectPage()
@@ -174,6 +181,11 @@ async function createWindow() {
     }
 }
 
+function clearList() {
+
+    userData.clearRecentProjects()
+}
+
 function loadHomePage() {
 
     appWindow.loadFile("src/html/start.html")
@@ -214,7 +226,7 @@ async function openProject(project) {
 
     const url = `http://127.0.0.1:${port}/editor/`
 
-    appWindow.loadURL(url)
+    setTimeout(() => appWindow.loadURL(url), 500)
 
     projectPath = project
     userData.setProjectPath(projectPath)

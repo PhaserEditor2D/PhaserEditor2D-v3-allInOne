@@ -37,15 +37,27 @@
 
     <div class="container">
 
-        <div class="btn-group mt-1 mb-4">
-            <a class="btn btn-primary" href="javascript:showNewProjectPage()">
-                <i class="fa fa-folder-plus text-muted mr-1"></i>
-                New Project
-            </a>
-            <a class="btn btn-primary" href="javascript:openProject()">
-                <i class="fa fa-folder-open text-muted mr-1"></i>
-                Open Project
-            </a>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group mt-1 mb-4">
+                <a class="btn btn-primary" href="javascript:showNewProjectPage()">
+                    <i class="fa fa-folder-plus text-muted mr-1"></i>
+                    New Project
+                </a>
+                <a class="btn btn-primary" href="javascript:openProject()">
+                    <i class="fa fa-folder-open text-muted mr-1"></i>
+                    Open Project
+                </a>
+            </div>
+
+            <div class="dropdown dropleft">
+                <a data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">New Window</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:clearList()">Clear List</a>
+                </div>
+            </div>
+            
         </div>
 
         <div class="card">
@@ -78,6 +90,17 @@
     <script type="text/javascript" src="lib/bootstrap.bundle.min.js"></script>
 
     <script>
+
+        function clearList() {
+
+            electron.sendMessage({
+                method: "clear-list"
+            })
+
+            projects = []
+
+            renderRecentProjects()
+        }
 
         function showNewProjectPage() {
 
