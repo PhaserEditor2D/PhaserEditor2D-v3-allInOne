@@ -52,7 +52,7 @@
             <div class="dropdown dropleft">
                 <a data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">New Window</a>
+                    <a class="dropdown-item" href="javascript:newWindow()">New Window</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="javascript:clearList()">Clear List</a>
                 </div>
@@ -90,6 +90,13 @@
     <script type="text/javascript" src="lib/bootstrap.bundle.min.js"></script>
 
     <script>
+
+        function newWindow() {
+
+            electron.sendMessage({
+                method: "new-window"
+            })
+        }
 
         function clearList() {
 

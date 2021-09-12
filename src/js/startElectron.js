@@ -8,6 +8,7 @@ const { existsSync, statSync, mkdirSync } = require("fs")
 const { homedir } = require("os")
 const copy = require("recursive-copy")
 const { join } = require("path")
+const { spawn, execFile } = require("child_process")
 
 /** @type {string} */
 let projectPath = userData.getProjectPath()
@@ -68,10 +69,17 @@ async function createWindow() {
                 break
             }
 
+            case "new-window": {
+
+                execFile(process.execPath, [app.getAppPath()])
+
+                break
+            }
+
             case "clear-list": {
 
                 clearList()
-                
+
                 break
             }
 
