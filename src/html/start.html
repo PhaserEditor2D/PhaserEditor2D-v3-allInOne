@@ -26,7 +26,7 @@
                         Phaser Editor 2D
                     </h1>
 
-                    <p class="lead">All-in-One edition. Start making Phaser games.<br>
+                    <p class="lead">All-in-One edition. <span class="text-muted">Start making PhaserJS games</span>.<br>
                     </p>
 
                 </div>
@@ -43,15 +43,22 @@
                 New Project
             </a>
             <a class="btn btn-primary" href="javascript:openProject()">
-                <i class="fa fa-folder-open text-muted mr-1"></i> 
+                <i class="fa fa-folder-open text-muted mr-1"></i>
                 Open Project
             </a>
         </div>
 
         <div class="card">
 
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
+
                 <h5 class="mb-0">Recent projects</h5>
+
+                <form class="form-inline">
+                    <input id="search" class="form-control form-control-sm bg-dark text-light border-0" type="search"
+                        placeholder="Search" aria-label="Search">
+                </form>
+
             </div>
 
             <div class="list-group list-group-flush" id="recentProjects">
@@ -86,21 +93,45 @@
             })
         }
 
-        function updateRecentProjects() {
+        /** @type {string[]} */
+        let projects
+
+        /** @type {HTMLInputElement} */
+        const searchElement = document.querySelector("#search")
+
+        function initRecentProjects() {
 
             /** @type {string[]} */
-            const projects = electron.sendMessageSync({
+            projects = electron.sendMessageSync({
                 method: "recent-projects"
             })
 
+            renderRecentProjects()
+
+            searchElement.addEventListener("keyup", renderRecentProjects)
+            searchElement.addEventListener("search", renderRecentProjects)
+        }
+
+        function renderRecentProjects() {
+
             /** @type {HTMLUListElement} */
             const listElement = document.querySelector("#recentProjects")
+            listElement.innerHTML = ""
+
+            const query = searchElement.value.toLocaleLowerCase().trim()
+
+            console.log(query)
 
             for (const project of projects) {
 
+                if (query !== "" && project.toLocaleLowerCase().indexOf(query) < 0) {
+
+                    continue
+                }
+
                 /** @type {HTMLTemplateElement} */
                 const template = document.querySelector("#recentProjectItemTemplate")
-                
+
                 /** @type {DocumentFragment} */
                 const itemFragment = template.content.cloneNode(true)
 
@@ -137,7 +168,7 @@
             }
         }
 
-        updateRecentProjects()
+        initRecentProjects()
 
     </script>
 
