@@ -1,8 +1,8 @@
-const { BrowserWindow, Menu, dialog, app, nativeImage, ipcMain } = require("electron");
+const { BrowserWindow, Menu, dialog, app, nativeImage, ipcMain } = require("electron")
 const path = require("path")
 const process = require("process")
 const { startServer, stopServer } = require("./startServer")
-const { userData } = require("./userData");
+const { userData } = require("./userData")
 const { existsSync, statSync, mkdirSync } = require("fs")
 const { homedir } = require("os")
 const copy = require("recursive-copy")
@@ -41,19 +41,22 @@ class WindowManager {
 
         if (process.platform === "linux") {
 
-            const icon = nativeImage.createFromPath(path.join(__dirname, "../../linux-assets/icon.png"));
-            this.win.setIcon(icon);
+            const icon = nativeImage.createFromPath(path.join(__dirname, "../../linux-assets/icon.png"))
+            this.win.setIcon(icon)
         }
 
         const ipcMainListener = async (event, arg) => {
 
             if (event.sender !== this.win.webContents) {
 
-                return;
+                return
             }
 
-            const method = arg.method;
-            const body = arg.body || {};
+            console.log("ipcMain.on:")
+            console.log(arg)
+
+            const method = arg.method
+            const body = arg.body || {}
 
             switch (method) {
 
@@ -68,13 +71,14 @@ class WindowManager {
                         cancelId: 1
                     })
 
+                    console.log(choice)
+
                     const leave = (choice.response === 0)
 
                     if (leave) {
 
-                        this.win.close();
-
-                        exitApp();
+                        console.log("close window")
+                        this.win.destroy()
                     }
 
                     break
@@ -111,9 +115,9 @@ class WindowManager {
                             message: "Select Folder",
                             properties: ["openDirectory", "createDirectory", "promptToCreate"],
                             defaultPath: projectPath
-                        });
+                        })
 
-                        dir = result ? result.filePaths[0] : undefined;
+                        dir = result ? result.filePaths[0] : undefined
                     }
 
                     this.openProject(dir)
@@ -140,13 +144,13 @@ class WindowManager {
                             message: "Select Project Path",
                             properties: ["openDirectory", "createDirectory", "promptToCreate"],
                             defaultPath: projectPath || homedir()
-                        });
+                        })
 
                         if (!result.canceled) {
 
                             this.win.loadFile("src/html/loading.html")
 
-                            dir = result.filePaths[0];
+                            dir = result.filePaths[0]
 
                             mkdirSync(dir, { recursive: true })
 
@@ -181,20 +185,24 @@ class WindowManager {
 
                 case "open-dev-tools": {
 
-                    this.webContents.openDevTools({
+                    this.win.webContents.openDevTools({
                         mode: "bottom"
-                    });
+                    })
 
-                    break;
+                    break
                 }
             }
         }
 
-        ipcMain.on("electron-phasereditor2d", ipcMainListener);
+        ipcMain.on("electron-phasereditor2d", ipcMainListener)
 
-        this.win.once("close", () => ipcMain.removeListener("electron-phasereditor2d", ipcMainListener))
+        this.win.once("closed", () => {
 
-        if (projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
+            ipcMain.removeListener("electron-phasereditor2d", ipcMainListener)
+            WindowManager.count--
+        })
+
+        if (WindowManager.count === 1 && projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
 
             this.openProject(projectPath)
 
@@ -356,12 +364,7 @@ class WindowManager {
 
     exitApp() {
 
-        // if (process.platform !== 'darwin') {
-
-        //     process.exit();
-        // }
-
-        process.exit();
+        process.exit()
     }
 }
 
