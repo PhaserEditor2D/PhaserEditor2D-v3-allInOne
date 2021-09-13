@@ -22,8 +22,8 @@ class WindowManager {
         WindowManager.count++
 
         this.win = new BrowserWindow({
-            width: 1200 + Math.floor(Math.random() * 100),
-            height: 800 + Math.floor(Math.random() * 100),
+            width: 1200 + Math.floor(Math.random() * 200),
+            height: 800 + Math.floor(Math.random() * 200),
             center: false,
             autoHideMenuBar: true,
             show: false,
