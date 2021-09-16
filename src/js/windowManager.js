@@ -150,7 +150,7 @@ class WindowManager {
 
                             this.win.loadFile("src/html/loading.html")
 
-                            dir = result.filePaths[0]
+                            const dir = result.filePaths[0]
 
                             mkdirSync(dir, { recursive: true })
 
@@ -166,8 +166,11 @@ class WindowManager {
                         }
 
                     } catch (e) {
+                        
+                        console.log(e)
 
                         dialog.showErrorBox("Error", e.message)
+                        
                         this.loadHomePage()
                     }
 
