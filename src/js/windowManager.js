@@ -26,7 +26,7 @@ class WindowManager {
             height: 800 + Math.floor(Math.random() * 200),
             center: false,
             autoHideMenuBar: true,
-            show: false,
+            show: true,
             webPreferences: {
                 nodeIntegration: false,
                 contextIsolation: true,
@@ -34,8 +34,6 @@ class WindowManager {
                 preload: path.join(__dirname, "preload.js")
             }
         })
-
-        this.win.once("ready-to-show", () => this.win.show())
 
         this.createMenu()
 
