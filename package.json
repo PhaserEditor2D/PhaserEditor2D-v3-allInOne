@@ -5,7 +5,8 @@
   "main": "src/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "tsc -p src/ts -w",
+    "ts-watch": "tsc -p src/ts -w",
+    "ts-build": "rm -Rf src/js; tsc -p src/ts;",
     "start": "electron-forge start --inspect-electron",
     "build-macos": "electron-forge package -p darwin",
     "build-linux": "electron-forge package -p linux",
