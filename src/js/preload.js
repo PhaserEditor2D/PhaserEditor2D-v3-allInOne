@@ -1,11 +1,7 @@
-console.log("Welcome Electron!")
-
-const { contextBridge, ipcRenderer } = require('electron')
-
-contextBridge.exposeInMainWorld(
-    'electron', {
-
-    sendMessage: msg => ipcRenderer.send("electron-phasereditor2d", msg),
-
-    sendMessageSync: msg => ipcRenderer.sendSync("electron-phasereditor2d", msg)
-})
+"use strict";
+console.log("Welcome Electron!");
+var _a = require('electron'), contextBridge = _a.contextBridge, ipcRenderer = _a.ipcRenderer;
+contextBridge.exposeInMainWorld('electron', {
+    sendMessage: function (msg) { return ipcRenderer.send("electron-phasereditor2d", msg); },
+    sendMessageSync: function (msg) { return ipcRenderer.sendSync("electron-phasereditor2d", msg); }
+});
