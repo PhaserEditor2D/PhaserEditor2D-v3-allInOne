@@ -1,14 +1,16 @@
 {
   "name": "PhaserEditor2D",
-  "version": "3.20.0",
+  "version": "3.30.0-beta.1",
   "description": "Phaser Editor 2D, an IDE for HTML5 game creation",
-  "main": "main.js",
+  "main": "src/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
+    "ts-watch": "tsc -p src/ts -w",
+    "ts-build": "rm -Rf src/js; tsc -p src/ts;",
+    "start": "electron-forge start --inspect-electron",
     "build-macos": "electron-forge package -p darwin",
     "build-linux": "electron-forge package -p linux",
-    "build-win32": "electron-forge package -p win32",    
+    "build-win32": "electron-forge package -p win32",
     "make": "electron-forge make"
   },
   "keywords": [],
@@ -20,10 +22,12 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-	"electron":"13.0.1",   
-    "node-abi": "^2.19.3"
+    "@types/get-port": "^4.2.0",
+    "@types/node": "^14.17.1",
+    "electron": "13.0.1",
+    "node-abi": "^2.19.3",
+    "typescript": "^4.4.3"
   },
-  "dependencies": {},
   "config": {
     "forge": {
       "packagerConfig": {
@@ -32,5 +36,8 @@
       },
       "makers": []
     }
+  },
+  "dependencies": {
+    "recursive-copy": "^2.0.13"
   }
 }

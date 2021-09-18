@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser Editor 2D - All in One</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="fonts/fontawesome-free-5.13.0-web/css/all.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div class="container header-section mt-4 pt-4">
+
+        <div class="row">
+
+            <div class="col-lg-6">
+
+                <div>
+                    <h1 class="name mb-0 text-light">
+                        Phaser Editor 2D
+                    </h1>
+
+                    <p class="lead">All-in-One edition. <span class="text-muted">Start making PhaserJS games</span>.<br>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end header -->
+
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group mt-1 mb-4">
+                <a class="btn btn-primary" href="javascript:showNewProjectPage()">
+                    <i class="fa fa-folder-plus text-muted mr-1"></i>
+                    New Project
+                </a>
+                <a class="btn btn-primary" href="javascript:openProject()">
+                    <i class="fa fa-folder-open text-muted mr-1"></i>
+                    Open Project
+                </a>
+            </div>
+
+            <div class="dropdown dropleft">
+                <a data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:newWindow()">New Window</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:clearList()">Clear List</a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="card">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">Recent projects</h5>
+
+                <form class="form-inline">
+                    <input id="search" class="form-control form-control-sm bg-dark text-light border-0" type="search"
+                        placeholder="Search" aria-label="Search">
+                </form>
+
+            </div>
+
+            <div class="list-group list-group-flush" id="recentProjects">
+            </div>
+
+        </div>
+    </div>
+
+    <template id="recentProjectItemTemplate">
+        <a class="list-group-item list-group-item-action d-flex justify-content-left align-items-center" href="#">
+            <i class="fa fa-folder mr-2 text-muted"></i>
+            <span></span>
+        </a>
+    </template>
+
+    <script type="text/javascript" src="lib/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function newWindow() {
+
+            electron.sendMessage({
+                method: "new-window"
+            })
+        }
+
+        function clearList() {
+
+            electron.sendMessage({
+                method: "clear-list"
+            })
+
+            projects = []
+
+            renderRecentProjects()
+        }
+
+        function showNewProjectPage() {
+
+            electron.sendMessage({
+                method: "show-new-project-page"
+            })
+        }
+
+        function openProject() {
+
+            const resp = electron.sendMessage({
+                method: "open-project",
+            })
+        }
+
+        /** @type {string[]} */
+        let projects
+
+        /** @type {HTMLInputElement} */
+        const searchElement = document.querySelector("#search")
+
+        function initRecentProjects() {
+
+            /** @type {string[]} */
+            projects = electron.sendMessageSync({
+                method: "recent-projects"
+            })
+
+            renderRecentProjects()
+
+            searchElement.addEventListener("keyup", renderRecentProjects)
+            searchElement.addEventListener("search", renderRecentProjects)
+        }
+
+        function renderRecentProjects() {
+
+            /** @type {HTMLUListElement} */
+            const listElement = document.querySelector("#recentProjects")
+            listElement.innerHTML = ""
+
+            const query = searchElement.value.toLocaleLowerCase().trim()
+
+            for (const project of projects) {
+
+                if (query !== "" && project.toLocaleLowerCase().indexOf(query) < 0) {
+
+                    continue
+                }
+
+                /** @type {HTMLTemplateElement} */
+                const template = document.querySelector("#recentProjectItemTemplate")
+
+                /** @type {DocumentFragment} */
+                const itemFragment = template.content.cloneNode(true)
+
+                /** @type {HTMLLinkElement} */
+                const itemElement = itemFragment.firstElementChild
+
+                let pathSep = project.indexOf("\\") > 0 ? "\\" : "/";
+                const names = project.split(pathSep)
+
+                itemFragment.querySelector("span").innerHTML = `
+                <div> 
+                    <strong>${names[names.length - 1]}</strong>
+                    <span class="text-muted"> - ${names.splice(0, names.length - 1).join(pathSep)}</span>
+                </div>
+                
+                <div id="spinner" class="spinner-border spinner-border-sm d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                `
+
+                itemElement.addEventListener("click", () => {
+
+                    itemElement.lastElementChild.classList.remove("d-none")
+
+                    electron.sendMessage({
+                        method: "open-project",
+                        body: {
+                            project
+                        }
+                    })
+                })
+
+                listElement.appendChild(itemElement)
+            }
+        }
+
+        initRecentProjects()
+
+    </script>
+
+</body>
+
+</html>

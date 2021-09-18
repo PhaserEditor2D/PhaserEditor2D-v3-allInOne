@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.30.0
+
+* Start with the All-in-One product.
+    * Start page with project list, New Project & Open Project buttons.
+
 ## v3.20.0 - Aug 23, 2021
 
 * Get latest server version.

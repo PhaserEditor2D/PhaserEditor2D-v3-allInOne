@@ -1,0 +1,14 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "esnext",
+        "outFile": "game.js",
+        "strict": true,
+        "types": [
+            "phaser"
+        ]
+    },
+    "exclude": [
+        "lib/**"
+    ]
+}

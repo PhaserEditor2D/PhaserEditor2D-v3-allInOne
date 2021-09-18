@@ -1,0 +1,148 @@
+{
+    "components": [
+        {
+            "name": "HorizontalMove",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Image|Phaser.GameObjects.Sprite|Phaser.GameObjects.Container",
+            "properties": [
+                {
+                    "name": "horizVelocity",
+                    "label": "Horizontal Velocity",
+                    "tooltip": "The velocity of the object.",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "minX",
+                    "label": "Min Position X",
+                    "tooltip": "Min X",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "maxX",
+                    "label": "Max Position X",
+                    "tooltip": "Max X",
+                    "defValue": 3070,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "PlatformPhysics",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Image|Phaser.GameObjects.Container",
+            "properties": [
+                {
+                    "name": "bodyY",
+                    "label": "Body Y",
+                    "tooltip": "Body Y",
+                    "defValue": 8,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "FollowObject",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Image",
+            "properties": [
+                {
+                    "name": "target",
+                    "label": "Target Object",
+                    "tooltip": "The object to follow",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "expression",
+                        "expressionType": "Phaser.GameObjects.Container|Phaser.GameObjects.Image|undefined"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ScrollFactor",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Image|Phaser.GameObjects.Text",
+            "properties": [
+                {
+                    "name": "x",
+                    "label": "X",
+                    "tooltip": "X",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "y",
+                    "label": "Y",
+                    "tooltip": "Y",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "PlayerController",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Image",
+            "properties": [
+                {
+                    "name": "player",
+                    "label": "Player",
+                    "tooltip": "Player",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "expression",
+                        "expressionType": "Player|undefined"
+                    }
+                },
+                {
+                    "name": "direction",
+                    "label": "Direction",
+                    "tooltip": "Direction",
+                    "defValue": "left",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "option",
+                        "options": [
+                            "left",
+                            "right",
+                            "up"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "PreloadText",
+            "baseClass": "UserComponent",
+            "gameObjectType": "Phaser.GameObjects.Text",
+            "properties": []
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Object Script Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType"
+    },
+    "outputLang": "TYPE_SCRIPT"
+}

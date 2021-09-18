@@ -1,0 +1,9 @@
+{
+    "editor.inlayHints.enabled": false,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterNames.enabled": "literals",
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "typescript.inlayHints.parameterNames.enabled": "literals",
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true
+}

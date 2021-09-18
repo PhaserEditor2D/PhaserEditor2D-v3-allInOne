@@ -1,0 +1,16 @@
+tasks:
+  - name: Install
+    init: >
+      npm install &&
+      gp sync-done install
+  - name: Webpack
+    init: gp sync-await install
+    command: npm start
+  - name: Editor server
+    init: gp sync-await install
+    command: npm run editor-remote
+ports:
+  - port: 1959
+    onOpen: open-preview
+  - port: 8080
+    onOpen: open-preview 

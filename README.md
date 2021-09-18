@@ -1,6 +1,12 @@
-# Phaser Editor 2D v3 Electron Wrapper
+# Phaser Editor 2D v3 All-in-One edition
 
-This is an ElectronJS-wrapper of Phaser Editor 2D v3.
+![social preview](.github/allInOne-social-preview.png)
+
+The All-in-One edition of Phaser Editor 2D.
+
+* It wraps Phaser Editor 2D Core in an ElectronJS app.
+* Provides better integration with the operating system (create, open projects).
+* Provides project templates and demo projects.
 
 ## Run
 
@@ -12,7 +18,13 @@ npm install
 
 2. Copy the latest Phaser Editor 2D server to the `server/` folder. The ElectronJS app will execute the `server/PhaserEditor2D` file.
 
-3. Run the application:
+3. Compiles the TypeScript files
+
+```
+npm run ts-build
+```
+
+4. Run the application:
 
 ```
 npm start

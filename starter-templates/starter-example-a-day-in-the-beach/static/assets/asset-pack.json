@@ -1,0 +1,148 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/scenes/Welcome.js",
+                "type": "sceneFile",
+                "key": "Welcome"
+            },
+            {
+                "atlasURL": "assets/atlas/texture.json",
+                "textureURL": "assets/atlas/texture.png",
+                "type": "atlas",
+                "key": "buttons"
+            },
+            {
+                "url": "assets/images/level/underwater-1.png",
+                "type": "image",
+                "key": "underwater-1"
+            },
+            {
+                "url": "assets/images/level/underwater-2.png",
+                "type": "image",
+                "key": "underwater-2"
+            },
+            {
+                "url": "assets/images/level/underwater-3.png",
+                "type": "image",
+                "key": "underwater-3"
+            },
+            {
+                "url": "assets/images/level/underwater-4.png",
+                "type": "image",
+                "key": "underwater-4"
+            },
+            {
+                "url": "assets/images/level/underwater-5.png",
+                "type": "image",
+                "key": "underwater-5"
+            },
+            {
+                "url": "assets/images/level/underwater-7.png",
+                "type": "image",
+                "key": "underwater-7"
+            },
+            {
+                "url": "assets/images/level/underwater-8.png",
+                "type": "image",
+                "key": "underwater-8"
+            },
+            {
+                "url": "assets/images/welcome/cloud.png",
+                "type": "image",
+                "key": "cloud"
+            },
+            {
+                "url": "assets/images/welcome/decor.png",
+                "type": "image",
+                "key": "decor"
+            },
+            {
+                "url": "assets/images/welcome/island.png",
+                "type": "image",
+                "key": "island"
+            },
+            {
+                "url": "assets/images/welcome/land.png",
+                "type": "image",
+                "key": "land"
+            },
+            {
+                "url": "assets/images/welcome/sea.png",
+                "type": "image",
+                "key": "sea"
+            },
+            {
+                "url": "assets/images/welcome/sky.png",
+                "type": "image",
+                "key": "sky"
+            },
+            {
+                "url": "assets/scenes/Level.js",
+                "type": "sceneFile",
+                "key": "Level"
+            },
+            {
+                "textureURL": "assets/fonts/hyperdrive.png",
+                "fontDataURL": "assets/fonts/hyperdrive.xml",
+                "type": "bitmapFont",
+                "key": "hyperdrive"
+            },
+            {
+                "url": "assets/images/items/star-orange.png",
+                "type": "image",
+                "key": "star-orange"
+            },
+            {
+                "url": "assets/images/items/star-yellow.png",
+                "type": "image",
+                "key": "star-yellow"
+            },
+            {
+                "url": "assets/images/items/star-green.png",
+                "type": "image",
+                "key": "star-green"
+            },
+            {
+                "url": "assets/scenes/Star.js",
+                "type": "script",
+                "key": "Star"
+            },
+            {
+                "url": [
+                    "assets/audio/caribbean-steel-drum-happiness-doug-maxwell.mp3"
+                ],
+                "type": "audio",
+                "key": "music"
+            },
+            {
+                "url": [
+                    "assets/audio/bubble.mp3"
+                ],
+                "type": "audio",
+                "key": "bubble"
+            },
+            {
+                "url": [
+                    "assets/scenes/GameSounds.js",
+                    "assets/components/EventComponent.js",
+                    "assets/components/Checkbox.js",
+                    "assets/components/ClickHandler.js",
+                    "assets/components/FloatingObject.js",
+                    "assets/components/InteractiveObject.js",
+                    "assets/components/OpenURLOnClick.js",
+                    "assets/components/PushOnClick.js",
+                    "assets/components/StartSceneOnClick.js"
+                ],
+                "type": "scripts",
+                "key": "Scripts"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2
+    }
+}

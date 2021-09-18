@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Project - Phaser Editor 2D - All in One</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div class="container header-section mt-4 pt-4">
+
+        <div class="row">
+
+            <div class="col-lg-6">
+
+                <div>
+                    <h1 class="name mb-0 text-light">
+                        New Project
+                    </h1>
+
+                    <p class="lead">
+                        Select a project template.
+                    </p>
+
+                    <p>
+                        <a href="start.html">&LeftArrow; Go Back</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end header -->
+
+
+    <div class="container">
+        <div id="projectsRow" class="row">
+
+        </div>
+        <div id="demosRow" class="row">
+
+        </div>
+    </div>
+
+    <template id="projectCardTemplate">
+        <div class="col-lg-4">
+            <div class="card shadow-lg mb-4 card-with-hover">
+
+                <div class="card-body">
+
+                    <p>
+                        <img id="image" class="rounded img-fluid">
+                    </p>
+
+                    <h5 id="title" class="card-title mb-2">title</h5>
+
+                    <div id="tags" class="mb-2">
+                        <!-- tags
+                            <div class="badge badge-primary">tag</div>
+                        -->
+                    </div>
+
+                    <div id="description" class="card-text lead">
+                        description
+                    </div>
+
+                    <a href="#" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        function renderProjectTemplates(projectInfoList) {
+
+            const projectsRow = document.querySelector("#projectsRow")
+
+            for (const projectInfo of projectInfoList) {
+
+                /** @type {HTMLTemplateElement} */
+                const template = document.querySelector("#projectCardTemplate")
+
+                /** @type {DocumentFragment} */
+                const fragment = template.content.cloneNode(true);
+
+                /** @type {HTMLDivElement} */
+                const itemElement = fragment.firstElementChild
+
+                itemElement.querySelector("#title").innerHTML = projectInfo.title
+                itemElement.querySelector("#description").innerHTML = projectInfo.description
+                itemElement.querySelector("#image").src = projectInfo.image
+                itemElement.querySelector("#tags").innerHTML = projectInfo.tags.map(tag => `
+                    <div class="badge badge-secondary">${tag}</div>
+                `).join("")
+
+                itemElement.querySelector(".stretched-link").addEventListener("click", () => {
+                    electron.sendMessage({
+                        method: "create-project",
+                        body: {
+                            repo: projectInfo.repo
+                        }
+                    })
+                })
+
+                projectsRow.appendChild(itemElement)
+            }
+
+            console.log(projectsRow)
+        }
+
+        renderProjectTemplates([
+            {
+                "title": "Basic JavaScript",
+                "image": "images/starter-project-javascript.png",
+                "description": "The simplest template, with JavaScript.",
+                "repo": "starter-template-basic-javascript",
+                "tags": ["javascript"],
+            },
+
+            {
+                "title": "Basic TypeScript",
+                "image": "images/starter-project-typescript.png",
+                "description": "The simplest template, with TypeScript.",
+                "repo": "starter-template-basic-typescript",
+                "tags": ["javascript"],
+            },
+
+            {
+                "title": "Webpack TypeScript",
+                "image": "images/starter-project-webpack.png",
+                "description": "The template for real games. Webpack & TypeScript.",
+                "repo": "starter-template-webpack",
+                "tags": ["typescript", "webpack"],
+            },
+            {
+                "title": "Sunny Land",
+                "image": "images/starter-example-sunny-land.png",
+                "description": "A platformer based on a Tiled map, and Arcade physics.",
+                "repo": "starter-example-sunny-land",
+                "repoBranch": "master",
+                "tags": ["javascript"],
+                "color": "info"
+            },
+            {
+                "title": "Volcano",
+                "image": "images/starter-example-volcano.png",
+                "description": "A platformer fully designed with the Scene Editor.",
+                "repo": "starter-example-volcano",
+                "repoBranch": "master",
+                "tags": ["typescript"],
+                "color": "info"
+            },
+            {
+                "title": "A day in the beach",
+                "image": "images/starter-example-a-day-in-the-beach.png",
+                "description": "A point-and-click game. With an advanced configuration.",
+                "repo": "starter-example-a-day-in-the-beach",
+                "repoBranch": "master",
+                "tags": ["typescript", "webpack"],
+                "color": "info"
+            }
+        ])
+    </script>
+
+</body>
+
+</html>
