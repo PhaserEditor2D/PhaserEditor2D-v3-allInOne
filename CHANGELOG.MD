@@ -1,5 +1,9 @@
 # Change Log
 
+## dev
+
+* Reads/writes user data in UTF-8 encoding.
+
 ## v3.30.0
 
 * Start with the All-in-One product.
