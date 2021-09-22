@@ -20,7 +20,10 @@ class JSONStore {
 
         if (existsSync(this.settingsFile)) {
 
-            const s = readFileSync(this.settingsFile)
+            const s = readFileSync(this.settingsFile, {
+                encoding: "utf-8"
+            })
+
             this.data = JSON.parse(s.toString())
         }
     }
@@ -75,7 +78,9 @@ class JSONStore {
 
     private save() {
 
-        writeFileSync(this.settingsFile, JSON.stringify(this.data, null, 4))
+        writeFileSync(this.settingsFile, JSON.stringify(this.data, null, 4), {
+            encoding: "utf-8"
+        })
     }
 }
 
