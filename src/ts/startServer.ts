@@ -1,11 +1,14 @@
 import { ChildProcess, execFile } from "child_process";
 import { createServer } from "http";
 import { join } from "path";
+import toUnix from "./toUnix";
 import { userData } from "./userData";
 
 let serverProc: ChildProcess;
 
 async function startServer(project: string) {
+
+    project = toUnix(project)
 
     stopServer()
 
