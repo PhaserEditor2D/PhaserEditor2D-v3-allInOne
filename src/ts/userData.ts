@@ -1,3 +1,4 @@
+import { dialog } from "electron";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
@@ -24,7 +25,20 @@ class JSONStore {
                 encoding: "utf-8"
             })
 
-            this.data = JSON.parse(s.toString())
+            try {
+
+                this.data = JSON.parse(s.toString())
+
+            } catch (e) {
+
+                console.log(e)
+
+                setTimeout(() => {
+
+                    dialog.showErrorBox("Error", "Error parsing user-data.json: " + (e as Error).message)
+
+                }, 2000)
+            }
         }
     }
 
@@ -132,7 +146,7 @@ class UserData {
     }
 
     clearRecentProjects() {
-        
+
         store.setValue("recentProjects", {})
     }
 
