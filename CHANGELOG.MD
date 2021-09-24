@@ -2,7 +2,8 @@
 
 ## dev
 
-* Reads/writes user data in UTF-8 encoding.
+* Reads/writes the `user-data.json` file in UTF-8 encoding.
+* Handles error when the `user-data.json` file has an invalid format.
 
 ## v3.30.0
 
