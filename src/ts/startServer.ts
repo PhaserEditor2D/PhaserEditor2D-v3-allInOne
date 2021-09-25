@@ -1,6 +1,6 @@
 import { ChildProcess, execFile } from "child_process";
 import { createServer } from "http";
-import { join } from "path";
+import { join, normalize } from "path";
 import toUnix from "./toUnix";
 import { userData } from "./userData";
 
@@ -16,37 +16,48 @@ async function startServer(project: string) {
 
     const savedPort = userData.getProjectPort(project)
 
-    console.log("savedPort " + savedPort)
+    console.log("Saved port: " + savedPort)
 
     const port = await findFreePort(savedPort ?? 1986 + Math.floor(Math.random() * 1024))
 
     if (savedPort === undefined) {
 
-        console.log(`Assign port ${port} to ${project}`)
+        console.log(`Assign new port ${port} to ${project}`)
         userData.setProjectPort(project, port)
     }
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
 
-    const filePath = join(__dirname, `../../server/${fileName}`)
+    const filePath = toUnix(normalize(join(toUnix(__dirname), `../../server/${fileName}`)))
 
-    const args = ["-disable-open-browser", "-port", port.toString(), "-project", project]
+    console.log(`Executing: ${filePath}`)
+
+    const args = [ "-disable-open-browser", "-port", port.toString(), "-project", project]
 
     console.log(args);
 
-    serverProc = execFile(filePath, args, {
-        windowsHide: true,
-    })
+    try {
 
-    serverProc.on("close", () => {
+        serverProc = execFile(filePath, args, {
+            windowsHide: true,
+        })
 
-        console.log("Closed Phaser Editor 2D Core server");
-    })
+        console.log(`Process ID: ${serverProc.pid}`)
 
-    serverProc.stdout?.pipe(process.stdout)
-    serverProc.stderr?.pipe(process.stderr)
+        serverProc.on("close", () => {
 
-    process.once("exit", () => serverProc.kill("SIGKILL"))
+            console.log("Closed Phaser Editor 2D Core server");
+        })
+
+        serverProc.stdout?.pipe(process.stdout)
+        serverProc.stderr?.pipe(process.stderr)
+
+        process.once("exit", () => serverProc.kill("SIGKILL"))
+
+    } catch (e) {
+
+        console.log(e)
+    }
 
     return port
 }
