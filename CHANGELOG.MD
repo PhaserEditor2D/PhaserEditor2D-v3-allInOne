@@ -4,6 +4,7 @@
 
 * Reads/writes the `user-data.json` file in UTF-8 encoding.
 * Handles error when the `user-data.json` file has an invalid format.
+* Fixes management of lifecycle of the server processes.
 
 ## v3.30.0
 
