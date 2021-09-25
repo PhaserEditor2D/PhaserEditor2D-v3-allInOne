@@ -1,4 +1,4 @@
-import { ChildProcess, execFile } from "child_process";
+import { ChildProcess, execFile, spawn } from "child_process";
 import { createServer } from "http";
 import { join, normalize } from "path";
 import toUnix from "./toUnix";
@@ -30,7 +30,7 @@ async function startServer(project: string) {
 
     const filePath = toUnix(normalize(join(toUnix(__dirname), `../../server/${fileName}`)))
 
-    console.log(`Executing: ${filePath}`)
+    console.log(`Spawn: ${filePath}`)
 
     const args = [ "-disable-open-browser", "-port", port.toString(), "-project", project]
 
@@ -38,21 +38,26 @@ async function startServer(project: string) {
 
     try {
 
-        serverProc = execFile(filePath, args, {
-            windowsHide: true,
+        serverProc = spawn(filePath, args, {
+            windowsHide: true
         })
 
         console.log(`Process ID: ${serverProc.pid}`)
 
-        serverProc.on("close", () => {
+        serverProc.once("close", (code) => {
 
-            console.log("Closed Phaser Editor 2D Core server");
+            console.log(`Closed Phaser Editor 2D Core server. Exit code (${code}).`);
         })
 
         serverProc.stdout?.pipe(process.stdout)
         serverProc.stderr?.pipe(process.stderr)
 
-        process.once("exit", () => serverProc.kill("SIGKILL"))
+        process.once("exit", code => {
+            
+            console.log(`Main process exit. Kill server proc (${serverProc.pid}). Exit code (${code}).`)
+
+            serverProc.kill("SIGKILL")
+        })
 
     } catch (e) {
 
