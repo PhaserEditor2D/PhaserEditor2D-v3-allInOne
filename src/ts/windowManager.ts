@@ -1,10 +1,11 @@
+import { ChildProcess } from "child_process"
 import { app, BrowserWindow, dialog, ipcMain, Menu, nativeImage } from "electron"
 import { IpcMainEvent } from "electron"
 import { existsSync, mkdirSync, statSync } from "fs"
 import { homedir } from "os"
 import { join } from "path"
 import copy from "recursive-copy"
-import { startServer, stopServer } from "./startServer"
+import { startServer } from "./startServer"
 import { userData } from "./userData"
 
 let projectPath = userData.getProjectPath()
@@ -14,6 +15,7 @@ export class WindowManager {
     private static count = 0
 
     private win: BrowserWindow
+    private _serverProc?: ChildProcess
 
     constructor() {
 
@@ -127,7 +129,7 @@ export class WindowManager {
 
                     this.loadHomePage()
 
-                    stopServer()
+                    this.killServerProcess()
 
                     break
                 }
@@ -199,6 +201,8 @@ export class WindowManager {
 
             ipcMain.removeListener("electron-phasereditor2d", ipcMainListener)
             WindowManager.count--
+
+            this.killServerProcess()
         })
 
         if (WindowManager.count === 1 && projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
@@ -208,6 +212,21 @@ export class WindowManager {
         } else {
 
             this.loadHomePage()
+        }
+    }
+
+    private killServerProcess() {
+
+        if (this._serverProc) {
+
+            console.log(`Kill server proc ${this._serverProc.pid}`)
+
+            this._serverProc.kill("SIGKILL")
+            this._serverProc = undefined
+
+        } else {
+
+            console.log("No server process to kill.")
         }
     }
 
@@ -252,7 +271,9 @@ export class WindowManager {
             return
         }
 
-        const port = await startServer(project)
+        const { port, proc } = await startServer(project)
+
+        this._serverProc = proc
 
         const url = `http://127.0.0.1:${port}/editor/`
 
