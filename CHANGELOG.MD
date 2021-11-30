@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.30.1 - Nov 29, 2021
+## v3.31.0 - Nov 29, 2021
 
 * Reads/writes the `user-data.json` file in UTF-8 encoding.
 * Handles error when the `user-data.json` file has an invalid format.
