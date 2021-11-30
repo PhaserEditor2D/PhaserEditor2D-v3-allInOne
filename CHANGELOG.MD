@@ -1,10 +1,12 @@
 # Change Log
 
-## dev
+## v3.31.0 - Nov 29, 2021
 
-* Reads/writes user data in UTF-8 encoding.
+* Reads/writes the `user-data.json` file in UTF-8 encoding.
+* Handles error when the `user-data.json` file has an invalid format.
+* Fixes management of lifecycle of the server processes.
 
-## v3.30.0
+## v3.30.0 - Sep 18, 2021
 
 * Start with the All-in-One product.
     * Start page with project list, New Project & Open Project buttons.

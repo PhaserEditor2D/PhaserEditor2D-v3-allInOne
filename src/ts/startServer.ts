@@ -1,60 +1,68 @@
-import { ChildProcess, execFile } from "child_process";
+import { ChildProcess, spawn } from "child_process";
 import { createServer } from "http";
-import { join } from "path";
+import { join, normalize } from "path";
+import toUnix from "./toUnix";
 import { userData } from "./userData";
-
-let serverProc: ChildProcess;
 
 async function startServer(project: string) {
 
-    stopServer()
+    project = toUnix(project)
 
     console.log("Starting Phaser Editor 2D Core server")
 
     const savedPort = userData.getProjectPort(project)
 
-    console.log("savedPort " + savedPort)
+    console.log("Saved port: " + savedPort)
 
     const port = await findFreePort(savedPort ?? 1986 + Math.floor(Math.random() * 1024))
 
     if (savedPort === undefined) {
 
-        console.log(`Assign port ${port} to ${project}`)
+        console.log(`Assign new port ${port} to ${project}`)
         userData.setProjectPort(project, port)
     }
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
 
-    const filePath = join(__dirname, `../../server/${fileName}`)
+    const filePath = toUnix(normalize(join(toUnix(__dirname), `../../server/${fileName}`)))
+
+    console.log(`Spawn: ${filePath}`)
 
     const args = ["-disable-open-browser", "-port", port.toString(), "-project", project]
 
     console.log(args);
 
-    serverProc = execFile(filePath, args, {
-        windowsHide: true,
-    })
+    let proc: ChildProcess|undefined
 
-    serverProc.on("close", () => {
+    try {
 
-        console.log("Closed Phaser Editor 2D Core server");
-    })
+        const serverProc = proc = spawn(filePath, args, {
+            windowsHide: true
+        })
 
-    serverProc.stdout?.pipe(process.stdout)
-    serverProc.stderr?.pipe(process.stderr)
+        console.log(`Process ID: ${serverProc.pid}`)
 
-    process.once("exit", () => serverProc.kill("SIGKILL"))
+        serverProc.once("close", (code) => {
 
-    return port
-}
+            console.log(`Closed Phaser Editor 2D Core server (${serverProc.pid}). Exit code (${code}).`);
+        })
 
-function stopServer() {
+        serverProc.stdout?.pipe(process.stdout)
+        serverProc.stderr?.pipe(process.stderr)
 
-    if (serverProc) {
+        process.on("exit", code => {
 
-        console.log("Kill server process " + serverProc.pid)
-        serverProc.kill("SIGKILL")
+            console.log(`Main process exit. Kill server proc (${serverProc.pid}). Exit code (${code}).`)
+            console.log("Kill server process " + serverProc.pid)
+            serverProc.kill("SIGKILL")
+        })
+
+    } catch (e) {
+
+        console.log(e)
     }
+
+    return { port, proc }
 }
 
 async function isFreePort(port: number) {
@@ -87,4 +95,4 @@ async function findFreePort(portStart: number) {
     }
 }
 
-export { startServer, stopServer }
+export { startServer }
