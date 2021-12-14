@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.31.1 - Dec 14, 2021
+
+* Get latest starter templates.
+
 ## v3.31.0 - Nov 29, 2021
 
 * Reads/writes the `user-data.json` file in UTF-8 encoding.
