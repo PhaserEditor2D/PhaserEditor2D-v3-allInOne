@@ -7,8 +7,5 @@
         "types": [
             "phaser"
         ]
-    },
-    "exclude": [
-        "lib/**"
-    ]
+    }
 }

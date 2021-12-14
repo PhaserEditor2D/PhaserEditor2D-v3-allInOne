@@ -25,7 +25,7 @@ This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npm
 * Make a production build:
 
     ```
-    npm build
+    npm run build
     ```
 
     It is generated in the `/dist` folder.
