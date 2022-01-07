@@ -14,7 +14,7 @@ async function startServer(project: string) {
 
     console.log("Saved port: " + savedPort)
 
-    const port = await findFreePort(savedPort ?? 1986 + Math.floor(Math.random() * 1024))
+    const port = await findFreePort(savedPort ?? 3333 + Math.floor(Math.random() * 1024))
 
     if (savedPort === undefined) {
 
@@ -24,7 +24,7 @@ async function startServer(project: string) {
 
     const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
 
-    const filePath = toUnix(normalize(join(toUnix(__dirname), `../../server/${fileName}`)))
+    const filePath = normalize(join(__dirname, "..", "..", "server", fileName))
 
     console.log(`Spawn: ${filePath}`)
 
@@ -32,13 +32,13 @@ async function startServer(project: string) {
 
     console.log(args);
 
-    let proc: ChildProcess|undefined
+    let proc: ChildProcess | undefined
 
     try {
 
-        const serverProc = proc = spawn(filePath, args, {
+        const serverProc : ChildProcess = proc = spawn(filePath, args, {
             windowsHide: true
-        })
+        });
 
         console.log(`Process ID: ${serverProc.pid}`)
 
