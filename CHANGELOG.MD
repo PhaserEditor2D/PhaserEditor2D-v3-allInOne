@@ -1,5 +1,9 @@
 # Change Log
 
+## dev
+
+* Updates to the latest Electron.
+
 ## v3.31.2 - Dec 14, 2021
 
 * Update version.
