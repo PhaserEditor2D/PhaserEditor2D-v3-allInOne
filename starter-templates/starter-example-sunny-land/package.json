@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/PhaserEditor2D/starter-template-basic-javascript#readme",
   "devDependencies": {
-    "phasereditor2d-launcher": "^3.31.0"
+    "phasereditor2d-launcher": "^3.32.0"
   }
 }
