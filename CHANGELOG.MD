@@ -1,6 +1,6 @@
 # Change Log
 
-## dev
+## v3.32.0 - Jan 12, 2022
 
 * Updates to the latest Electron.
 
