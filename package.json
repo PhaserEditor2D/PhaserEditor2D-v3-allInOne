@@ -20,7 +20,8 @@
 	"config": {
 		"forge": {
 			"packagerConfig": {
-				"icon": "build-assets/icon"
+				"icon": "build-assets/icon",
+				"ignore": ["server"]
 			}
 		}
 	},
