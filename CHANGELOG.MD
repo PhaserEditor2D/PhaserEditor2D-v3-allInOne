@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.32.1 - Feb 27, 2022
+
+* Updates with the latest editor.
+
 ## v3.32.0 - Jan 12, 2022
 
 * Updates to the latest Electron.
