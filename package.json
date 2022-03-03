@@ -1,6 +1,6 @@
 {
 	"name": "PhaserEditor2D-allInOne",
-	"version": "3.32.1",
+	"version": "3.33.0-beta.0",
 	"description": "Phaser Editor 2D, an IDE for HTML5 game creation",
 	"main": "src/js/main.js",
 	"scripts": {
@@ -21,7 +21,13 @@
 		"forge": {
 			"packagerConfig": {
 				"icon": "build-assets/icon",
-				"ignore": ["server", ".github", ".vscode", "get-starter-templates.sh", "src/ts"]
+				"ignore": [
+					"server",
+					".github",
+					".vscode",
+					"get-starter-templates.sh",
+					"src/ts"
+				]
 			}
 		}
 	},
