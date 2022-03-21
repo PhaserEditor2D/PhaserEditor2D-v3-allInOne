@@ -7,9 +7,10 @@
 		"start": "electron-forge start --inspect-electron",
 		"ts-watch": "tsc -p src/ts -w",
 		"ts-build": "rm -Rf src/js; tsc -p src/ts;",
-		"build-macos": "electron-forge package -p darwin",
-		"build-linux": "electron-forge package -p linux",
-		"build-win32": "electron-forge package -p win32"
+		"build-macos": "electron-forge package -p darwin -a x64",
+		"build-macos-m1": "electron-forge package -p darwin -a arm64",
+		"build-linux": "electron-forge package -p linux -a x64",
+		"build-win32": "electron-forge package -p win32 -a x64"
 	},
 	"keywords": [],
 	"author": {
