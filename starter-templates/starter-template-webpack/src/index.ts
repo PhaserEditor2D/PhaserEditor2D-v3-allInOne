@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Level from "./scenes/Level";
-import preloadPackUrl from "../static/assets/preload-asset-pack.json";
+import preloadAssetPackUrl from "../static/assets/preload-asset-pack.json";
 import Preload from "./scenes/Preload";
 
 class Boot extends Phaser.Scene {
@@ -11,7 +11,7 @@ class Boot extends Phaser.Scene {
 
     preload() {
 
-        this.load.pack("pack", preloadPackUrl);
+        this.load.pack("pack", preloadAssetPackUrl);
     }
 
     create() {

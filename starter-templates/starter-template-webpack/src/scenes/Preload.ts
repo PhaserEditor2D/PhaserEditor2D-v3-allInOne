@@ -5,7 +5,9 @@
 
 import Phaser from "phaser";
 import PreloadText from "../components/PreloadText";
-import preloadPackUrl from "../../static/assets/asset-pack.json";
+/* START-USER-IMPORTS */
+import assetPackUrl from "../../static/assets/asset-pack.json";
+/* END-USER-IMPORTS */
 
 export default class Preload extends Phaser.Scene {
 
@@ -28,7 +30,7 @@ export default class Preload extends Phaser.Scene {
 		const progress = this.add.text(400, 349, "", {});
 		progress.setOrigin(0.5, 0.5);
 		progress.text = "0%";
-		progress.setStyle({"fontSize":"30px"});
+		progress.setStyle({ "fontSize": "30px" });
 
 		// progress (components)
 		new PreloadText(progress);
@@ -44,7 +46,7 @@ export default class Preload extends Phaser.Scene {
 
 		this.editorCreate();
 
-		this.load.pack("asset-pack", preloadPackUrl);
+		this.load.pack("asset-pack", assetPackUrl);
 
 		this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
 	}

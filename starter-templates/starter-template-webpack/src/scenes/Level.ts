@@ -5,6 +5,8 @@
 
 import Phaser from "phaser";
 import PushOnClick from "../components/PushOnClick";
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
 
@@ -25,7 +27,7 @@ export default class Level extends Phaser.Scene {
 		const text = this.add.text(400, 436, "", {});
 		text.setOrigin(0.5, 0.5);
 		text.text = "Phaser 3 + Phaser Editor 2D\nWebpack + TypeScript";
-		text.setStyle({"align":"center","fontFamily":"Arial","fontSize":"3em"});
+		text.setStyle({ "align": "center", "fontFamily": "Arial", "fontSize": "3em" });
 
 		// fufuSuperDino (components)
 		new PushOnClick(fufuSuperDino);
