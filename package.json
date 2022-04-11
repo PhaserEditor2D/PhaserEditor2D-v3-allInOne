@@ -1,6 +1,6 @@
 {
 	"name": "PhaserEditor2D-allInOne",
-	"version": "3.33.0-beta.0",
+	"version": "3.33.0-alpha.1",
 	"description": "Phaser Editor 2D, an IDE for HTML5 game creation",
 	"main": "src/js/main.js",
 	"scripts": {
