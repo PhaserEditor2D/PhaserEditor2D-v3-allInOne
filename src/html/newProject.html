@@ -17,22 +17,17 @@
     <div class="container header-section mt-4 pt-4">
 
         <div class="row">
-
             <div class="col-lg-6">
-
                 <div>
                     <h1 class="name mb-0 text-light">
                         New Project
                     </h1>
-
                     <p class="lead">
                         Select a project template.
                     </p>
-
                     <p>
                         <a href="start.html">&LeftArrow; Go Back</a>
                     </p>
-
                 </div>
             </div>
         </div>
@@ -41,47 +36,49 @@
 
 
     <div class="container">
-        <div id="projectsRow" class="row">
 
-        </div>
-        <div id="demosRow" class="row">
+        <p>
+        <h2>Built-in Templates</h2>
+        </p>
 
+        <div id="builtInProjects" class="list-group">
         </div>
+
+        <p>
+        <h2>Marketplace Templates</h2>
+        </p>
+
+        <div id="marketplace-starters" class="list-group">
+        </div>
+
+        <p>
+        <h2>Marketplace Examples</h2>
+        </p>
+
+        <div id="marketplace-examples" class="list-group">
+        </div>
+
+        <p></p>
     </div>
 
     <template id="projectCardTemplate">
-        <div class="col-lg-4">
-            <div class="card shadow-lg mb-4 card-with-hover">
-
-                <div class="card-body">
-
-                    <p>
-                        <img id="image" class="rounded img-fluid">
-                    </p>
-
-                    <h5 id="title" class="card-title mb-2">title</h5>
-
-                    <div id="tags" class="mb-2">
-                        <!-- tags
-                            <div class="badge badge-primary">tag</div>
-                        -->
-                    </div>
-
-                    <div id="description" class="card-text lead">
-                        description
-                    </div>
-
-                    <a href="#" class="stretched-link"></a>
+        <a id="link" href="#" class="list-group-item list-group-item-action p-2">
+            <div class="media">
+                <img id="image" src="..." class="card-img mr-3" style="width: 10rem;" alt="...">
+                <div class="media-body">
+                    <h5 id="title" class="card-title">Card title</h5>
+                    <div id="description" class="card-text text-muted">description</div>
+                    <small id="tags" class="text-muted">tags</small>
                 </div>
             </div>
-        </div>
+        </a>
     </template>
 
     <script>
 
-        function renderProjectTemplates(projectInfoList) {
+        function renderProjectTemplates(parentElementId, projectInfoList) {
 
-            const projectsRow = document.querySelector("#projectsRow")
+            const projectsRow = document.querySelector(`#${parentElementId}`)
 
             for (const projectInfo of projectInfoList) {
 
@@ -101,7 +98,8 @@
                     <div class="badge badge-secondary">${tag}</div>
                 `).join("")
 
-                itemElement.querySelector(".stretched-link").addEventListener("click", () => {
+
+                itemElement.addEventListener("click", () => {
                     electron.sendMessage({
                         method: "create-project",
                         body: {
@@ -114,7 +112,7 @@
             }
         }
 
-        renderProjectTemplates([
+        renderProjectTemplates("builtInProjects", [
             {
                 "title": "Basic JavaScript",
                 "image": "images/starter-project-javascript.png",
@@ -138,34 +136,28 @@
                 "repo": "starter-template-webpack",
                 "tags": ["typescript", "webpack"],
             },
-            {
-                "title": "Sunny Land",
-                "image": "images/starter-example-sunny-land.png",
-                "description": "A platformer based on a Tiled map, and Arcade physics.",
-                "repo": "starter-example-sunny-land",
-                "repoBranch": "master",
-                "tags": ["javascript"],
-                "color": "info"
-            },
-            {
-                "title": "Volcano",
-                "image": "images/starter-example-volcano.png",
-                "description": "A platformer fully designed with the Scene Editor.",
-                "repo": "starter-example-volcano",
-                "repoBranch": "master",
-                "tags": ["typescript"],
-                "color": "info"
-            },
-            {
-                "title": "A day in the beach",
-                "image": "images/starter-example-a-day-in-the-beach.png",
-                "description": "A point-and-click game. With an advanced configuration.",
-                "repo": "starter-example-a-day-in-the-beach",
-                "repoBranch": "master",
-                "tags": ["typescript", "webpack"],
-                "color": "info"
-            }
         ])
+
+        const marketplaceUrl = "http://localhost:8080"
+        const builtInItems = new Set(["starters/basic-js", "starters/basic-ts", "starters/webpack-ts"]);
+
+        for (const kind of ["starters", "examples"]) {
+
+            fetch(`${marketplaceUrl}/${kind}-data.json`).then(async (response) => {
+
+                let data = await response.json()
+
+                data = data.filter(item => !builtInItems.has(item.path))
+
+                for (const item of data) {
+
+                    item.image = `${marketplaceUrl}/${item.image}`
+                }
+
+                renderProjectTemplates(`marketplace-${kind}`, data)
+            })
+        }
+
     </script>
 
 </body>
