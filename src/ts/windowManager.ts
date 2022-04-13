@@ -7,6 +7,7 @@ import { join } from "path"
 import copy from "recursive-copy"
 import { startServer } from "./startServer"
 import { userData } from "./userData"
+import { download, downloadAndUnzip, downloadWithCache, unzipFile } from "./downloads"
 
 let projectPath = userData.getProjectPath()
 
@@ -151,13 +152,28 @@ export class WindowManager {
 
                             mkdirSync(dir, { recursive: true })
 
-                            const src = join(app.getAppPath(), "starter-templates", body.repo)
+                            if (body.builtin) {
 
-                            await copy(src, dir, {
-                                dot: true,
-                                overwrite: false,
-                                results: false,
-                            })
+                                console.log("Copying built-in template...")
+
+                                const src = join(app.getAppPath(), "starter-templates", body.repo)
+
+                                await copy(src, dir, {
+                                    dot: true,
+                                    overwrite: false,
+                                    results: false,
+                                })
+
+                                console.log("Done.")
+
+                            } else {
+
+                                console.log("Fetching template from marketplace...")
+
+                                await downloadAndUnzip(body.zip_url, dir)
+
+                                console.log("Done.")
+                            }
 
                             this.openProject(dir)
                         }

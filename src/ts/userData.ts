@@ -3,6 +3,19 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
 
+
+export function getUserDataFolder(create = false) {
+
+    const dir = join(homedir(), ".phasereditor2d/all-in-one")
+
+    if (create) {
+
+        mkdirSync(dir, { recursive: true })
+    }
+
+    return dir
+}
+
 class JSONStore {
 
     private settingsFile: string;
@@ -11,9 +24,7 @@ class JSONStore {
 
     constructor() {
 
-        const settingsDir = join(homedir(), ".phasereditor2d/all-in-one")
-
-        mkdirSync(settingsDir, { recursive: true })
+        const settingsDir = getUserDataFolder(true)
 
         this.settingsFile = join(settingsDir, "user-data.json")
 

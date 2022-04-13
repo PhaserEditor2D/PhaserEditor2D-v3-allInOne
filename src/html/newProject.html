@@ -49,6 +49,7 @@
         </p>
 
         <div id="marketplace-starters" class="list-group">
+            Loading...
         </div>
 
         <p>
@@ -56,6 +57,7 @@
         </p>
 
         <div id="marketplace-examples" class="list-group">
+            Loading...
         </div>
 
         <p></p>
@@ -78,7 +80,8 @@
 
         function renderProjectTemplates(parentElementId, projectInfoList) {
 
-            const projectsRow = document.querySelector(`#${parentElementId}`)
+            const parentElement = document.querySelector(`#${parentElementId}`)
+            parentElement.removeChild(parentElement.firstChild)
 
             for (const projectInfo of projectInfoList) {
 
@@ -100,43 +103,31 @@
 
 
                 itemElement.addEventListener("click", () => {
+
                     electron.sendMessage({
                         method: "create-project",
                         body: {
-                            repo: projectInfo.repo
+                            builtin: projectInfo.builtin,
+                            repo: projectInfo.repo,
+                            zip_url: projectInfo.zip_url
                         }
                     })
                 })
 
-                projectsRow.appendChild(itemElement)
+                parentElement.appendChild(itemElement)
             }
         }
 
-        renderProjectTemplates("builtInProjects", [
-            {
-                "title": "Basic JavaScript",
-                "image": "images/starter-project-javascript.png",
-                "description": "The simplest template, with JavaScript.",
-                "repo": "starter-template-basic-javascript",
-                "tags": ["javascript"],
-            },
+        // built-in projects
 
-            {
-                "title": "Basic TypeScript",
-                "image": "images/starter-project-typescript.png",
-                "description": "The simplest template, with TypeScript.",
-                "repo": "starter-template-basic-typescript",
-                "tags": ["javascript"],
-            },
+        fetch("./projects-data.json").then(async (resp) => {
 
-            {
-                "title": "Webpack TypeScript",
-                "image": "images/starter-project-webpack.png",
-                "description": "The template for real games. Webpack & TypeScript.",
-                "repo": "starter-template-webpack",
-                "tags": ["typescript", "webpack"],
-            },
-        ])
+            const data = await resp.json()
+
+            renderProjectTemplates("builtInProjects", data)
+        })
+
+        // marketplace projects
 
         const marketplaceUrl = "http://localhost:8080"
         const builtInItems = new Set(["starters/basic-js", "starters/basic-ts", "starters/webpack-ts"]);
