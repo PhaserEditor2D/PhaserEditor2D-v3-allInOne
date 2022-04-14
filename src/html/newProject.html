@@ -118,6 +118,11 @@
             }
         }
 
+        /** @type {string[]} */
+        const config = electron.sendMessageSync({
+            method: "marketplace-config"
+        })
+
         // built-in projects
 
         fetch("./projects-data.json").then(async (resp) => {
@@ -129,7 +134,7 @@
 
         // marketplace projects
 
-        const marketplaceUrl = "http://localhost:8080"
+        const { marketplaceUrl } = config
         const builtInItems = new Set(["starters/basic-js", "starters/basic-ts", "starters/webpack-ts"]);
 
         for (const kind of ["starters", "examples"]) {

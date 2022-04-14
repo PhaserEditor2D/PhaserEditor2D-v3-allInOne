@@ -7,7 +7,8 @@ import { join } from "path"
 import copy from "recursive-copy"
 import { startServer } from "./startServer"
 import { userData } from "./userData"
-import { download, downloadAndUnzip, downloadWithCache, unzipFile } from "./downloads"
+import { downloadAndUnzip } from "./downloads"
+import { env } from "process"
 
 let projectPath = userData.getProjectPath()
 
@@ -132,6 +133,16 @@ export class WindowManager {
                     this.killServerProcess()
 
                     break
+                }
+
+                case "marketplace-config": {
+
+                    const marketplaceUrl = env.PHASEREDITOR_MARKETPLACE_URL
+                        || "https://marketplace.phasereditor2d.com"
+
+                    console.log(`Marketplace URL: ${marketplaceUrl}`)
+
+                    event.returnValue = { marketplaceUrl }
                 }
 
                 case "create-project": {
