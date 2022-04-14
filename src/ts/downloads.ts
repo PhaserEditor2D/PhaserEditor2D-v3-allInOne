@@ -58,8 +58,6 @@ export function download(url: string, dstFile: string) {
 
     return new Promise((resolve, reject) => {
 
-        var file = createWriteStream(tmpFile);
-
         https.get(url, function (response) {
 
             const { statusCode } = response
@@ -69,6 +67,8 @@ export function download(url: string, dstFile: string) {
                 reject(new Error(`[statusCode ${statusCode}] Network error downloading ${url}`))
             }
 
+            const file = createWriteStream(tmpFile);
+            
             response
                 .pipe(file)
                 .on("error", () => {
@@ -90,8 +90,6 @@ export function download(url: string, dstFile: string) {
             })
 
         }).on("error", err => {
-
-            unlink(dstFile, err => console.error(err))
 
             reject(err)
         });
