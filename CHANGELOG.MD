@@ -1,5 +1,10 @@
 # Change Log
 
+## dev
+
+* Integrates with the marketplace project templates & examples.
+* Allows an alt  editor's exec path from `$PHASEREDITOR_ALLINONE_EDITOR.`
+
 ## v3.32.1 - Feb 27, 2022
 
 * Updates with the latest editor.
