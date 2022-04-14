@@ -3,7 +3,8 @@
 ## dev
 
 * Integrates with the marketplace project templates & examples.
-* Allows an alt  editor's exec path from `$PHASEREDITOR_ALLINONE_EDITOR.`
+* Allows an alt  editor's exec path from `$PHASEREDITOR_ALLINONE_EDITOR.`.
+* Gets marketplace data from official site or a provided `$PHASEREDITOR_MARKETPLACE_URL` environment variable.
 
 ## v3.32.1 - Feb 27, 2022
 
