@@ -21,14 +21,13 @@
             <div class="col-lg-12">
                 <div>
                     <h1 class="name mb-0 text-light">
-                        New Project
+                        New Project <span class="text-muted">@</span> Marketplace
                     </h1>
                     <p class="lead">
-                        Select a built-in project template.
+                        Select a project template from the online Phaser Editor 2D Marketplace.
                     </p>
                     <div class="w-100 d-flex justify-content-between">
-                        <a href="./start.html">&LeftArrow; Go Back</a>
-                        <a href="./marketplace.html">Get more in the Marketplace &rightarrow;</a>
+                        <a href="./newProject.html">&LeftArrow; Go Back</a>
                     </div>
                 </div>
             </div>
@@ -39,9 +38,20 @@
 
     <div class="container">
 
-        <p></p>
+        <p>
+        <h3>Starters</h3>
+        </p>
 
-        <div id="builtInProjects" class="list-group">
+        <div id="marketplace-starters" class="list-group">
+            Loading...
+        </div>
+
+        <p>
+        <h3>Examples</h3>
+        </p>
+
+        <div id="marketplace-examples" class="list-group">
+            Loading...
         </div>
 
         <p></p>
@@ -109,14 +119,32 @@
             }
         }
 
-        // built-in projects
-
-        fetch("./projects-data.json").then(async (resp) => {
-
-            const data = await resp.json()
-
-            renderProjectTemplates("builtInProjects", data)
+        /** @type {string[]} */
+        const config = electron.sendMessageSync({
+            method: "marketplace-config"
         })
+
+        // marketplace projects
+
+        const { marketplaceUrl } = config
+        const builtInItems = new Set(["starters/basic-js", "starters/basic-ts", "starters/webpack-ts"]);
+
+        for (const kind of ["starters", "examples"]) {
+
+            fetch(`${marketplaceUrl}/${kind}-data.json`).then(async (response) => {
+
+                let data = await response.json()
+
+                data = data.filter(item => !builtInItems.has(item.path))
+
+                for (const item of data) {
+
+                    item.image = `${marketplaceUrl}/${item.image}`
+                }
+
+                renderProjectTemplates(`marketplace-${kind}`, data)
+            })
+        }
 
     </script>
 
