@@ -143,6 +143,8 @@ export class WindowManager {
                     console.log(`Marketplace URL: ${marketplaceUrl}`)
 
                     event.returnValue = { marketplaceUrl }
+
+                    break
                 }
 
                 case "create-project": {

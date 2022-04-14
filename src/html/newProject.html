@@ -9,6 +9,7 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-icons.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -70,7 +71,8 @@
                 <div class="media-body">
                     <h5 id="title" class="card-title">Card title</h5>
                     <div id="description" class="card-text text-muted">description</div>
-                    <small id="tags" class="text-muted">tags</small>
+                    <small id="tags" class="text-info">tags</small>
+                    <small>by <span id="author" class="text-light">author</span></small>
                 </div>
             </div>
         </a>
@@ -94,11 +96,17 @@
                 /** @type {HTMLDivElement} */
                 const itemElement = fragment.firstElementChild
 
+                const verified = projectInfo.author === "phasereditor2d"? 
+                    ` <i class="bi-patch-check-fill text-info"></i>` 
+                    : ` <i class="bi-people text-info"></i>`
+
                 itemElement.querySelector("#title").innerHTML = projectInfo.title
+                itemElement.querySelector("#author").innerHTML = projectInfo.author + verified
+                    
                 itemElement.querySelector("#description").innerHTML = projectInfo.description
                 itemElement.querySelector("#image").src = projectInfo.image
                 itemElement.querySelector("#tags").innerHTML = projectInfo.tags.map(tag => `
-                    <div class="badge badge-secondary">${tag}</div>
+                    <span>#${tag}</span>
                 `).join("")
 
 
