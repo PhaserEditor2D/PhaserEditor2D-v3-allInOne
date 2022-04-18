@@ -1,0 +1,31 @@
+[
+    {
+        "title": "Basic JavaScript",
+        "image": "images/starter-project-javascript.png",
+        "description": "The simplest template, with JavaScript.",
+        "repo": "starter-template-basic-javascript",
+        "tags": ["javascript"],
+        "author": "phasereditor2d",
+        "builtin": true
+    },
+
+    {
+        "title": "Basic TypeScript",
+        "image": "images/starter-project-typescript.png",
+        "description": "The simplest template, with TypeScript.",
+        "repo": "starter-template-basic-typescript",
+        "tags": ["javascript"],
+        "author": "phasereditor2d",
+        "builtin": true
+    },
+
+    {
+        "title": "Webpack TypeScript",
+        "image": "images/starter-project-webpack.png",
+        "description": "The template for real games. Webpack & TypeScript.",
+        "repo": "starter-template-webpack",
+        "tags": ["typescript", "webpack"],
+        "author": "phasereditor2d",
+        "builtin": true
+    }
+]

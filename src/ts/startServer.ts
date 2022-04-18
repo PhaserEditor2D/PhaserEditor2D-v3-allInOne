@@ -1,6 +1,7 @@
 import { ChildProcess, spawn } from "child_process";
 import { createServer } from "http";
 import { join, normalize } from "path";
+import { env } from "process";
 import toUnix from "./toUnix";
 import { userData } from "./userData";
 
@@ -22,11 +23,16 @@ async function startServer(project: string) {
         userData.setProjectPort(project, port)
     }
 
-    const fileName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
+    const editorExeName = process.platform === "win32" ? "PhaserEditor2D.exe" : "PhaserEditor2D"
 
-    const filePath = normalize(join(__dirname, "..", "..", "server", fileName))
+    let editorExeFullname = normalize(join(__dirname, "..", "..", "server", editorExeName))
 
-    console.log(`Spawn: ${filePath}`)
+    if (env.PHASEREDITOR_ALLINONE_EDITOR) {
+
+        editorExeFullname = join(env.PHASEREDITOR_ALLINONE_EDITOR, editorExeName)
+    }
+
+    console.log(`Spawn: ${editorExeFullname}`)
 
     const args = ["-disable-open-browser", "-port", port.toString(), "-project", project]
 
@@ -36,7 +42,7 @@ async function startServer(project: string) {
 
     try {
 
-        const serverProc : ChildProcess = proc = spawn(filePath, args, {
+        const serverProc : ChildProcess = proc = spawn(editorExeFullname, args, {
             windowsHide: true
         });
 

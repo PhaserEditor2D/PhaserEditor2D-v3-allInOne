@@ -5,6 +5,8 @@
 
 import UserComponent from "./UserComponent";
 import Phaser from "phaser";
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
 
 export default class PushOnClick extends UserComponent {
 
