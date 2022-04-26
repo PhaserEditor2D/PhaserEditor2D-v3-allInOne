@@ -58,17 +58,20 @@
     </div>
 
     <template id="projectCardTemplate">
-        <a id="link" class="list-group-item list-group-item-action p-2" style="cursor: pointer;">
+        <div id="link" class="list-group-item list-group-item-action p-2" style="cursor: pointer;">
             <div class="media">
                 <img id="image" src="..." class="card-img mr-3" style="width: 10rem;" alt="...">
                 <div class="media-body">
-                    <h5 id="title" class="card-title">Card title</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 id="title" class="card-title">Card title</h5>
+                        <a id="website" href="" target="_blank"><i class="bi-arrow-up-right-square"></i></a>
+                    </div>
                     <div id="description" class="card-text text-muted">description</div>
                     <small id="tags" class="text-info">tags</small>
                     <small>by <span id="author" class="text-light">author</span></small>
                 </div>
             </div>
-        </a>
+        </div>
     </template>
 
     <script>
@@ -86,6 +89,8 @@
                 /** @type {DocumentFragment} */
                 const fragment = template.content.cloneNode(true);
 
+                console.log(fragment)
+
                 /** @type {HTMLDivElement} */
                 const itemElement = fragment.firstElementChild
 
@@ -95,12 +100,20 @@
 
                 itemElement.querySelector("#title").innerHTML = projectInfo.title
                 itemElement.querySelector("#author").innerHTML = projectInfo.author + verified
-
                 itemElement.querySelector("#description").innerHTML = projectInfo.description
                 itemElement.querySelector("#image").src = projectInfo.image
                 itemElement.querySelector("#tags").innerHTML = projectInfo.tags.map(tag => `
                     <span>#${tag}</span>
                 `).join("")
+                itemElement.querySelector("#website").addEventListener("click", e => {
+                    
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+
+                    console.log("Opening website: " + projectInfo.website)
+
+                    open(projectInfo.website, "_blank");
+                })
 
 
                 itemElement.addEventListener("click", () => {
