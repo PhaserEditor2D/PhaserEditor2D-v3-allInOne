@@ -3,6 +3,7 @@
 ## dev
 
 * Shows the website link in the marketplace projects.
+* Cache practically all marketplace data.
 
 ## v3.33.0 - Apr 18, 2022
 
