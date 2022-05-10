@@ -1,6 +1,6 @@
 # Change Log
 
-## dev
+## v3.33.1 - May 10, 2022
 
 * Shows the website link in the marketplace projects.
 * Cache practically all marketplace data.
