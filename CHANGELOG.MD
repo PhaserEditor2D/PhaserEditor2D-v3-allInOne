@@ -1,5 +1,14 @@
 # Change Log
 
+## v3.33.2 - Jun 1, 2022
+
+* Gets latest server.
+
+## v3.33.1 - May 10, 2022
+
+* Shows the website link in the marketplace projects.
+* Cache practically all marketplace data.
+
 ## v3.33.0 - Apr 18, 2022
 
 * Integrates with the marketplace project templates & examples.

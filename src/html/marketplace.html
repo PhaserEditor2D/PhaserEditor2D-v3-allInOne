@@ -58,17 +58,20 @@
     </div>
 
     <template id="projectCardTemplate">
-        <a id="link" class="list-group-item list-group-item-action p-2" style="cursor: pointer;">
+        <div id="link" class="list-group-item list-group-item-action p-2" style="cursor: pointer;">
             <div class="media">
                 <img id="image" src="..." class="card-img mr-3" style="width: 10rem;" alt="...">
                 <div class="media-body">
-                    <h5 id="title" class="card-title">Card title</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 id="title" class="card-title">Card title</h5>
+                        <a id="website" href="" target="_blank"><i class="bi-arrow-up-right-square"></i></a>
+                    </div>
                     <div id="description" class="card-text text-muted">description</div>
                     <small id="tags" class="text-info">tags</small>
                     <small>by <span id="author" class="text-light">author</span></small>
                 </div>
             </div>
-        </a>
+        </div>
     </template>
 
     <script>
@@ -95,12 +98,20 @@
 
                 itemElement.querySelector("#title").innerHTML = projectInfo.title
                 itemElement.querySelector("#author").innerHTML = projectInfo.author + verified
-
                 itemElement.querySelector("#description").innerHTML = projectInfo.description
                 itemElement.querySelector("#image").src = projectInfo.image
                 itemElement.querySelector("#tags").innerHTML = projectInfo.tags.map(tag => `
                     <span>#${tag}</span>
                 `).join("")
+                itemElement.querySelector("#website").addEventListener("click", e => {
+
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+
+                    console.log("Opening website: " + projectInfo.website)
+
+                    open(projectInfo.website, "_blank");
+                })
 
 
                 itemElement.addEventListener("click", () => {
@@ -131,19 +142,59 @@
 
         for (const kind of ["starters", "examples"]) {
 
-            fetch(`${marketplaceUrl}/${kind}-data.json`).then(async (response) => {
-
-                let data = await response.json()
+            fetchWithCache(kind, `${marketplaceUrl}/${kind}-data.json`).then(async (data) => {
 
                 data = data.filter(item => !builtInItems.has(item.path))
 
-                for (const item of data) {
-
-                    item.image = `${marketplaceUrl}/${item.image}`
-                }
-
                 renderProjectTemplates(`marketplace-${kind}`, data)
             })
+        }
+
+        async function fetchWithCache(key, url) {
+
+            const cacheStr = localStorage.getItem("fetchWithCache." + key)
+
+            if (cacheStr) {
+
+                try {
+
+                    const data = JSON.parse(cacheStr)
+
+                    updateDataCache(key, url)
+
+                    console.log(`Get data from cache [${key}]`)
+
+                    return data;
+
+                } catch (e) {
+
+                    console.log(e)
+                }
+            }
+
+            // no cache? the fetch it
+
+            return updateDataCache(key, url)
+        }
+
+        async function updateDataCache(key, url) {
+
+            console.log(`Updating data cache [${key}].`)
+
+            const response = await fetch(url)
+
+            let data = await response.json()
+
+            data = data.filter(item => !builtInItems.has(item.path))
+
+            for (const item of data) {
+
+                item.image = `${marketplaceUrl}/${item.image}`
+            }
+
+            localStorage.setItem("fetchWithCache." + key, JSON.stringify(data))
+
+            return data
         }
 
     </script>
