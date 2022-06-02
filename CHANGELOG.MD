@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.33.2 - Jun 1, 2022
+
+* Gets latest server.
+
 ## v3.33.1 - May 10, 2022
 
 * Shows the website link in the marketplace projects.
