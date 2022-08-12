@@ -1,6 +1,6 @@
 # Change Log
 
-## dev
+## v3.34.0 - Aug 12, 2022
 
 * macOS: doesn't exit the app when all windows are closed.
 * macOS & Windows: allows opening the recent projects from the the app icon menu. 
