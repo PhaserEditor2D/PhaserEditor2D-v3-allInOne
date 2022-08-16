@@ -10,8 +10,6 @@ import { userData } from "./userData"
 import { downloadAndUnzip } from "./downloads"
 import { env } from "process"
 
-let projectPath = userData.getProjectPath()
-
 export class WindowManager {
 
     private static count = 0
@@ -19,7 +17,7 @@ export class WindowManager {
     private win: BrowserWindow
     private _serverProc?: ChildProcess
 
-    constructor() {
+    constructor(windowProjectPath?: string) {
 
         WindowManager.count++
 
@@ -62,10 +60,10 @@ export class WindowManager {
                 case "ask-close-window": {
 
                     const choice = await dialog.showMessageBox(this.win, {
-                        type: 'question',
-                        buttons: ['Leave', 'Stay'],
-                        title: 'Do you want to leave?',
-                        message: 'Changes you made may not be saved.',
+                        type: "question",
+                        buttons: ["Leave", "Stay"],
+                        title: "Do you want to leave?",
+                        message: "Changes you made may not be saved.",
                         defaultId: 0,
                         cancelId: 1
                     })
@@ -113,7 +111,7 @@ export class WindowManager {
                         const result = await dialog.showOpenDialog(this.win, {
                             message: "Select Folder",
                             properties: ["openDirectory", "createDirectory", "promptToCreate"],
-                            defaultPath: projectPath
+                            defaultPath: windowProjectPath || homedir()
                         })
 
                         dir = result ? result.filePaths[0] : undefined
@@ -154,7 +152,7 @@ export class WindowManager {
                         const result = await dialog.showOpenDialog(this.win, {
                             message: "Select Project Path",
                             properties: ["openDirectory", "createDirectory", "promptToCreate"],
-                            defaultPath: projectPath || homedir()
+                            defaultPath: windowProjectPath
                         })
 
                         if (!result.canceled) {
@@ -233,9 +231,11 @@ export class WindowManager {
             this.killServerProcess()
         })
 
-        if (WindowManager.count === 1 && projectPath && existsSync(projectPath) && statSync(projectPath).isDirectory()) {
+        if (windowProjectPath
+            && existsSync(windowProjectPath)
+            && statSync(windowProjectPath).isDirectory()) {
 
-            this.openProject(projectPath)
+            this.openProject(windowProjectPath)
 
         } else {
 
@@ -261,6 +261,8 @@ export class WindowManager {
     clearList() {
 
         userData.clearRecentProjects()
+
+        app.clearRecentDocuments()
     }
 
     loadHomePage() {
@@ -307,8 +309,9 @@ export class WindowManager {
 
         setTimeout(() => this.win.loadURL(url), 500)
 
-        projectPath = project
-        userData.setProjectPath(projectPath)
+        app.addRecentDocument(project);
+
+        userData.setProjectPath(project)
         userData.incrementRecentProject(project)
 
         return true
@@ -316,90 +319,90 @@ export class WindowManager {
 
     createMenu() {
 
-        const isMac = process.platform === 'darwin'
+        const isMac = process.platform === "darwin"
 
         const template: any = [
-            // { role: 'appMenu' }
+            // { role: "appMenu" }
             ...(isMac ? [{
                 label: "Phaser Editor 2D",
                 submenu: [
-                    { role: 'about' },
-                    { type: 'separator' },
-                    { role: 'services' },
-                    { type: 'separator' },
-                    { role: 'hide' },
-                    { role: 'hideothers' },
-                    { role: 'unhide' },
-                    { type: 'separator' },
-                    { role: 'quit' }
+                    { role: "about" },
+                    { type: "separator" },
+                    { role: "services" },
+                    { type: "separator" },
+                    { role: "hide" },
+                    { role: "hideothers" },
+                    { role: "unhide" },
+                    { type: "separator" },
+                    { role: "quit" }
                 ]
             }] : []),
-            // { role: 'fileMenu' }
+            // { role: "fileMenu" }
             {
-                label: 'File',
+                label: "File",
                 submenu: [
-                    isMac ? { role: 'close' } : { role: 'quit' }
+                    isMac ? { role: "close" } : { role: "quit" }
                 ]
             },
 
-            // { role: 'editMenu'}
+            // { role: "editMenu"}
             {
-                label: 'Edit',
+                label: "Edit",
                 submenu: [
-                    { role: 'undo' },
-                    { role: 'redo' },
-                    { type: 'separator' },
-                    { role: 'cut' },
-                    { role: 'copy' },
-                    { role: 'paste' },
+                    { role: "undo" },
+                    { role: "redo" },
+                    { type: "separator" },
+                    { role: "cut" },
+                    { role: "copy" },
+                    { role: "paste" },
                     ...(isMac ? [
-                        { role: 'pasteAndMatchStyle' },
-                        { role: 'delete' },
-                        { role: 'selectAll' },
-                        { type: 'separator' },
+                        { role: "pasteAndMatchStyle" },
+                        { role: "delete" },
+                        { role: "selectAll" },
+                        { type: "separator" },
                         {
-                            label: 'Speech',
+                            label: "Speech",
                             submenu: [
-                                { role: 'startSpeaking' },
-                                { role: 'stopSpeaking' }
+                                { role: "startSpeaking" },
+                                { role: "stopSpeaking" }
                             ]
                         }
                     ] : [
-                        { role: 'delete' },
-                        { type: 'separator' },
-                        { role: 'selectAll' }
+                        { role: "delete" },
+                        { type: "separator" },
+                        { role: "selectAll" }
                     ])
                 ]
             },
 
-            // { role: 'viewMenu' }
+            // { role: "viewMenu" }
             {
-                label: 'View',
+                label: "View",
                 submenu: [
-                    { role: 'reload' },
-                    { role: 'forceReload' },
-                    { role: 'toggleDevTools' },
-                    { type: 'separator' },
-                    { role: 'resetZoom' },
-                    { role: 'zoomIn' },
-                    { role: 'zoomOut' },
-                    { type: 'separator' },
-                    { role: 'togglefullscreen' }
+                    { role: "reload" },
+                    { role: "forceReload" },
+                    { role: "toggleDevTools" },
+                    { type: "separator" },
+                    { role: "resetZoom" },
+                    { role: "zoomIn" },
+                    { role: "zoomOut" },
+                    { type: "separator" },
+                    { role: "togglefullscreen" }
                 ]
             },
-            // { role: 'windowMenu' }
+            // { role: "windowMenu" }
             {
-                label: 'Window',
+                label: "Window",
                 submenu: [
-                    { role: 'minimize' },
-                    { role: 'zoom' },
+                    { role: "minimize" },
+                    { role: "zoom" },
                     ...(isMac ? [
-                        { type: 'separator' },
-                        { role: 'front' },
-                        { type: 'separator' },
-                        { role: 'window' }
+                        { type: "separator" },
+                        { role: "front" },
+                        { type: "separator" },
+                        { role: "window" }
                     ] : [
-                        { role: 'close' }
+                        { role: "close" }
                     ])
                 ]
             }
@@ -408,10 +411,5 @@ export class WindowManager {
         const menu = Menu.buildFromTemplate(template)
 
         Menu.setApplicationMenu(menu)
-    }
-
-    exitApp() {
-
-        process.exit()
     }
 }
