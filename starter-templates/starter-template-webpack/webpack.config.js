@@ -33,7 +33,8 @@ module.exports = {
             },
             {
                 test: /\.json/,
-                type: "asset/resource"
+                type: "asset/resource",
+                exclude: /node_modules/,
             }
         ],
     },
