@@ -1,6 +1,6 @@
 # Change Log
 
-## dev
+## v3.35.0 - Oct 14, 2022
 
 * Update with the latest starter templates.
 
