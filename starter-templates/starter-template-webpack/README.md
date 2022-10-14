@@ -6,7 +6,7 @@ A project template for Phaser 3, Webpack 5, TypeScript, and Phaser Editor 2D v3.
 
 ## First steps
 
-This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npmjs.com). It is recommended that you learn the basics of [Webpack.js](https://www/webpack.js.org).
+This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npmjs.com). It is recommended that you learn the basics of [Webpack.js](https://webpack.js.org).
 
 * Install dependencies:
 

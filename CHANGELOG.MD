@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.35.0 - Oct 14, 2022
+
+* Update with the latest starter templates.
+
 ## v3.34.0 - Aug 12, 2022
 
 * macOS: doesn't exit the app when all windows are closed.
