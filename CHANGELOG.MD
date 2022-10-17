@@ -1,5 +1,9 @@
 # Change Log
 
+## dev
+
+* Gets latest update from starter basic javascript template. It now includes Phaser types definitions.
+
 ## v3.35.0 - Oct 14, 2022
 
 * Update with the latest starter templates.
