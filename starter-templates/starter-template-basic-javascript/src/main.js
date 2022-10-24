@@ -11,7 +11,7 @@ window.addEventListener('load', function () {
 			autoCenter: Phaser.Scale.CENTER_BOTH
 		}
 	});
-	
+
 	game.scene.add("Preload", Preload);
 	game.scene.add("Level", Level);
 	game.scene.add("Boot", Boot, true);
