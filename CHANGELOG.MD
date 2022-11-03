@@ -1,6 +1,6 @@
 # Change Log
 
-## dev
+## v3.35.1 - Nov 2, 2022
 
 * Gets latest update from starter basic javascript template. It now includes Phaser types definitions.
 * Gets webpack template update. It contains the config for deploying the game in GitHub Pages.
