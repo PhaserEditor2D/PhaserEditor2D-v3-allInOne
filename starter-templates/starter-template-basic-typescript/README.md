@@ -12,7 +12,14 @@ This is a Phaser Editor 2D v3 project template.
 
 ## Compiles the source code
 
-This project is based on TypeScript so for getting the game running you need to compile the TypeScript files:
+This project is based on TypeScript so for getting the game, first, you need to install TypeScript and other dependencies:
+
+```bash
+$ npm install
+$ npm update
+```
+
+Then, for running the game, you need to compile the TypeScript files:
 
 ```bash
 $ npm run build

@@ -13,6 +13,7 @@ This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npm
 
     ```
     npm install
+    npm update
     ```
 
 * Run the development server:
@@ -47,12 +48,13 @@ Just follow these steps:
 
 If you don't want to deploy your game to GitHub Pages, then you can remove the `.github/workflows/main.yml` file.
 
+In this video I explain many of these concepts: [Start making a game in the cloud. GitHub + VS Code + Phaser Editor 2D [Tutorial]](https://www.youtube.com/watch?v=lndU7UAjzgo&t=183s)
+
 ## Run the editor
 
 * You can run the editor using the `editor` NPM script, defined in the `package.json` file:
 
     ```bash
-    $ npm install
     $ npm run editor
     ```
 
