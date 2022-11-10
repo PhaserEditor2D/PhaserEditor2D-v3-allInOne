@@ -12,10 +12,18 @@ This is a Phaser Editor 2D v3 project template.
 
 ## Run the editor
 
-If you have NodeJS installed, you can run the editor using the `editor` NPM script, defined in the `package.json` file:
+If you have NodeJS installed, you can run the editor using the `editor` NPM script, defined in the `package.json` file.
+
+First you have to install & update the dependencies:
 
 ```bash
 $ npm install
+$ npm update
+```
+
+And then you can run the editor:
+
+```bash
 $ npm run editor
 ```
 
