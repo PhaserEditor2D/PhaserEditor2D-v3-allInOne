@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.60.0.beta-1 - Feb 10, 2022
+
+* Get latest update.
+
 ## v3.36.2 - Dec 14, 2022
 
 * Get latest update from Core: 
