@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.60.0.beta.2 - Mar 25, 2023
+
+* Get latest update.
+* Updates app icons.
+
 ## v3.60.0.beta-1 - Feb 10, 2022
 
 * Get latest update.
