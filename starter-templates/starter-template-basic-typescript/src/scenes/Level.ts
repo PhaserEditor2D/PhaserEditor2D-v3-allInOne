@@ -16,16 +16,19 @@ class Level extends Phaser.Scene {
 	editorCreate(): void {
 
 		// dino
-		const dino = this.add.image(400, 245.50984430371858, "dino");
+		const dino = this.add.image(640, 302, "dino");
+
+		// onPointerDownScript
+		const onPointerDownScript = new OnPointerDownScript(dino);
+
+		// pushActionScript
+		new PushActionScript(onPointerDownScript);
 
 		// text_1
-		const text_1 = this.add.text(400, 406, "", {});
+		const text_1 = this.add.text(640, 462, "", {});
 		text_1.setOrigin(0.5, 0);
 		text_1.text = "Phaser 3 + Phaser Editor 2D + TypeScript";
-		text_1.setStyle({"fontFamily":"arial","fontSize":"3em"});
-
-		// dino (components)
-		new PushOnClick(dino);
+		text_1.setStyle({ "fontFamily": "arial", "fontSize": "3em" });
 
 		this.events.emit("scene-awake");
 	}
