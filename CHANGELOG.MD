@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.60.0 - Apr 16, 2023
+
+* Updates app icons.
+* Get latest update.
+
 ## v3.36.2 - Dec 14, 2022
 
 * Get latest update from Core: 

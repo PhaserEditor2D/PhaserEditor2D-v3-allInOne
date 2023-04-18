@@ -1,8 +1,8 @@
 "use strict";
 window.addEventListener('load', function () {
     var game = new Phaser.Game({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         type: Phaser.AUTO,
         backgroundColor: "#242424",
         scale: {
@@ -65,57 +65,6 @@ class UserComponent {
         // override this
     }
 }
-/// <reference path="./UserComponent.ts"/>
-/* START OF COMPILED CODE */
-class PreloadText extends UserComponent {
-    constructor(gameObject) {
-        super(gameObject);
-        this.gameObject = gameObject;
-        gameObject["__PreloadText"] = this;
-        /* START-USER-CTR-CODE */
-        this.scene.load.on(Phaser.Loader.Events.PROGRESS, (p) => {
-            this.gameObject.text = (p * 100) + "%";
-        });
-        /* END-USER-CTR-CODE */
-    }
-    static getComponent(gameObject) {
-        return gameObject["__PreloadText"];
-    }
-    gameObject;
-}
-/* END OF COMPILED CODE */
-// You can write more code here
-/// <reference path="./UserComponent.ts"/>
-// You can write more code here
-/* START OF COMPILED CODE */
-class PushOnClick extends UserComponent {
-    constructor(gameObject) {
-        super(gameObject);
-        this.gameObject = gameObject;
-        gameObject["__PushOnClick"] = this;
-        /* START-USER-CTR-CODE */
-        // Write your code here.
-        /* END-USER-CTR-CODE */
-    }
-    static getComponent(gameObject) {
-        return gameObject["__PushOnClick"];
-    }
-    gameObject;
-    /* START-USER-CODE */
-    awake() {
-        this.gameObject.setInteractive().on("pointerdown", () => {
-            this.scene.add.tween({
-                targets: this.gameObject,
-                scaleX: 0.8,
-                scaleY: 0.8,
-                duration: 80,
-                yoyo: true
-            });
-        });
-    }
-}
-/* END OF COMPILED CODE */
-// You can write more code here
 // You can write more code here
 /* START OF COMPILED CODE */
 class Level extends Phaser.Scene {
@@ -127,14 +76,16 @@ class Level extends Phaser.Scene {
     }
     editorCreate() {
         // dino
-        const dino = this.add.image(400, 245.50984430371858, "dino");
+        const dino = this.add.image(640, 302, "dino");
+        // onPointerDownScript
+        const onPointerDownScript = new OnPointerDownScript(dino);
+        // pushActionScript
+        new PushActionScript(onPointerDownScript);
         // text_1
-        const text_1 = this.add.text(400, 406, "", {});
+        const text_1 = this.add.text(640, 462, "", {});
         text_1.setOrigin(0.5, 0);
         text_1.text = "Phaser 3 + Phaser Editor 2D + TypeScript";
         text_1.setStyle({ "fontFamily": "arial", "fontSize": "3em" });
-        // dino (components)
-        new PushOnClick(dino);
         this.events.emit("scene-awake");
     }
     /* START-USER-CODE */
@@ -154,28 +105,385 @@ class Preload extends Phaser.Scene {
         // Write your code here.
         /* END-USER-CTR-CODE */
     }
-    editorPreload() {
-        this.load.pack("asset-pack", "assets/asset-pack.json");
-    }
     editorCreate() {
         // guapen
-        const guapen = this.add.image(400, 219, "guapen");
-        guapen.scaleX = 0.5915891440784282;
-        guapen.scaleY = 0.5915891440784282;
-        // progress
-        const progress = this.add.text(381.5, 335, "", {});
-        progress.text = "0%";
-        progress.setStyle({ "fontSize": "30px" });
-        // progress (components)
-        new PreloadText(progress);
+        const guapen = this.add.image(505, 360, "guapen");
+        guapen.scaleX = 0.4;
+        guapen.scaleY = 0.4;
+        // progressBar
+        const progressBar = this.add.rectangle(553, 361, 256, 20);
+        progressBar.setOrigin(0, 0);
+        progressBar.isFilled = true;
+        progressBar.fillColor = 14737632;
+        // preloadUpdater
+        new PreloadBarUpdaterScript(progressBar);
+        // progressBarBg
+        const progressBarBg = this.add.rectangle(553, 361, 256, 20);
+        progressBarBg.setOrigin(0, 0);
+        progressBarBg.fillColor = 14737632;
+        progressBarBg.isStroked = true;
+        // loadingText
+        const loadingText = this.add.text(552, 329, "", {});
+        loadingText.text = "Loading...";
+        loadingText.setStyle({ "color": "#e0e0e0", "fontFamily": "arial", "fontSize": "20px" });
         this.events.emit("scene-awake");
     }
     /* START-USER-CODE */
     // Write your code here
     preload() {
         this.editorCreate();
-        this.editorPreload();
-        this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
+        this.load.pack("asset-pack", "assets/asset-pack.json");
+    }
+    create() {
+        this.scene.start("Level");
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+class ScriptNode {
+    _scene;
+    _gameObject;
+    _parent;
+    _children;
+    constructor(parent) {
+        this._parent = parent;
+        if (parent instanceof ScriptNode) {
+            this._scene = parent.scene;
+            this._gameObject = parent.gameObject;
+            parent.add(this);
+        }
+        else if (parent instanceof Phaser.GameObjects.GameObject) {
+            this._scene = parent.scene;
+            this._gameObject = parent;
+        }
+        else {
+            this._scene = parent;
+        }
+        const listenAwake = this.awake !== ScriptNode.prototype.awake;
+        const listenStart = this.start !== ScriptNode.prototype.start;
+        const listenUpdate = this.update !== ScriptNode.prototype.update;
+        const listenDestroy = this.destroy !== ScriptNode.prototype.destroy;
+        if (listenAwake) {
+            this.scene.events.once("scene-awake", this.awake, this);
+        }
+        if (listenStart) {
+            this.scene.events.once(Phaser.Scenes.Events.UPDATE, this.start, this);
+        }
+        if (listenUpdate) {
+            this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+        }
+        if (listenStart || listenUpdate || listenDestroy) {
+            const destroyCallback = () => {
+                this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.start, this);
+                this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.update, this);
+                if (listenDestroy) {
+                    this.destroy();
+                }
+            };
+            if (this.gameObject) {
+                this.gameObject.on(Phaser.GameObjects.Events.DESTROY, destroyCallback);
+            }
+            else {
+                this.scene.events.on(Phaser.Scenes.Events.DESTROY, destroyCallback);
+            }
+        }
+    }
+    get scene() {
+        return this._scene;
+    }
+    get gameObject() {
+        return this._gameObject;
+    }
+    get parent() {
+        return this._parent;
+    }
+    get children() {
+        if (!this._children) {
+            this._children = [];
+        }
+        return this._children;
+    }
+    add(child) {
+        this.children.push(child);
+    }
+    executeChildren(args) {
+        if (this._children) {
+            for (const child of this._children) {
+                child.execute(args);
+            }
+        }
+    }
+    execute(args) {
+        // override this on executable nodes
+    }
+    awake() {
+        // override this
+    }
+    start() {
+        // override this
+    }
+    update() {
+        // override this
+    }
+    destroy() {
+        // override this
+    }
+}
+/// <reference path="../script-nodes-basic-ts/ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class PreloadBarUpdaterScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    get gameObject() {
+        return super.gameObject;
+    }
+    awake() {
+        const fullWidth = this.gameObject.width;
+        this.scene.load.on(Phaser.Loader.Events.PROGRESS, (p) => {
+            this.gameObject.width = fullWidth * p;
+        });
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="../script-nodes-basic-ts/ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class PushActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    execute(args) {
+        this.scene.add.tween({
+            targets: this.gameObject,
+            scaleX: "*=0.8",
+            scaleY: "*=0.8",
+            duration: 80,
+            yoyo: true,
+            onYoyo: () => {
+                this.executeChildren(args);
+            }
+        });
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+/* START OF COMPILED CODE */
+class CallbackActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    callback;
+    /* START-USER-CODE */
+    execute() {
+        if (this.callback) {
+            this.callback();
+        }
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class ExecActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    targetAction;
+    /* START-USER-CODE */
+    execute() {
+        if (this.targetAction) {
+            this.targetAction.execute();
+        }
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class OnEventScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        /* END-USER-CTR-CODE */
+    }
+    eventName = "";
+    /* START-USER-CODE */
+    awake() {
+        this.gameObject?.on(this.eventName, this.executeChildren, this);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class OnKeyboardEventScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    eventName = "";
+    /* START-USER-CODE */
+    awake() {
+        if (!this.eventName) {
+            return;
+        }
+        this.scene.input.keyboard?.on(this.eventName, () => {
+            this.executeChildren();
+        });
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./OnEventScript.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class OnPointerDownScript extends OnEventScript {
+    constructor(parent) {
+        super(parent);
+        // this (prefab fields)
+        this.eventName = "pointerdown";
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    awake() {
+        if (!this.gameObject) {
+            return;
+        }
+        if (!this.gameObject.input) {
+            this.gameObject.setInteractive();
+        }
+        super.awake();
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class OnSceneAwakeScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    awake() {
+        this.executeChildren();
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class RootScriptNode extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    key = "scripts";
+    /* START-USER-CODE */
+    /**
+     * Gets the RootScript object set into the game object.
+     * It lookups the script node in using the `key` parameter as attribute of the game object.
+     *
+     * @param gameObject The game object where the root script is set.
+     * @param key The key used to set root script into the game object. It is `"scripts"` by default.
+     * @returns The root script.
+     */
+    static getRoot(gameObject, key = "scripts") {
+        return gameObject[`RootScript__${key}`];
+    }
+    /**
+     * Gets the children of the root script registered in the given game object, using the given key.
+     *
+     * @param gameObject The game object containing the root script.
+     * @param key The key used to register the root script in the game object.
+     * @returns The chidlren of the root script.
+     */
+    static getChildren(gameObject, key = "scripts") {
+        const root = this.getRoot(gameObject, key);
+        if (root) {
+            return root.children;
+        }
+        return [];
+    }
+    /**
+     * Gets the root script associated to the game object, using the given key.
+     *
+     * @param gameObject The game object where the root script is set.
+     * @param key The key used for registering the root script in the game object.
+     * @returns The root script.
+     */
+    static hasRoot(gameObject, key = "scripts") {
+        const script = this.getRoot(gameObject, key);
+        return script !== undefined;
+    }
+    awake() {
+        this.gameObject[`RootScript__${this.key}`] = this;
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class SpriteScriptNode extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    get gameObject() {
+        return super.gameObject;
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class StartSceneActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    sceneKey = "";
+    /* START-USER-CODE */
+    execute() {
+        this.scene.scene.start(this.sceneKey);
     }
 }
 /* END OF COMPILED CODE */

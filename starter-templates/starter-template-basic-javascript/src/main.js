@@ -2,8 +2,8 @@
 window.addEventListener('load', function () {
 
 	var game = new Phaser.Game({
-		width: 800,
-		height: 600,
+		width: 1280,
+		height: 720,
 		type: Phaser.AUTO,
         backgroundColor: "#242424",
 		scale: {
@@ -22,7 +22,10 @@ class Boot extends Phaser.Scene {
 	preload() {
 		
 		this.load.pack("pack", "assets/preload-asset-pack.json");
+	}
 
-		this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Preload"));
+	create() {
+
+		this.scene.start("Preload");
 	}
 }

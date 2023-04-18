@@ -1,16 +1,20 @@
 tasks:
   - name: Install
     init: >
-      npm install &&
+      npm install && npm update &&
       gp sync-done install
-  - name: Webpack
+  - name: Webpack dev server
     init: gp sync-await install
     command: npm start
-  - name: Editor server
+  - name: Phaser Editor 2D server
     init: gp sync-await install
     command: npm run editor-remote
 ports:
   - port: 1959
-    onOpen: open-preview
+    onOpen: notify
+    name: Phaser Editor 2D
+    description: The Phaser Editor 2D Core server. Open it for edit the game's scenes.
   - port: 8080
-    onOpen: open-preview 
+    onOpen: notify 
+    name: Play game
+    description: Open it for testing the game.

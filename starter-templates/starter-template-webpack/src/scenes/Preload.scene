@@ -8,7 +8,9 @@
         "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "Preload",
-        "compilerOutputLanguage": "TYPE_SCRIPT"
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
     },
     "displayList": [
         {
@@ -19,22 +21,63 @@
             "texture": {
                 "key": "guapen"
             },
-            "x": 400,
-            "y": 219,
-            "scaleX": 0.5915891440784282,
-            "scaleY": 0.5915891440784282
+            "x": 505.0120544433594,
+            "y": 360,
+            "scaleX": 0.32715486817515643,
+            "scaleY": 0.32715486817515643,
+            "list": []
+        },
+        {
+            "type": "Rectangle",
+            "id": "845d4ca6-7417-44fc-97e3-a3bb2fbbdd03",
+            "label": "progressBar",
+            "components": [],
+            "x": 553.0120849609375,
+            "y": 361,
+            "originX": 0,
+            "originY": 0,
+            "isFilled": true,
+            "fillColor": "#e0e0e0",
+            "width": 256,
+            "height": 20,
+            "list": [
+                {
+                    "prefabId": "ca949479-ab4d-45d5-b856-2cbecbd8d127",
+                    "id": "250eaa8f-b143-4e41-9ddf-052dfd99672c",
+                    "label": "preloadUpdater",
+                    "components": [],
+                    "nestedPrefabs": [],
+                    "list": []
+                }
+            ]
+        },
+        {
+            "type": "Rectangle",
+            "id": "10e175a4-81b6-449e-9561-6d8ba54d3812",
+            "label": "progressBarBg",
+            "components": [],
+            "x": 553.0120849609375,
+            "y": 361,
+            "originX": 0,
+            "originY": 0,
+            "fillColor": "#e0e0e0",
+            "isStroked": true,
+            "width": 256,
+            "height": 20,
+            "list": []
         },
         {
             "type": "Text",
-            "id": "2ce42443-5227-4c9b-b498-e81f9a21cde3",
-            "label": "progress",
-            "components": [
-                "PreloadText"
-            ],
-            "x": 400,
-            "y": 349,
-            "text": "0%",
-            "fontSize": "30px"
+            "id": "c4092661-6339-47cf-9fea-8abff3a46e0c",
+            "label": "loadingText",
+            "components": [],
+            "x": 552.0120849609375,
+            "y": 329,
+            "text": "Loading...",
+            "fontFamily": "arial",
+            "fontSize": "20px",
+            "color": "#e0e0e0",
+            "list": []
         }
     ],
     "plainObjects": [],
@@ -42,6 +85,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 2
+        "version": 3
     }
 }

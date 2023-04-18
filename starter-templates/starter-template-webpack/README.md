@@ -32,6 +32,20 @@ This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npm
 
     It is generated in the `/dist` folder.
 
+## Gitpod
+
+This repository is ready for start coding in Gitpod, a Cloud Development Environment. You only need to [click on this link](https://gitpod.io/#https://github.com/PhaserEditor2D/starter-template-webpack) for starting a new workspace.
+
+This is what Gitpod does:
+
+- Creates a workspace for this project.
+- Opens VS Code to edit this repo.
+- Installs & updates the dependencies of this repo.
+- Runs the Webpack development server in port `8080`.
+- Runs Phaser Editor 2D Core server in port `1959`.
+
+In the **Ports** panel in VS Code, it shows the links for opening the game (port `8080`) & the editor (port `1959`). It gives you the options of copy the URL, open the URL in a preview panel, or open the URL in a new tab.
+
 ## Hosting your game on GitHub Pages
 
 If you are looking for a hosting for you game, GitHub Pages is a very nice and free option.
@@ -118,9 +132,15 @@ We recommend using Visual Studio Code for editing the code files.
 
 In many tutorials about Phaser Editor 2D, the JavaScript files are loaded using the Asset Pack editor. When using Webpack this is not needed. Just use the Asset Pack editor for loading the art assets.
 
-### Scene and User Components configuration
+### Scene, User Components, and ScriptNode configuration
 
-The Scenes and User Components are configured to compile to TypeScript ES modules. Also, the compilers auto-import the classes used in the generated code.
+The Scenes, User Components, and ScriptNodes are configured to compile to TypeScript ES modules. Also, the compilers auto-import the classes used in the generated code.
+
+### ScriptNodes
+
+The `src/script-nodes-basic` folder contains the script nodes from the [script-nodes-basic](http://github.com/PhaserEditor2D/script-nodes-basic/) project.
+
+You can add your own script nodes to the `src/script-nodes` folder.
 
 ## About
 
