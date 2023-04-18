@@ -2,7 +2,6 @@
 
 ## v3.60.0 - Apr 16, 2023
 
-* Get latest update.
 * Updates app icons.
 * Get latest update.
 
