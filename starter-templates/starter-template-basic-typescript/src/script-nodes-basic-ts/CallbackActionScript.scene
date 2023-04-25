@@ -2,7 +2,6 @@
     "id": "e29bc630-dabe-4a8c-97e0-45ccb875b877",
     "sceneType": "PREFAB",
     "settings": {
-
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
@@ -35,7 +34,7 @@
             "customDefinition": false,
             "type": {
                 "id": "expression",
-                "expressionType": "() => void"
+                "expressionType": "(...args: any[]) => void"
             }
         }
     ]

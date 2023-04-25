@@ -36,7 +36,7 @@ class RootScriptNode extends ScriptNode {
 	 * 
 	 * @param {Phaser.GameObjects.GameObject} gameObject The game object containing the root script.
 	 * @param {string} key The key used to register the root script in the game object.
-	 * @returns {ScriptNode[]} The chidlren of the root script.
+	 * @returns The chidlren of the root script.
 	 */
 	static getChildren(gameObject, key = "scripts") {
 
@@ -55,7 +55,7 @@ class RootScriptNode extends ScriptNode {
 	 * 
 	 * @param {Phaser.GameObjects.GameObject} gameObject The game object where the root script is set.
 	 * @param {string} key The key used for registering the root script in the game object.
-	 * @returns {boolean} Has root script?
+	 * @returns The root script.
 	 */
 	static hasRoot(gameObject, key = "scripts") {
 

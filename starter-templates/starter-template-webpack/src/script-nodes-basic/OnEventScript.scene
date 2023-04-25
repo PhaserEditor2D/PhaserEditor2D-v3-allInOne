@@ -37,6 +37,35 @@
             "type": {
                 "id": "string"
             }
+        },
+        {
+            "name": "eventEmitter",
+            "label": "Event Emitter",
+            "tooltip": "The events emitter to register on.",
+            "defValue": "gameObject",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "game.events",
+                    "scene.events",
+                    "scene.loader",
+                    "scene.input",
+                    "scene.input.keyboard",
+                    "scene.anims",
+                    "gameObject"
+                ]
+            }
+        },
+        {
+            "name": "once",
+            "label": "Once",
+            "tooltip": "Listens once?",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
         }
     ]
 }

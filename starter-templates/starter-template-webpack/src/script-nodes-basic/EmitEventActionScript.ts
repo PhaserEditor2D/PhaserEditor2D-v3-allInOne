@@ -8,23 +8,23 @@ import Phaser from "phaser";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
-export default class OnEventScript extends ScriptNode {
+export default class EmitEventActionScript extends ScriptNode {
 
 	constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene) {
 		super(parent);
 
 		/* START-USER-CTR-CODE */
+		// Write your code here.
 		/* END-USER-CTR-CODE */
 	}
 
 	public eventName: string = "";
 	public eventEmitter: "game.events"|"scene.events"|"scene.loader"|"scene.input"|"scene.input.keyboard"|"scene.anims"|"gameObject" = "gameObject";
-	public once: boolean = false;
 
 	/* START-USER-CODE */
 
-	awake() {
-
+	execute(...args: any[]): void {
+		
 		let emitter: Phaser.Events.EventEmitter | null | undefined;
 
 		switch (this.eventEmitter) {
@@ -66,28 +66,7 @@ export default class OnEventScript extends ScriptNode {
 
 		if (emitter) {
 
-			if (this.once) {
-
-				emitter.once(this.eventName, this.executeChildren, this);
-
-			} else {
-
-				emitter.on(this.eventName, this.executeChildren, this);
-			}
-
-			switch (this.eventEmitter) {
-				case "scene.anims":
-				case "scene.events":
-				case "scene.input":
-				case "scene.input.keyboard":
-				case "scene.loader":
-
-					this.scene.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-
-						emitter?.off(this.eventName, this.executeChildren, this);
-					});
-					break;
-			}
+			emitter.emit(this.eventName, ...args);
 		}
 	}
 

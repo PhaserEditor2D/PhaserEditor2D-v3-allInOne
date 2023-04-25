@@ -18,9 +18,9 @@ class StartSceneActionScript extends ScriptNode {
 
 	/* START-USER-CODE */
 
-	execute() {
+	execute(...args) {
 
-		this.scene.scene.start(this.sceneKey);
+		this.scene.scene.start(this.sceneKey, ...args);
 	}
 
 	/* END-USER-CODE */

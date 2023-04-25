@@ -26,10 +26,8 @@ Contain basic/abstract functionallity. Often, you will create prefab variants of
 
 These scripts listen certain event. When the event is triggered, then execute the children, which are actions.
 
-* **OnEventScript** - listens the given `eventName` object's event.
-* **OnKeyboardEventScript** - listens the given `eventName` keyboard's event.
-* **OnPointerDownScript** - a prefab variant of **OnEventScript**, listening the `pointerdown` event.
-* **OnSceneAwakeScript** - listens the `scene-awake` event of the scene.
+* **OnEventScript** - registers to the given `eventEmitter` and listens the given `eventName` event.
+* **OnPointerDownScript** - listens the `pointerdown` event of the game object.
 
 ### Action scripts
 
@@ -38,6 +36,7 @@ Actions are script that are executed manually or by other nodes, like triggers o
 * **CallbackActionScript** - executes the given `callback` expression.
 * **StartSceneActionScript** - starts the given `sceneKey` scene.
 * **ExecActionScript** - executes the given `targetAction`.
+* **EmitEventActionScript** - the given `eventEmitter` emits the given `eventName`.
 
 ## ScriptNode
 
@@ -92,25 +91,25 @@ You can create variants of the **RootScriptNode** and use different keys.
 
 ## OnEventScript
 
-A trigger-like script node. It listens the given `eventName` of the game object and executes the children action nodes. 
+A trigger-like script node. It registers to the given `eventEmitter` and listens the given `eventName`. When the event is fired, it executes the children action nodes. 
 
 You can create handy prefab variants for different events, like the `OnPointerDownScript` prefab.
 
-## OnKeyboardEventScript
+You can select an `eventEmitter` from the following list:
 
-A trigger-like script node. It listens the given `eventName` on the keyboard plugin, and executes the children action nodes.
-
-An example of `eventName` values could be `keydown-SPACE`, `keyup-LEFT`, `keydown-W`... It follows the same syntax of the KeyboardPlugin events (`scene.input.keyboard.on(...)`).
+* `game.events`
+* `scene.events`
+* `scene.loader`
+* `scene.input`
+* `scene.input.keyboard`
+* `scene.anims`
+* `gameObject` (by default)
 
 ## OnPointerDownScript
 
 A trigger-like script. It is a prefab variant of the `OnEventScript` node. It listens to the `pointerdown` event of the game object, and executes the children action nodes.
 
 If the game object's input is not set whe the scene "awakes", then this script calls the `gameObject.setInteractive()` method.
-
-## OnSceneAwakeScript
-
-A trigger-like script. It listens the `scene-awake` event of the scene, and executes the children action nodes.
 
 ## CallbackActionScript
 
@@ -131,3 +130,17 @@ For example, let's say you have a **JumpAction** for jumping a character. But yo
 - When you press the `UP` button of an external gamepad.
 
 So, you can use different **ExecActionScript** nodes in different contexts, but referencing the same **JumpAction** node.
+
+## EmitEventActionScript
+
+An action like script. It calls the emit method of the given `eventEmitter` with the given `eventName`. As argument of the event it uses the argument received in the `execute()` method.
+
+Like in the **OnEventScript**, you can select an `eventEmitter` from a list:
+
+* `game.events`
+* `scene.events`
+* `scene.loader`
+* `scene.input`
+* `scene.input.keyboard`
+* `scene.anims`
+* `gameObject` (by default)

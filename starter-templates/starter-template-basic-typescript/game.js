@@ -172,8 +172,9 @@ class ScriptNode {
         if (listenUpdate) {
             this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
         }
-        if (listenStart || listenUpdate || listenDestroy) {
+        if (listenAwake || listenStart || listenUpdate || listenDestroy) {
             const destroyCallback = () => {
+                this.scene.events.off("scene-awake", this.awake, this);
                 this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.start, this);
                 this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.update, this);
                 if (listenDestroy) {
@@ -184,7 +185,7 @@ class ScriptNode {
                 this.gameObject.on(Phaser.GameObjects.Events.DESTROY, destroyCallback);
             }
             else {
-                this.scene.events.on(Phaser.Scenes.Events.DESTROY, destroyCallback);
+                this.scene.events.on(Phaser.Scenes.Events.SHUTDOWN, destroyCallback);
             }
         }
     }
@@ -206,14 +207,14 @@ class ScriptNode {
     add(child) {
         this.children.push(child);
     }
-    executeChildren(args) {
+    executeChildren(...args) {
         if (this._children) {
             for (const child of this._children) {
-                child.execute(args);
+                child.execute(...args);
             }
         }
     }
-    execute(args) {
+    execute(...args) {
         // override this on executable nodes
     }
     awake() {
@@ -289,9 +290,54 @@ class CallbackActionScript extends ScriptNode {
     }
     callback;
     /* START-USER-CODE */
-    execute() {
+    execute(...args) {
         if (this.callback) {
-            this.callback();
+            this.callback(...args);
+        }
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+/// <reference path="./ScriptNode.ts"/>
+// You can write more code here
+/* START OF COMPILED CODE */
+class EmitEventActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    eventName = "";
+    eventEmitter = "gameObject";
+    /* START-USER-CODE */
+    execute(...args) {
+        let emitter;
+        switch (this.eventEmitter) {
+            case "game.events":
+                emitter = this.scene.game.events;
+                break;
+            case "scene.events":
+                emitter = this.scene.events;
+                break;
+            case "scene.loader":
+                emitter = this.scene.load;
+                break;
+            case "scene.input":
+                emitter = this.scene.input;
+                break;
+            case "scene.input.keyboard":
+                emitter = this.scene.input.keyboard;
+                break;
+            case "scene.anims":
+                emitter = this.scene.anims;
+                break;
+            case "gameObject":
+                emitter = this.gameObject;
+                break;
+        }
+        if (emitter) {
+            emitter.emit(this.eventName, ...args);
         }
     }
 }
@@ -309,9 +355,9 @@ class ExecActionScript extends ScriptNode {
     }
     targetAction;
     /* START-USER-CODE */
-    execute() {
+    execute(...args) {
         if (this.targetAction) {
-            this.targetAction.execute();
+            this.targetAction.execute(...args);
         }
     }
 }
@@ -327,32 +373,53 @@ class OnEventScript extends ScriptNode {
         /* END-USER-CTR-CODE */
     }
     eventName = "";
+    eventEmitter = "gameObject";
+    once = false;
     /* START-USER-CODE */
     awake() {
-        this.gameObject?.on(this.eventName, this.executeChildren, this);
-    }
-}
-/* END OF COMPILED CODE */
-// You can write more code here
-/// <reference path="./ScriptNode.ts"/>
-// You can write more code here
-/* START OF COMPILED CODE */
-class OnKeyboardEventScript extends ScriptNode {
-    constructor(parent) {
-        super(parent);
-        /* START-USER-CTR-CODE */
-        // Write your code here.
-        /* END-USER-CTR-CODE */
-    }
-    eventName = "";
-    /* START-USER-CODE */
-    awake() {
-        if (!this.eventName) {
-            return;
+        let emitter;
+        switch (this.eventEmitter) {
+            case "game.events":
+                emitter = this.scene.game.events;
+                break;
+            case "scene.events":
+                emitter = this.scene.events;
+                break;
+            case "scene.loader":
+                emitter = this.scene.load;
+                break;
+            case "scene.input":
+                emitter = this.scene.input;
+                break;
+            case "scene.input.keyboard":
+                emitter = this.scene.input.keyboard;
+                break;
+            case "scene.anims":
+                emitter = this.scene.anims;
+                break;
+            case "gameObject":
+                emitter = this.gameObject;
+                break;
         }
-        this.scene.input.keyboard?.on(this.eventName, () => {
-            this.executeChildren();
-        });
+        if (emitter) {
+            if (this.once) {
+                emitter.once(this.eventName, this.executeChildren, this);
+            }
+            else {
+                emitter.on(this.eventName, this.executeChildren, this);
+            }
+            switch (this.eventEmitter) {
+                case "scene.anims":
+                case "scene.events":
+                case "scene.input":
+                case "scene.input.keyboard":
+                case "scene.loader":
+                    this.scene.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+                        emitter?.off(this.eventName, this.executeChildren, this);
+                    });
+                    break;
+            }
+        }
     }
 }
 /* END OF COMPILED CODE */
@@ -378,23 +445,6 @@ class OnPointerDownScript extends OnEventScript {
             this.gameObject.setInteractive();
         }
         super.awake();
-    }
-}
-/* END OF COMPILED CODE */
-// You can write more code here
-/// <reference path="./ScriptNode.ts"/>
-// You can write more code here
-/* START OF COMPILED CODE */
-class OnSceneAwakeScript extends ScriptNode {
-    constructor(parent) {
-        super(parent);
-        /* START-USER-CTR-CODE */
-        // Write your code here.
-        /* END-USER-CTR-CODE */
-    }
-    /* START-USER-CODE */
-    awake() {
-        this.executeChildren();
     }
 }
 /* END OF COMPILED CODE */
@@ -482,8 +532,8 @@ class StartSceneActionScript extends ScriptNode {
     }
     sceneKey = "";
     /* START-USER-CODE */
-    execute() {
-        this.scene.scene.start(this.sceneKey);
+    execute(...args) {
+        this.scene.scene.start(this.sceneKey, ...args);
     }
 }
 /* END OF COMPILED CODE */

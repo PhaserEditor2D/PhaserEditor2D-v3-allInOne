@@ -3,12 +3,13 @@
 
 /* START OF COMPILED CODE */
 
-class OnEventScript extends ScriptNode {
+class EmitEventActionScript extends ScriptNode {
 
 	constructor(parent) {
 		super(parent);
 
 		/* START-USER-CTR-CODE */
+		// Write your code here.
 		/* END-USER-CTR-CODE */
 	}
 
@@ -16,12 +17,13 @@ class OnEventScript extends ScriptNode {
 	eventName = "";
 	/** @type {"game.events"|"scene.events"|"scene.loader"|"scene.input"|"scene.input.keyboard"|"scene.anims"|"gameObject"} */
 	eventEmitter = "gameObject";
-	/** @type {boolean} */
-	once = false;
 
 	/* START-USER-CODE */
 
-	awake() {
+	/**
+	 * @param  {...any} args 
+	 */
+	execute(...args) {
 
 		/** @type {Phaser.Events.EventEmitter | null | undefined} */
 		let emitter;
@@ -65,28 +67,7 @@ class OnEventScript extends ScriptNode {
 
 		if (emitter) {
 
-			if (this.once) {
-
-				emitter.once(this.eventName, this.executeChildren, this);
-
-			} else {
-
-				emitter.on(this.eventName, this.executeChildren, this);
-			}
-
-			switch (this.eventEmitter) {
-				case "scene.anims":
-				case "scene.events":
-				case "scene.input":
-				case "scene.input.keyboard":
-				case "scene.loader":
-
-					this.scene.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-
-						emitter?.off(this.eventName, this.executeChildren, this);
-					});
-					break;
-			}
+			emitter.emit(this.eventName, ...args);
 		}
 	}
 

@@ -1,20 +1,17 @@
 {
-    "id": "23b8f1c7-9348-4ce0-a6cd-82998c9cc812",
+    "id": "757fdd95-b5cc-4c5b-adef-a26b5965d851",
     "sceneType": "PREFAB",
     "settings": {
-        "exportClass": true,
-        "autoImport": true,
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
-        "compilerOutputLanguage": "TYPE_SCRIPT",
-        "borderWidth": 1280,
-        "borderHeight": 720
+        "borderWidth": 1920,
+        "borderHeight": 1080
     },
     "displayList": [
         {
             "type": "ScriptNode",
-            "id": "c53ebbfa-4527-4877-ac3c-6dba9003fe20",
+            "id": "584759c2-8656-4641-90e0-7779b698b559",
             "label": "scriptnode_1",
             "components": [],
             "list": []
@@ -36,6 +33,25 @@
             "customDefinition": false,
             "type": {
                 "id": "string"
+            }
+        },
+        {
+            "name": "eventEmitter",
+            "label": "Event Emitter",
+            "tooltip": "The source of the events (EventEmitter).",
+            "defValue": "gameObject",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "game.events",
+                    "scene.events",
+                    "scene.loader",
+                    "scene.input",
+                    "scene.input.keyboard",
+                    "scene.anims",
+                    "gameObject"
+                ]
             }
         }
     ]

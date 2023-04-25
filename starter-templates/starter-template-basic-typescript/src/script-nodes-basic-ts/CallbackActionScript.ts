@@ -1,4 +1,3 @@
-
 /// <reference path="./ScriptNode.ts"/>
 
 /* START OF COMPILED CODE */
@@ -13,15 +12,15 @@ class CallbackActionScript extends ScriptNode {
 		/* END-USER-CTR-CODE */
 	}
 
-	public callback!: () => void;
+	public callback!: (...args: any[]) => void;
 
 	/* START-USER-CODE */
 
-	execute() {
+	execute(...args: any[]) {
 
 		if (this.callback) {
 
-			this.callback();
+			this.callback(...args);
 		}
 	}
 
