@@ -1,6 +1,11 @@
 # Change Log
 
-## v3.60.2 - Apr 22, 2023
+## v3.60.3 - Apr 27, 2023
+
+* Get latest script nodes.
+* Gets latest editor.
+
+## v3.60.2 - Apr 27, 2023
 
 * Get latest script nodes.
 * Gets latest editor.
