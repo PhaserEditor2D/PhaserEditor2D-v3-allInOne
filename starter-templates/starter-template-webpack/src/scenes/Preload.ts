@@ -62,6 +62,19 @@ export default class Preload extends Phaser.Scene {
 
 	create() {
 
+		if (process.env.NODE_ENV === "development") {
+
+			const start = new URLSearchParams(location.search).get("start");
+
+			if (start) {
+
+				console.log(`Development: jump to ${start}`);
+				this.scene.start(start);
+
+				return;
+			}
+		}
+
 		this.scene.start("Level");
 	}
 

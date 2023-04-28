@@ -13,16 +13,16 @@ class CallbackActionScript extends ScriptNode {
 		/* END-USER-CTR-CODE */
 	}
 
-	/** @type {() => void} */
+	/** @type {(...args: any[]) => void} */
 	callback;
 
 	/* START-USER-CODE */
 
-	execute() {
+	execute(...args) {
 
 		if (this.callback) {
 
-			this.callback();
+			this.callback(...args);
 		}
 	}
 

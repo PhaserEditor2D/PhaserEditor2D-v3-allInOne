@@ -18,11 +18,11 @@ class ExecActionScript extends ScriptNode {
 
 	/* START-USER-CODE */
 
-	execute() {
+	execute(...args) {
 
 		if (this.targetAction) {
 
-			this.targetAction.execute();
+			this.targetAction.execute(...args);
 		}
 	}
 

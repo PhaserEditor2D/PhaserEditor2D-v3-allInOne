@@ -36,7 +36,7 @@
             "customDefinition": false,
             "type": {
                 "id": "expression",
-                "expressionType": "() => void"
+                "expressionType": "(...args: any[]) => void"
             }
         }
     ]

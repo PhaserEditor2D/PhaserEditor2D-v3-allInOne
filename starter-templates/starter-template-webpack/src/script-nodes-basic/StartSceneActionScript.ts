@@ -22,9 +22,9 @@ export default class StartSceneActionScript extends ScriptNode {
 
 	/* START-USER-CODE */
 
-	override execute(): void {
+	override execute(...args: any[]): void {
 
-		this.scene.scene.start(this.sceneKey);
+		this.scene.scene.start(this.sceneKey, ...args);
 	}
 
 	/* END-USER-CODE */

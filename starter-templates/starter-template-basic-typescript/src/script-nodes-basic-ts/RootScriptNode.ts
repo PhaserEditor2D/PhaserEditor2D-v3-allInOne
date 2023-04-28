@@ -1,3 +1,4 @@
+
 /// <reference path="./ScriptNode.ts"/>
 
 // You can write more code here

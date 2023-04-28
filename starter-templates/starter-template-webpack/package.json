@@ -4,8 +4,8 @@
   "description": "Phaser 3 project template for Phaser Editor 2D v3",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack serve --mode=development --stats-error-details",
-    "build": "webpack --mode=production && phaser-asset-pack-hashing -r dist",
+    "start": "webpack serve --mode=development --stats-error-details --node-env development",
+    "build": "webpack --mode=production --node-env production && phaser-asset-pack-hashing -r dist",
     "editor": "phasereditor2d-launcher -project . -port 1959",
     "editor-remote": "phasereditor2d-launcher -project . -disable-open-browser -public -port 1959",
     "test": "echo \"Error: no test specified\" && exit 1"
