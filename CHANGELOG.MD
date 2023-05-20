@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.61.0 - May 18, 2023
+
+* Get latest editor.
+
 ## v3.60.3 - Apr 27, 2023
 
 * Get latest update.
