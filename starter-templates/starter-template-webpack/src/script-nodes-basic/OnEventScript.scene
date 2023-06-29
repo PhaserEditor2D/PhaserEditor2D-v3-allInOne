@@ -15,9 +15,7 @@
         {
             "type": "ScriptNode",
             "id": "5a32fb17-c6cb-4a82-8bf5-f4f82a415260",
-            "label": "scriptnode_1",
-            "components": [],
-            "list": []
+            "label": "scriptnode_1"
         }
     ],
     "plainObjects": [],
@@ -25,7 +23,7 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 4
     },
     "prefabProperties": [
         {
@@ -35,7 +33,7 @@
             "defValue": "",
             "customDefinition": false,
             "type": {
-                "id": "string"
+                "id": "event"
             }
         },
         {
