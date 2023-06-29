@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.62.0 - jun 29, 2023
+
+* Get latest editor and templates.
+
 ## v3.61.0 - May 18, 2023
 
 * Get latest editor.
