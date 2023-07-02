@@ -1,6 +1,10 @@
 # Change Log
 
-## v3.62.0 - jun 29, 2023
+## v3.62.1, Jun 30, 2023
+
+* Updates project templates.
+
+## v3.62.0 - Jun 29, 2023
 
 * Get latest editor and templates.
 
