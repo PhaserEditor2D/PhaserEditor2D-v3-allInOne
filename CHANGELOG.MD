@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.63.0
+
+* Don't skip `.github` folder from starter templates.
+
 ## v3.62.1, Jun 30, 2023
 
 * Updates project templates.
