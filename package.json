@@ -24,7 +24,6 @@
 				"icon": "build-assets/icon",
 				"ignore": [
 					"server",
-					".github",
 					".vscode",
 					"get-starter-templates.sh",
 					"src/ts"
