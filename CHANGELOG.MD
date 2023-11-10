@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.64.0 - Nov 10, 2023
+
+* Get latest editor.
+
 ## v3.63.0 - Sep 30, 2023
 
 * Don't skip `.github` folder from starter templates.
