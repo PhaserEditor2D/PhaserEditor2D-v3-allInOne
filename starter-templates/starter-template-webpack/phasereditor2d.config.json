@@ -1,5 +1,9 @@
 {
     "plugins": [],
+    "scripts": [
+        "@phasereditor2d/scripts-core",
+        "@phasereditor2d/scripts-simple-animations"
+    ],
     "skip": [
         "dist"
     ],

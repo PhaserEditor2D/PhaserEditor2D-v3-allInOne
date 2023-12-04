@@ -16,6 +16,11 @@ module.exports = {
                     name: "phaser",
                     chunks: "all",
                 },
+                phasereditor2d: {
+                    test: /[\\/]node_modules[\\/]@phasereditor2d[\\/]/,
+                    name: "phasereditor2d",
+                    chunks: "all",
+                }
             }
         }
     },

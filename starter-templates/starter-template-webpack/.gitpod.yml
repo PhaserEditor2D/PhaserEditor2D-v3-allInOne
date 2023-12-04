@@ -11,7 +11,7 @@ tasks:
     command: npm run editor-remote
 ports:
   - port: 1959
-    onOpen: notify
+    onOpen: open-preview
     name: Phaser Editor 2D
     description: The Phaser Editor 2D Core server. Open it for edit the game's scenes.
   - port: 8080

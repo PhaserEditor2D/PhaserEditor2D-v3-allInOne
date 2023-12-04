@@ -16,7 +16,6 @@
             "type": "Image",
             "id": "bb2d413c-02b3-404d-b1c0-cf46ce1e7f07",
             "label": "fufuSuperDino",
-            "components": [],
             "texture": {
                 "key": "FufuSuperDino"
             },
@@ -27,16 +26,27 @@
                     "prefabId": "a06ed60b-79f1-4444-bf35-89046f71f954",
                     "id": "0eb8a724-16b2-4c55-8b33-1d41fc1b3663",
                     "label": "onPointerDownScript",
-                    "components": [],
-                    "nestedPrefabs": [],
                     "list": [
                         {
                             "prefabId": "0e39177a-6e19-4b56-a7c2-2360a2e41505",
                             "id": "5d148849-dd2d-4bb7-b17d-a74ea5a8bd14",
-                            "label": "pushAction",
-                            "components": [],
-                            "nestedPrefabs": [],
-                            "list": []
+                            "label": "pushAction"
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "7028a0e2-cd14-44b7-b2a4-68dac16ece00",
+                    "id": "6056dec7-1936-4d08-a736-01fba7653e6b",
+                    "label": "onAwakeScript_1",
+                    "list": [
+                        {
+                            "prefabId": "3d337935-cdca-4937-9126-9f75bc2486de",
+                            "id": "65da982b-7762-4f83-b2b9-dfd970a6d5a8",
+                            "unlock": [
+                                "from"
+                            ],
+                            "label": "moveInSceneActionScript_1",
+                            "from": "TOP"
                         }
                     ]
                 }
@@ -46,7 +56,6 @@
             "type": "Text",
             "id": "5c228da6-971a-4347-84e8-9f62464ba76d",
             "label": "text",
-            "components": [],
             "x": 640,
             "y": 458,
             "originX": 0.5,
@@ -55,7 +64,24 @@
             "align": "center",
             "fontFamily": "Arial",
             "fontSize": "3em",
-            "list": []
+            "list": [
+                {
+                    "prefabId": "7028a0e2-cd14-44b7-b2a4-68dac16ece00",
+                    "id": "b73d9d2e-788e-432c-ab50-432af7528ab8",
+                    "label": "onAwakeScript",
+                    "list": [
+                        {
+                            "prefabId": "3d337935-cdca-4937-9126-9f75bc2486de",
+                            "id": "df899133-f92d-4204-8adc-8135d0dc08b6",
+                            "unlock": [
+                                "from"
+                            ],
+                            "label": "moveInSceneActionScript",
+                            "from": "BOTTOM"
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "plainObjects": [],
@@ -63,6 +89,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 5
     }
 }

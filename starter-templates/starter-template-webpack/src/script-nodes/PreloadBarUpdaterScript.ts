@@ -3,7 +3,7 @@
 
 /* START OF COMPILED CODE */
 
-import ScriptNode from "../script-nodes-basic/ScriptNode";
+import { ScriptNode } from "@phasereditor2d/scripts-core";
 import Phaser from "phaser";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
@@ -21,12 +21,12 @@ export default class PreloadBarUpdaterScript extends ScriptNode {
 	/* START-USER-CODE */
 
 	override get gameObject() {
-		
+
 		return super.gameObject as Phaser.GameObjects.Rectangle;
 	}
 
 	protected override awake(): void {
-		
+
 		const fullWidth = this.gameObject.width;
 
 		this.scene.load.on(Phaser.Loader.Events.PROGRESS, (p:number) => {
