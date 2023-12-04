@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.65.0
+
+* Sorts the project templates in the New Project UI. Shows Webpack and Typescript first.
+
 ## v3.64.0 - Nov 10, 2023
 
 * Get latest editor.
