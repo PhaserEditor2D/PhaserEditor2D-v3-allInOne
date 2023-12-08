@@ -47,7 +47,7 @@ $ PhaserEditor2D -project .
 
 ## Gitpod
 
-This repository is ready for start coding in Gitpod, a Cloud Development Environment. You only need to [click on this link](https://gitpod.io/#https://github.com/PhaserEditor2D/starter-template-basic-javascript) for starting a new workspace.
+This repository is ready to start coding in Gitpod, a Cloud Development Environment. You only need to [click on [this link](https://gitpod.io/#https://github.com/PhaserEditor2D/starter-template-basic-javascript) to start a new workspace.
 
 This is what Gitpod does:
 
@@ -56,10 +56,13 @@ This is what Gitpod does:
 - Installs & updates the dependencies of this repo.
 - Runs Phaser Editor 2D Core server in port `1959`.
 
-In the **Ports** panel in VS Code, it shows the links for opening the editor (port `1959`). It gives you the options of copy the URL, open the URL in a preview panel, or open the URL in a new tab.
+In the **Ports** panel in VS Code, it shows the links for opening the editor (port `1959`). It gives you the option of copying the URL, opening the URL in a preview panel, or opening the URL in a new tab.
 
 ## Script Nodes
 
 Script nodes are logic objects. You can add a script node to the scene or a game object, for extending it with custom data and behavior.
 
-This project includes the [basic script nodes](https://github.com/PhaserEditor2D/script-nodes-basic-js) in the `src/script-nodes-basic/` folder. You can add your own script nodes in the `src/script-nodes/` folder.
+This project includes the script libraries:
+
+- [@phasereditor2d/scripts-core](https://github.com/PhaserEditor2D/phasereditor2d-scripts-core)
+- [@phasereditor2d/scripts-simple-animations](https://github.com/PhaserEditor2D/phasereditor2d-scripts-simple-animations#duration-config)

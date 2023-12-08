@@ -18,6 +18,7 @@ class Level extends Phaser.Scene {
 
 		// dino
 		const dino = this.add.image(640, 288, "dino");
+		dino.setInteractive(new Phaser.Geom.Rectangle(0, 0, 250, 250), Phaser.Geom.Rectangle.Contains);
 
 		// onPointerDownScript
 		const onPointerDownScript = new OnPointerDownScript(dino);
@@ -25,11 +26,37 @@ class Level extends Phaser.Scene {
 		// pushActionScript
 		new PushActionScript(onPointerDownScript);
 
-		// text_1
-		const text_1 = this.add.text(640, 478, "", {});
-		text_1.setOrigin(0.5, 0.5);
-		text_1.text = "Phaser 3 + Phaser Editor 2D";
-		text_1.setStyle({ "fontFamily": "Arial", "fontSize": "30px" });
+		// onAwakeScript
+		const onAwakeScript = new OnAwakeScript(dino);
+
+		// moveInSceneActionScript
+		const moveInSceneActionScript = new MoveInSceneActionScript(onAwakeScript);
+
+		// welcome
+		const welcome = this.add.text(640, 478, "", {});
+		welcome.setOrigin(0.5, 0.5);
+		welcome.text = "Phaser 3 + Phaser Editor 2D";
+		welcome.setStyle({ "fontFamily": "Arial", "fontSize": "30px" });
+
+		// onAwakeScript_1
+		const onAwakeScript_1 = new OnAwakeScript(welcome);
+
+		// fadeActionScript
+		const fadeActionScript = new FadeActionScript(onAwakeScript_1);
+
+		// moveInSceneActionScript (prefab fields)
+		moveInSceneActionScript.from = "TOP";
+
+		// moveInSceneActionScript (components)
+		const moveInSceneActionScriptDurationConfigComp = new DurationConfigComp(moveInSceneActionScript);
+		moveInSceneActionScriptDurationConfigComp.duration = 1000;
+
+		// fadeActionScript (prefab fields)
+		fadeActionScript.fadeDirection = "FadeIn";
+
+		// fadeActionScript (components)
+		const fadeActionScriptDurationConfigComp = new DurationConfigComp(fadeActionScript);
+		fadeActionScriptDurationConfigComp.duration = 1500;
 
 		this.events.emit("scene-awake");
 	}

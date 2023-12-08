@@ -1,0 +1,46 @@
+{
+    "id": "978fd4e0-a722-4061-a6d9-86748db8a38a",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Fade object \"${fadeDirection}\"",
+        "displayName": "Fade Object Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "280dcbb9-64e1-4475-8806-8b3ced63515f",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "fadeDirection",
+            "label": "Fade Direction",
+            "tooltip": "",
+            "defValue": "FadeIn",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "FadeIn",
+                    "FadeOut"
+                ]
+            }
+        }
+    ]
+}

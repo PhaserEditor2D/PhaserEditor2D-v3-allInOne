@@ -1,0 +1,49 @@
+{
+    "id": "daf15677-662b-4503-b94f-9caa35a7c23c",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Move out from scene to \"${to}\"",
+        "displayName": "Move Out Scene Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "e5894255-9988-416e-a019-b6e54533c884",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "to",
+            "label": "To",
+            "tooltip": "",
+            "defValue": "NONE",
+            "customDefinition": false,
+            "type": {
+                "id": "option",
+                "options": [
+                    "LEFT",
+                    "RIGHT",
+                    "TOP",
+                    "BOTTOM",
+                    "NONE"
+                ]
+            }
+        }
+    ]
+}

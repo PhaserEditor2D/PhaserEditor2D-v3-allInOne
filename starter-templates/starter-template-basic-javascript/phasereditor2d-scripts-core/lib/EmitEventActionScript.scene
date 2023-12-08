@@ -1,17 +1,22 @@
 {
-    "id": "437c7d1d-12e5-4251-8d72-3ee5abae49d2",
+    "id": "757fdd95-b5cc-4c5b-adef-a26b5965d851",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Emit \"${eventName}\"",
+        "displayName": "Emit Event Action",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
-        "borderWidth": 1280,
-        "borderHeight": 720
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1920,
+        "borderHeight": 1080
     },
     "displayList": [
         {
             "type": "ScriptNode",
-            "id": "5a32fb17-c6cb-4a82-8bf5-f4f82a415260",
+            "id": "584759c2-8656-4641-90e0-7779b698b559",
             "label": "scriptnode_1"
         }
     ],
@@ -20,7 +25,7 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 4
+        "version": 5
     },
     "prefabProperties": [
         {
@@ -36,7 +41,7 @@
         {
             "name": "eventEmitter",
             "label": "Event Emitter",
-            "tooltip": "The events emitter to register on.",
+            "tooltip": "The source of the events (EventEmitter).",
             "defValue": "gameObject",
             "customDefinition": false,
             "type": {
@@ -50,16 +55,6 @@
                     "scene.anims",
                     "gameObject"
                 ]
-            }
-        },
-        {
-            "name": "once",
-            "label": "Once",
-            "tooltip": "Listens once?",
-            "defValue": false,
-            "customDefinition": false,
-            "type": {
-                "id": "boolean"
             }
         }
     ]

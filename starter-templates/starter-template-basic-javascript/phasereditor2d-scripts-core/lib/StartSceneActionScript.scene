@@ -1,20 +1,23 @@
 {
-    "id": "e29bc630-dabe-4a8c-97e0-45ccb875b877",
+    "id": "2d3f9249-6fcd-4c7d-bd2f-77fa616af7e8",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Start \"${sceneKey}\" scene",
+        "displayName": "Start Scene Action",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
         "borderWidth": 1280,
         "borderHeight": 720
     },
     "displayList": [
         {
             "type": "ScriptNode",
-            "id": "96b59bda-a578-4a52-9a56-8edc8558e9ea",
-            "label": "scriptnode_1",
-            "components": [],
-            "list": []
+            "id": "15b401d3-38b0-4657-b69b-64ba01e1bf4c",
+            "label": "scriptnode_1"
         }
     ],
     "plainObjects": [],
@@ -22,18 +25,17 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 5
     },
     "prefabProperties": [
         {
-            "name": "callback",
-            "label": "Callback",
-            "tooltip": "Callback",
+            "name": "sceneKey",
+            "label": "Scene Key",
+            "tooltip": "The key of the scene to start",
             "defValue": "",
             "customDefinition": false,
             "type": {
-                "id": "expression",
-                "expressionType": "(...args: any[]) => void"
+                "id": "scene-key"
             }
         }
     ]

@@ -13,7 +13,9 @@
             "type": "Image",
             "id": "7d5827fd-34f6-473f-90e0-b9424a51d5fa",
             "label": "dino",
-            "components": [],
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 250,
+            "hitArea.height": 250,
             "texture": {
                 "key": "dino"
             },
@@ -24,16 +26,31 @@
                     "prefabId": "a06ed60b-79f1-4444-bf35-89046f71f954",
                     "id": "f10cc69a-251a-4bca-81de-f36affc5660b",
                     "label": "onPointerDownScript",
-                    "components": [],
-                    "nestedPrefabs": [],
                     "list": [
                         {
                             "prefabId": "0e39177a-6e19-4b56-a7c2-2360a2e41505",
-                            "id": "a497f179-61d6-4cc9-9147-dca543fe034d",
-                            "label": "pushActionScript",
-                            "components": [],
-                            "nestedPrefabs": [],
-                            "list": []
+                            "id": "56235873-9538-4e47-ad25-cd1e90b15b55",
+                            "label": "pushActionScript"
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "7028a0e2-cd14-44b7-b2a4-68dac16ece00",
+                    "id": "462f8b1c-5491-4b71-bfd9-2117963748b4",
+                    "label": "onAwakeScript",
+                    "list": [
+                        {
+                            "prefabId": "3d337935-cdca-4937-9126-9f75bc2486de",
+                            "id": "cbb22a0e-7823-45c8-a238-90a531752c00",
+                            "unlock": [
+                                "from"
+                            ],
+                            "label": "moveInSceneActionScript",
+                            "from": "TOP",
+                            "components": [
+                                "DurationConfigComp"
+                            ],
+                            "DurationConfigComp.duration": 1000
                         }
                     ]
                 }
@@ -42,8 +59,7 @@
         {
             "type": "Text",
             "id": "b2b3dbd5-2106-41fa-8a04-9b511e3401a9",
-            "label": "text_1",
-            "components": [],
+            "label": "welcome",
             "x": 640,
             "y": 478,
             "originX": 0.5,
@@ -51,7 +67,28 @@
             "text": "Phaser 3 + Phaser Editor 2D",
             "fontFamily": "Arial",
             "fontSize": "30px",
-            "list": []
+            "list": [
+                {
+                    "prefabId": "7028a0e2-cd14-44b7-b2a4-68dac16ece00",
+                    "id": "78e2cecc-8445-45e8-bb7d-567f39c97d9c",
+                    "label": "onAwakeScript_1",
+                    "list": [
+                        {
+                            "prefabId": "978fd4e0-a722-4061-a6d9-86748db8a38a",
+                            "id": "9e9ce046-41b1-40fd-8c59-620a4df7fcaf",
+                            "unlock": [
+                                "fadeDirection"
+                            ],
+                            "label": "fadeActionScript",
+                            "fadeDirection": "FadeIn",
+                            "components": [
+                                "DurationConfigComp"
+                            ],
+                            "DurationConfigComp.duration": 1500
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "plainObjects": [],
@@ -59,6 +96,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 5
     }
 }
