@@ -2,6 +2,10 @@
     "id": "757fdd95-b5cc-4c5b-adef-a26b5965d851",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Emit \"${eventName}\"",
+        "displayName": "Emit Event Action",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
@@ -21,7 +25,7 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 4
+        "version": 5
     },
     "prefabProperties": [
         {

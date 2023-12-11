@@ -5,7 +5,7 @@ tasks:
       gp sync-done install
   - name: TypeScript compiler
     init: gp sync-await install
-    command: npm run watch
+    command: npm start
   - name: Editor server
     init: gp sync-await install # wait for the above 'install' to finish
     command: npm run editor-remote

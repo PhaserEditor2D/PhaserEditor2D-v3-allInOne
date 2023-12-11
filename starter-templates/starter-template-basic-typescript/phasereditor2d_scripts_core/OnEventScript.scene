@@ -2,6 +2,10 @@
     "id": "437c7d1d-12e5-4251-8d72-3ee5abae49d2",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "On \"${eventName}\" #{once}",
+        "displayName": "On General Event",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
@@ -21,7 +25,7 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 4
+        "version": 5
     },
     "prefabProperties": [
         {
@@ -49,6 +53,7 @@
                     "scene.input",
                     "scene.input.keyboard",
                     "scene.anims",
+                    "scene.physics.world",
                     "gameObject"
                 ]
             }

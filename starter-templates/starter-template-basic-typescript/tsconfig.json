@@ -4,6 +4,7 @@
         "target": "esnext",
         "outFile": "game.js",
         "strict": true,
+        "allowSyntheticDefaultImports": true,
         "types": [
             "phaser"
         ]

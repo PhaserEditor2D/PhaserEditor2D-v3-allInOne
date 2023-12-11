@@ -1,7 +1,11 @@
 {
-    "id": "a06ed60b-79f1-4444-bf35-89046f71f954",
+    "id": "466f923c-91c6-4605-a1f2-01fc6dfb9ad2",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Destroy object",
+        "displayName": "Destroy Object Action",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
@@ -11,16 +15,9 @@
     },
     "displayList": [
         {
-            "prefabId": "437c7d1d-12e5-4251-8d72-3ee5abae49d2",
-            "id": "58224995-c865-4b32-b0c4-e5342e49b71b",
-            "unlock": [
-                "eventName"
-            ],
-            "label": "objectEventTrigger",
-            "eventName": "pointerdown",
-            "components": [],
-            "nestedPrefabs": [],
-            "list": []
+            "type": "ScriptNode",
+            "id": "f0095794-10fd-4790-a037-fc777cebb3a0",
+            "label": "scriptnode_1"
         }
     ],
     "plainObjects": [],
@@ -28,6 +25,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 5
     }
 }

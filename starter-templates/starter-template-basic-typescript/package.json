@@ -4,7 +4,7 @@
   "description": "Basic Phaser Editor 2D project template for TypeScript.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "tsc -w",
+    "start": "tsc -w",
     "build": "tsc -b",
     "editor": "phasereditor2d-launcher -project . -port 1959",
     "editor-remote": "phasereditor2d-launcher -project . -disable-open-browser -public -port 1959"
@@ -24,6 +24,6 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "phaser": "^3.60.0"
+    "phaser": "^3.70.0"
   }
 }

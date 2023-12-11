@@ -1,7 +1,11 @@
 {
-    "id": "5e746613-c01a-42aa-8681-4950bb2f23ce",
+    "id": "7028a0e2-cd14-44b7-b2a4-68dac16ece00",
     "sceneType": "PREFAB",
     "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "On Awake",
+        "displayName": "On Awake Event",
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
@@ -12,10 +16,8 @@
     "displayList": [
         {
             "type": "ScriptNode",
-            "id": "dd5dd8bd-a139-4f92-b6d6-02f0e2dd1c38",
-            "label": "scriptnode_1",
-            "components": [],
-            "list": []
+            "id": "8bece219-4135-4be3-bd0c-86d973212162",
+            "label": "scriptnode_1"
         }
     ],
     "plainObjects": [],
@@ -23,6 +25,6 @@
         "app": "Phaser Editor 2D - Scene Editor",
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
-        "version": 3
+        "version": 5
     }
 }

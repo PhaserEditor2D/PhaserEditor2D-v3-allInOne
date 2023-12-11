@@ -30,7 +30,7 @@ It outputs the JavaScript code into the `game.js` file.
 Often, you would like to run the TypeScript compiler in watch mode:
 
 ```bash
-$ npm run watch
+$ npm start
 ```
 
 ## Run the editor

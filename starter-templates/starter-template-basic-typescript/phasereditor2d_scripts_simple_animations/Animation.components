@@ -1,0 +1,115 @@
+{
+    "components": [
+        {
+            "name": "DurationConfigComp",
+            "displayName": "Duration Config",
+            "baseClass": "",
+            "gameObjectType": "any",
+            "properties": [
+                {
+                    "name": "duration",
+                    "label": "Duration",
+                    "tooltip": "",
+                    "defValue": 250,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "EaseConfigComp",
+            "displayName": "Ease Config",
+            "baseClass": "",
+            "gameObjectType": "any",
+            "properties": [
+                {
+                    "name": "ease",
+                    "label": "Ease",
+                    "tooltip": "",
+                    "defValue": "Linear",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "option",
+                        "options": [
+                            "Power0",
+                            "Power1",
+                            "Power2",
+                            "Power3",
+                            "Power4",
+                            "Linear",
+                            "Quad",
+                            "Cubic",
+                            "Quart",
+                            "Quint",
+                            "Sine",
+                            "Expo",
+                            "Circ",
+                            "Elastic",
+                            "Back",
+                            "Bounce",
+                            "Stepped",
+                            "Quad.easeIn",
+                            "Cubic.easeIn",
+                            "Quart.easeIn",
+                            "Quint.easeIn",
+                            "Sine.easeIn",
+                            "Expo.easeIn",
+                            "Circ.easeIn",
+                            "Elastic.easeIn",
+                            "Back.easeIn",
+                            "Bounce.easeIn",
+                            "Quad.easeOut",
+                            "Cubic.easeOut",
+                            "Quart.easeOut",
+                            "Quint.easeOut",
+                            "Sine.easeOut",
+                            "Expo.easeOut",
+                            "Circ.easeOut",
+                            "Elastic.easeOut",
+                            "Back.easeOut",
+                            "Bounce.easeOut",
+                            "Quad.easeInOut",
+                            "Cubic.easeInOut",
+                            "Quart.easeInOut",
+                            "Quint.easeInOut",
+                            "Sine.easeInOut",
+                            "Expo.easeInOut",
+                            "Circ.easeInOut",
+                            "Elastic.easeInOut",
+                            "Back.easeInOut",
+                            "Bounce.easeInOut"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "DelayConfigComp",
+            "displayName": "Delay Config",
+            "baseClass": "",
+            "gameObjectType": "any",
+            "properties": [
+                {
+                    "name": "delay",
+                    "label": "Delay",
+                    "tooltip": "",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - User Components Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.UserComponents"
+    },
+    "outputLang": "TYPE_SCRIPT",
+    "exportClass": true,
+    "autoImport": true
+}
