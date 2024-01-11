@@ -1,0 +1,42 @@
+{
+    "id": "51c79515-c69c-418c-b5d3-9537c9e7ca05",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Set X to \"${x}\"",
+        "displayName": "Set X Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 240
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "e93a8e59-fc0f-4d4b-b471-9921d5ddf8e9",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "x",
+            "label": "X",
+            "tooltip": "",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

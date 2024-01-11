@@ -1,0 +1,75 @@
+{
+    "components": [
+        {
+            "name": "ActionTargetComp",
+            "displayName": "Action Target Config",
+            "baseClass": "",
+            "gameObjectType": "any",
+            "properties": [
+                {
+                    "name": "target",
+                    "label": "Target",
+                    "tooltip": "The target object of the action.",
+                    "defValue": "GAME_OBJECT",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "option",
+                        "options": [
+                            "GAME_OBJECT",
+                            "ARG_1",
+                            "ARG_2",
+                            "ARG_3",
+                            "ARG_4",
+                            "ARG_5",
+                            "ARG_6",
+                            "ARG_7",
+                            "ARG_8"
+                        ]
+                    }
+                },
+                {
+                    "name": "targetName",
+                    "label": "Target Name",
+                    "tooltip": "A display name for the target.",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "string"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "AssignOpComp",
+            "displayName": "Assignment Operator",
+            "objectDisplayFormat": "[${operator}]",
+            "baseClass": "",
+            "gameObjectType": "any",
+            "properties": [
+                {
+                    "name": "operator",
+                    "label": "Operator",
+                    "tooltip": "",
+                    "defValue": "=",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "option",
+                        "options": [
+                            "=",
+                            "+=",
+                            "*="
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - User Components Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.UserComponents"
+    },
+    "outputLang": "TYPE_SCRIPT",
+    "exportClass": true,
+    "autoImport": true
+}

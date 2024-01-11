@@ -1,0 +1,42 @@
+{
+    "id": "80e97917-0335-47e1-aa0e-024f8dfde149",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Set Y to \"${y}\"",
+        "displayName": "Set Scale Y Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 240
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "989138eb-a141-440a-bfd8-0335fbb046ab",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "scaleY",
+            "label": "Scale Y",
+            "tooltip": "",
+            "defValue": 1,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

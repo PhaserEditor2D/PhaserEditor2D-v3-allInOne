@@ -99,10 +99,7 @@ class FadeActionScript extends ScriptNode {
     fadeDirection = "FadeIn";
     /* START-USER-CODE */
     execute(...args) {
-        if (!this.gameObject) {
-            return;
-        }
-        const sprite = this.gameObject;
+        const sprite = this.getActionTargetObject(args);
         const duration = DurationConfigComp.getDuration(this, 250);
         const delay = DelayConfigComp.getDelay(this, 0);
         const ease = EaseConfigComp.getEase(this, "Expo");
@@ -138,10 +135,7 @@ class MoveInSceneActionScript extends ScriptNode {
     from = "NONE";
     /* START-USER-CODE */
     execute(...args) {
-        if (!this.gameObject) {
-            return;
-        }
-        const sprite = this.gameObject;
+        const sprite = this.getActionTargetObject(args);
         const duration = DurationConfigComp.getDuration(this, 250);
         const delay = DelayConfigComp.getDelay(this, 0);
         const ease = EaseConfigComp.getEase(this, "Expo");
@@ -196,7 +190,7 @@ class MoveOutSceneActionScript extends ScriptNode {
         if (!this.gameObject) {
             return;
         }
-        const sprite = this.gameObject;
+        const sprite = this.getActionTargetObject(args);
         const duration = DurationConfigComp.getDuration(this, 250);
         const delay = DelayConfigComp.getDelay(this, 0);
         const ease = EaseConfigComp.getEase(this, "Expo.in");
@@ -248,14 +242,12 @@ class PushActionScript extends ScriptNode {
         if (this._executing) {
             return;
         }
-        if (!this.gameObject) {
-            return;
-        }
         this._executing = true;
         const duration = DurationConfigComp.getDuration(this, 80);
-        const { scaleX, scaleY } = this.gameObject;
+        const obj = this.getActionTargetObject(args);
+        const { scaleX, scaleY } = obj;
         this.scene.add.tween({
-            targets: this.gameObject,
+            targets: obj,
             scaleX: scaleX * 0.8,
             scaleY: scaleY * 0.8,
             duration,

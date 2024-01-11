@@ -1,0 +1,52 @@
+{
+    "id": "8617eff9-bbfd-4525-a6c1-4b9ce4072c10",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Flip #{horizontal} #{vertical}",
+        "displayName": "Flip Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 320
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "2509f66c-3a2a-448d-b7b5-0aab02a3702e",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "horizontal",
+            "label": "Horizontal",
+            "tooltip": "",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        },
+        {
+            "name": "vertical",
+            "label": "Vertical",
+            "tooltip": "",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        }
+    ]
+}

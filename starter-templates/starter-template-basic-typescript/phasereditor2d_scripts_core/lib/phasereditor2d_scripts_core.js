@@ -47,6 +47,10 @@ class ScriptNode {
             }
         }
     }
+    getActionTargetObject(args) {
+        const target = ActionTargetComp.getTargetGameObject(this, args);
+        return target;
+    }
     get scene() {
         return this._scene;
     }
@@ -90,6 +94,74 @@ class ScriptNode {
 }
 
 // You can write more code here
+/* END-USER-IMPORTS */
+class ActionTargetComp {
+    constructor(gameObject) {
+        this.gameObject = gameObject;
+        gameObject["__ActionTargetComp"] = this;
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    static getComponent(gameObject) {
+        return gameObject["__ActionTargetComp"];
+    }
+    gameObject;
+    target = "GAME_OBJECT";
+    targetName = "";
+    /* START-USER-CODE */
+    static getTargetGameObject(scriptNode, args) {
+        const comp = ActionTargetComp.getComponent(scriptNode);
+        if (comp) {
+            switch (comp.target) {
+                case "GAME_OBJECT":
+                    return scriptNode.gameObject;
+                case "ARG_1":
+                    return args[0];
+                case "ARG_2":
+                    return args[1];
+                case "ARG_3":
+                    return args[2];
+                case "ARG_4":
+                    return args[3];
+                case "ARG_5":
+                    return args[4];
+                case "ARG_6":
+                    return args[5];
+                case "ARG_7":
+                    return args[6];
+                case "ARG_8":
+                    return args[7];
+            }
+        }
+        return scriptNode.gameObject;
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class AddToParentActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    parentContainer;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        this.parentContainer.add(obj);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
 /* START OF COMPILED CODE */
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
@@ -104,6 +176,40 @@ class AlertActionScript extends ScriptNode {
     /* START-USER-CODE */
     execute(...args) {
         alert(this.message);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* END-USER-IMPORTS */
+class AssignOpComp {
+    constructor(gameObject) {
+        this.gameObject = gameObject;
+        gameObject["__AssignOpComp"] = this;
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    static getComponent(gameObject) {
+        return gameObject["__AssignOpComp"];
+    }
+    gameObject;
+    operator = "=";
+    /* START-USER-CODE */
+    static computeValue(node, oldValue, newValue) {
+        const comp = AssignOpComp.getComponent(node);
+        if (comp) {
+            switch (comp.operator) {
+                case "+=":
+                    return oldValue + newValue;
+                case "*=":
+                    return oldValue * newValue;
+                default:
+                    return newValue;
+            }
+        }
+        return newValue;
     }
 }
 /* END OF COMPILED CODE */
@@ -153,7 +259,6 @@ class ConsoleLogActionScript extends ScriptNode {
 
 // You can write more code here
 /* START OF COMPILED CODE */
-/* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 class DestroyActionScript extends ScriptNode {
     constructor(parent) {
@@ -164,7 +269,8 @@ class DestroyActionScript extends ScriptNode {
     }
     /* START-USER-CODE */
     execute(...args) {
-        this.gameObject?.destroy();
+        const obj = this.getActionTargetObject(args);
+        obj?.destroy();
     }
 }
 /* END OF COMPILED CODE */
@@ -233,6 +339,72 @@ class ExecActionScript extends ScriptNode {
     execute(...args) {
         if (this.targetAction) {
             this.targetAction.execute(...args);
+        }
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class ExecChildrenActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    execute(...args) {
+        this.executeChildren(...args);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class ExecRandomActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    /* START-USER-CODE */
+    execute(...args) {
+        const child = Phaser.Utils.Array.GetRandom(this.children);
+        child.execute(...args);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class FlipActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    horizontal = false;
+    vertical = false;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        if (this.horizontal) {
+            obj.flipX = !obj.flipX;
+        }
+        if (this.vertical) {
+            obj.flipY = !obj.flipY;
         }
     }
 }
@@ -317,6 +489,14 @@ class OnEventScript extends ScriptNode {
                     });
                     break;
             }
+            // If it is attached to a game object
+            // and the emitter isn't the game object
+            // then remove the listener
+            if (this.gameObject && this.eventEmitter !== "gameObject") {
+                this.gameObject.once(Phaser.GameObjects.Events.DESTROY, () => {
+                    emitter?.off(this.eventName, this.executeChildren, this);
+                });
+            }
         }
     }
 }
@@ -345,6 +525,29 @@ class OnPointerDownScript extends OnEventScript {
             this.gameObject.setInteractive();
         }
         super.awake();
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class PlaySpriteAnimationActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    animationKey = "";
+    ignoreIfPlaying = false;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        obj.once("animationcomplete-" + this.animationKey, () => this.executeChildren(...args));
+        obj.play(this.animationKey, this.ignoreIfPlaying);
     }
 }
 /* END OF COMPILED CODE */
@@ -401,6 +604,144 @@ class RootScript extends ScriptNode {
     }
     awake() {
         this.gameObject[`RootScript__${this.key}`] = this;
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SetAngleActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    angle = 0;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        obj.angle = AssignOpComp.computeValue(this, obj.angle, this.angle);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SetScaleXActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    scaleX = 1;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        obj.scaleX = AssignOpComp.computeValue(this, obj.scaleX, this.scaleX);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SetScaleYActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    scaleY = 1;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        obj.scaleY = AssignOpComp.computeValue(this, obj.scaleY, this.scaleY);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SetXActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    x = 0;
+    /* START-USER-CODE */
+    execute(...args) {
+        const obj = this.getActionTargetObject(args);
+        obj.x = AssignOpComp.computeValue(this, obj.x, this.x);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SetYActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    y = 0;
+    /* START-USER-CODE */
+    execute(...args) {
+        console.log("here");
+        const obj = this.getActionTargetObject(args);
+        obj.y = AssignOpComp.computeValue(this, obj.y, this.y);
+    }
+}
+/* END OF COMPILED CODE */
+// You can write more code here
+
+// You can write more code here
+/* START OF COMPILED CODE */
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+class SpawnActionScript extends ScriptNode {
+    constructor(parent) {
+        super(parent);
+        /* START-USER-CTR-CODE */
+        // Write your code here.
+        /* END-USER-CTR-CODE */
+    }
+    objectPrefab;
+    spawnInParentPosition = true;
+    /* START-USER-CODE */
+    execute(...args) {
+        if (!this.objectPrefab) {
+            return;
+        }
+        const obj = new this.objectPrefab(this.scene);
+        this.scene.events.emit("scene-awake");
+        if (this.spawnInParentPosition) {
+            const sprite = this.getActionTargetObject(args);
+            obj.x = sprite.x;
+            obj.y = sprite.y;
+        }
+        this.scene.add.existing(obj);
+        this.executeChildren(obj);
     }
 }
 /* END OF COMPILED CODE */

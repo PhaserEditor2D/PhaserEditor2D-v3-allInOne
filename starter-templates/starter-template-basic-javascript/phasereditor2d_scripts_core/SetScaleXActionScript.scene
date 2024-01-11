@@ -1,0 +1,42 @@
+{
+    "id": "abc52dda-ca85-4e23-ad3c-48081272a0d3",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Set scale X to \"${scaleX}\"",
+        "displayName": "Set Scale X Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 240
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "9689486c-4990-4b0f-88bf-b3e81a0434ff",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "scaleX",
+            "label": "Scale X",
+            "tooltip": "",
+            "defValue": 1,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

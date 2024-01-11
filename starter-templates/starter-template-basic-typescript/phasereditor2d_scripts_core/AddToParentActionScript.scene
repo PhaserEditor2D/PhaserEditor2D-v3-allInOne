@@ -1,0 +1,43 @@
+{
+    "id": "56ec5135-b5ef-4b71-81d6-29de39f846d3",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Add object to \"${parentContainer}\"",
+        "displayName": "Add To Parent Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "40495f9a-b22e-45c6-82bf-f38c6b258602",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "parentContainer",
+            "label": "Parent Container",
+            "tooltip": "",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "object-var",
+                "expressionType": "Phaser.GameObjects.Container | Phaser.GameObjects.Layer"
+            }
+        }
+    ]
+}

@@ -4,6 +4,7 @@ declare class ScriptNode {
     private _parent;
     private _children?;
     constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    protected getActionTargetObject(args: any[]): any;
     get scene(): Phaser.Scene;
     get gameObject(): Phaser.GameObjects.GameObject | undefined;
     get parent(): Phaser.GameObjects.GameObject | Phaser.Scene | ScriptNode;
@@ -17,10 +18,33 @@ declare class ScriptNode {
     protected destroy(): void;
 }
 
+declare class ActionTargetComp {
+    constructor(gameObject: any);
+    static getComponent(gameObject: any): ActionTargetComp;
+    private gameObject;
+    target: "GAME_OBJECT" | "ARG_1" | "ARG_2" | "ARG_3" | "ARG_4" | "ARG_5" | "ARG_6" | "ARG_7" | "ARG_8";
+    targetName: string;
+    static getTargetGameObject(scriptNode: ScriptNode, args: any[]): any;
+}
+
+declare class AddToParentActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    parentContainer: Phaser.GameObjects.Container | Phaser.GameObjects.Layer;
+    execute(...args: any[]): void;
+}
+
 declare class AlertActionScript extends ScriptNode {
     constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
     message: string;
     execute(...args: any[]): void;
+}
+
+declare class AssignOpComp {
+    constructor(gameObject: any);
+    static getComponent(gameObject: any): AssignOpComp;
+    private gameObject;
+    operator: "=" | "+=" | "*=";
+    static computeValue(node: ScriptNode, oldValue: number, newValue: number): number;
 }
 
 declare class CallbackActionScript extends ScriptNode {
@@ -53,6 +77,23 @@ declare class ExecActionScript extends ScriptNode {
     execute(...args: any[]): void;
 }
 
+declare class ExecChildrenActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    execute(...args: any[]): void;
+}
+
+declare class ExecRandomActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    execute(...args: any[]): void;
+}
+
+declare class FlipActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    horizontal: boolean;
+    vertical: boolean;
+    execute(...args: any[]): void;
+}
+
 declare class OnAwakeScript extends ScriptNode {
     constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
 }
@@ -68,6 +109,13 @@ declare class OnEventScript extends ScriptNode {
 declare class OnPointerDownScript extends OnEventScript {
     constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
     awake(): void;
+}
+
+declare class PlaySpriteAnimationActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    animationKey: string;
+    ignoreIfPlaying: boolean;
+    execute(...args: any[]): void;
 }
 
 declare class RootScript extends ScriptNode {
@@ -99,6 +147,43 @@ declare class RootScript extends ScriptNode {
      */
     static hasRoot(gameObject: Phaser.GameObjects.GameObject, key?: string): boolean;
     protected awake(): void;
+}
+
+declare class SetAngleActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    angle: number;
+    execute(...args: any[]): void;
+}
+
+declare class SetScaleXActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    scaleX: number;
+    execute(...args: any[]): void;
+}
+
+declare class SetScaleYActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    scaleY: number;
+    execute(...args: any[]): void;
+}
+
+declare class SetXActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    x: number;
+    execute(...args: any[]): void;
+}
+
+declare class SetYActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    y: number;
+    execute(...args: any[]): void;
+}
+
+declare class SpawnActionScript extends ScriptNode {
+    constructor(parent: ScriptNode | Phaser.GameObjects.GameObject | Phaser.Scene);
+    objectPrefab: any;
+    spawnInParentPosition: boolean;
+    execute(...args: any[]): void;
 }
 
 declare class SpriteScript extends ScriptNode {

@@ -1,0 +1,52 @@
+{
+    "id": "7811fa03-7658-4947-8fb1-d8d8e4bc6cd3",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Play \"${animationKey}\"",
+        "displayName": "Play Sprite Animation Action",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 240
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "75a09015-2edf-4287-972f-a19a30873c43",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "animationKey",
+            "label": "Animation Key",
+            "tooltip": "The animation key.",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "animation-key"
+            }
+        },
+        {
+            "name": "ignoreIfPlaying",
+            "label": "Ignore If Playing",
+            "tooltip": "If an animation is already playing then ignore this call.",
+            "defValue": false,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        }
+    ]
+}

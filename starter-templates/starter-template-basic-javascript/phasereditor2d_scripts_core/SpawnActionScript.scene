@@ -1,0 +1,53 @@
+{
+    "id": "e5d7fee6-6545-4858-b01c-a84723010d37",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "prefabObjDisplayFmt": "Spawn object \"${objectPrefab}\"",
+        "displayName": "Spawn Object Action Script",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 360,
+        "borderHeight": 320
+    },
+    "displayList": [
+        {
+            "type": "ScriptNode",
+            "id": "9bcb8a7e-dd2a-4c0b-9474-1bba7a02d7d9",
+            "label": "scriptnode_1"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "objectPrefab",
+            "label": "Object Prefab",
+            "tooltip": "The prefab to produce the instances.",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "constructor",
+                "expressionType": "any"
+            }
+        },
+        {
+            "name": "spawnInParentPosition",
+            "label": "Spawn In Parent Position",
+            "tooltip": "",
+            "defValue": true,
+            "customDefinition": false,
+            "type": {
+                "id": "boolean"
+            }
+        }
+    ]
+}
