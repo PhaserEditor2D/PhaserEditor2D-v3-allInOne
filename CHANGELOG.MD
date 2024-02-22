@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.67.0 - Feb 22, 2024
+
+* Gets the latest editor.
+
 ## v3.66.0 - Jan 12, 2024
 
 * Gets the latest editor and templates.
